@@ -1,6 +1,6 @@
 body {
 	background-image: url("../IMG/logo.png");
-	background-color: chartreuse;
+	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
 }
 
 h1{
