@@ -1,3 +1,8 @@
 body {
 	background-image: url("../IMG/logo.png");
+	background-color: chartreuse;
+}
+
+h1{
+	text-align: center;
 }
