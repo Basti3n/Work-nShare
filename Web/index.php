@@ -6,7 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="CSS/animate.css">
 	</head>
 	<body>
-		<h1 class="animated fadeInDown">En construction !!!!</h1		
+		<h1 id="titre" class="animated fadeInDown">En construction !!!!</h1		
 		<script type="text/javascript" src="JS/index_script.js"></script>
 	</body>
 </html>
