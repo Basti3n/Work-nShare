@@ -7,5 +7,9 @@
 	<body>
 		<h1>HELLO</h1>
 		<script type="text/javascript" src="JS/index_script.js"></script>
+
+		<p>
+			HIHI
+		</p>
 	</body>
 </html>
