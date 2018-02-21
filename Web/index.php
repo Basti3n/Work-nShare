@@ -5,7 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="CSS/index_style.css">
 	</head>
 	<body>
-		<h1>En construction !!!!!</h1>
+		<h1 class="animated fadeInDown">En construction !!!!!</h1>
 		<script type="text/javascript" src="JS/index_script.js"></script>
 	</body>
 </html>
