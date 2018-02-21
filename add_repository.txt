@@ -1,0 +1,8 @@
+// Faire un push
+git add .
+git commit -m "first commit"
+git push origin master
+
+//Pull avant de travailler
+git pull origin master
+
