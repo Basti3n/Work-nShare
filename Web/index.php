@@ -3,6 +3,7 @@
 	<head>
 		<title>Work'n Share</title>
 		<link rel="stylesheet" type="text/css" href="CSS/index_style.css">
+		<link rel="stylesheet" type="text/css" href="CSS/animate.css">
 	</head>
 	<body>
 		<h1 class="animated fadeInDown">En construction !!!!</h1		
