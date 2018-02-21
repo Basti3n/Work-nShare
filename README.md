@@ -1,1 +1,1 @@
-Here is our source code for our ESGI annuel project
+Here is our source code of Work'n Share project. ESGI
