@@ -9,7 +9,8 @@
 		<script type="text/javascript" src="JS/index_script.js"></script>
 
 		<p>
-			HIHI - DU DOS FIN
+			HIHI - DU DOS FIN 
+			HOHO OJEZJ
 		</p>
 	</body>
 </html>
