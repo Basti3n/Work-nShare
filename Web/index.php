@@ -9,7 +9,7 @@
 		<script type="text/javascript" src="JS/index_script.js"></script>
 
 		<p>
-			HIHI
+			HIHI - DU DOS FIN
 		</p>
 	</body>
 </html>
