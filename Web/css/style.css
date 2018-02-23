@@ -1,5 +1,6 @@
-html {
+body {
 	font-family: 'Ubuntu', sans-serif !important;
+	background: -webkit-linear-gradient(left, #25c481, #25b7c4) !important;
 }
 
 .white{
@@ -19,7 +20,6 @@ html {
 
 .red{
 	background-color : red;
-
 }
 
 .container{

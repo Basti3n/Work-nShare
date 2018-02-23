@@ -1,5 +1,3 @@
-
-
 <!-- list of CSS -->
 <link rel="stylesheet" type="text/css" href="css/animate.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">

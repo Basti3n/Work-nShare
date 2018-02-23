@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <title>ABOUT</title>
+    <?php require "link.php" ?>
   </head>
   <body>
+    <p>pd :)</p>
     <?php require "footer.php"; ?>
   </body>
 </html>
