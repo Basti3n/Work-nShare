@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- MAIN PAGE -->
+
+  <url>
+      <loc>http://../index.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>1.0</priority>
+  </url>
+  
+  <!-- TERMS OF USE -->
+
+  <url>
+      <loc>http://../cgu.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.2</priority>
+  </url>
+
+  <!-- PROFIL -->
+
+  <url>
+      <loc>http://../profil.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+  <!-- SIGN UP -->
+
+  <url>
+      <loc>http://../signup.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+  <!-- EVENT -->
+
+  <url>
+      <loc>http://../event.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+  <!-- SUBSCRIBE -->
+
+  <url>
+      <loc>http://../subscribe.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+  <!-- SERVICE -->
+
+  <url>
+      <loc>http://../service.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+  <!-- TICKET -->
+
+  <url>
+      <loc>http://../ticket.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+  <!-- ABOUT US -->
+
+  <url>
+      <loc>http://../about.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+
+  <!-- BACK OFFICE -->
+
+  <url>
+      <loc>http://../admin.php</loc>
+      <changefreq>monthly</changefreq>
+      <priority>0.1</priority>
+  </url>
+
+</urlset>
