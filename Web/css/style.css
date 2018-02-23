@@ -1,0 +1,43 @@
+.white{
+	background-color: white;
+
+}
+
+.black {
+	background-color : black;
+
+}
+
+.yellow {
+	background-color: yellow;
+
+}
+
+.red{
+	background-color : red;
+
+}
+
+.container{
+
+}
+
+.pixel{
+	height : 75px;
+	margin-left : 0px;
+	margin-right : 0px;
+	padding-left : 0px;
+	padding-right : 0px;
+}
+
+.col-xs-6{
+	padding-right : 0px;
+}
+
+.col-xs-3{
+	padding-left : 0px;
+}
+
+.col-xs-2{
+	padding-left : 0px;
+}
