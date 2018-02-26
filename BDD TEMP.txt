@@ -1,0 +1,130 @@
+CREATE TABLE USERS(
+	email varchar(80) PRIMARY KEY,
+	nameUser varchar(80),
+   	surnameUser varchar(80),
+    dateSignIn DATE,
+    passwordUser varchar(80),
+    isDeleted integer,
+    statusUser integer,
+    qrCode varchar(100),
+    qrCodeToken varchar(80)
+);
+
+CREATE TABLE SUBSCRIPTIONS(
+  	idSubscription INTEGER PRIMARY KEY,
+    price REAL,
+    listRights TEXT   
+);
+
+CREATE TABLE SPACES(
+	idSpace char(7)PRIMARY KEY,
+    nameSpace VARCHAR(80)
+);
+
+CREATE TABLE SERVICES(
+	idService integer primary key,
+    isBooked integer,
+    compInfo TEXT,
+    serviceType INTEGER REFERENCES SERVICETYPE(idServiceType)
+);
+
+CREATE TABLE SPACEEVENTS(
+	idEvent integer primary Key,
+    descriptionEvent TEXT,
+    nameEvent VARCHAR(80)
+);
+
+CREATE TABLE SERVICETYPE(
+	idServiceType INTEGER PRIMARY KEY,
+    serviceTypeName VARCHAR(80)
+);
+
+CREATE TABLE TICKETSCATEGORIES(
+	nameCategory varchar(80) PRIMARY KEY
+);
+
+
+CREATE TABLE TICKETS(
+	idTicket INTEGER PRIMARY KEY,
+    contentTicket TEXT,
+    statusTicket VARCHAR(40),
+    email varchar(80) REFERENCES USERS(email),
+    ticketCategory varchar(80) REFERENCES TICKETSCATEGORIES(nameCategory),
+    idEquipment INTEGER REFERENCES EQUIPMENTS(idEquipment)
+);
+
+
+CREATE TABLE EQUIPMENTS(
+	idEquipment INTEGER PRIMARY KEY,
+    isAvailable INTEGER,
+    equipmentName VARCHAR(80)
+);
+
+
+
+CREATE TABLE ISSUBSCRIBED(
+	email VARCHAR(80) REFERENCES USERS(email),
+    idSubscription integer REFERENCES SUBSCRIPTION(idSUBSCRIPTION),
+    dateSubscription DATETIME,
+    dateEndSubscription DATETIME,
+    PRIMARY KEY(email,idSubscription)
+);
+
+CREATE TABLE ACCESS(
+	email VARCHAR(80) REFERENCES USERS(email),
+    idSpace char(7) REFERENCES SPACES(idSpace),
+    idAccess int,
+    dateAccess DATETIME,
+    PRIMARY KEY(email,idSpace,idAccess)
+
+);
+
+
+CREATE TABLE EXITSPACE(
+	email VARCHAR(80) REFERENCES USERS(email),
+    idSpace char(7) REFERENCES SPACES(idSpace),
+    idExit int,
+    dateExit DATETIME,
+    PRIMARY KEY(email,idSpace,idExit)
+);
+
+CREATE TABLE isPlaned(
+    idSpace char(7) REFERENCES SPACES(idSpace),
+	idEvent INTEGER REFERENCES SPACEEVENTS(idEvent),
+    eventStartDate DATETIME,
+    eventEndDate DATETIME,
+    eventStartHour DATETIME,
+    eventEndHour DATETIME,
+    PRIMARY KEY(idSpace,idEvent)
+);
+
+
+CREATE TABLE isBooked(
+	email varchar(80) references users(email),
+    idService integer references service(idService),
+    dateBooking DATETIME,
+    primary key(email,idService)
+);
+
+
+CREATE TABLE isPresent(
+	idSpace varchar(80) references SPACES(idSpace),
+    idService integer references service(idService),
+    primary key(idSpace,idService)
+);
+
+CREATE TABLE isUsed(
+	email VARCHAR(80) REFERENCES USERS(email),
+	idEquipment INTEGER REFERENCES EQUIPMENTS(idEquipment),
+    PRIMARY KEY(email,idEquipment)
+);
+
+
+CREATE TABLE isEquiped(
+    idSpace char(7) REFERENCES SPACES(idSpace),
+	idEquipment INTEGER REFERENCES EQUIPMENTS(idEquipment),
+    PRIMARY KEY(idSpace,idEquipment)
+);
+
+
+
