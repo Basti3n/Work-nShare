@@ -7,6 +7,9 @@
     <?php require "link.php" ?>
   </head>
   <body>
+    <div class="container">
+		&nbsp;
+	</div>
     <?php require "footer.php"; ?>
   </body>
 </html>

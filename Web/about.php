@@ -6,7 +6,9 @@
     <?php require "link.php" ?>
   </head>
   <body>
-    <p>pd :)</p>
+    <div class="container">
+		&nbsp;
+	</div>
     <?php require "footer.php"; ?>
   </body>
 </html>

@@ -1,15 +1,11 @@
-body {
-	background-image: url("../IMG/logo.png");
-}
-
 h1{
 	text-align: center;
 }
 
 #titre {
-            color: white !important;
-            animation: guirlande 2s alternate infinite !important;
-        }
+	color: white !important;
+	animation: guirlande 2s alternate infinite !important;
+}
 
 @keyframes guirlande {
 	100% {

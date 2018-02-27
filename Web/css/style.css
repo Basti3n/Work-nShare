@@ -1,47 +1,13 @@
 body {
-	font-family: 'Ubuntu', sans-serif !important;
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4) !important;
-}
+    overflow: auto;
 
-.white{
-	background-color: white;
+    height: 100vh;
 
-}
+    background: -webkit-linear-gradient(left, #25c481, #25b7c4) !important;
 
-.black {
-	background-color : black;
-
-}
-
-.yellow {
-	background-color: yellow;
-
-}
-
-.red{
-	background-color : red;
+    font-family: 'Ubuntu', sans-serif !important;
 }
 
 .container{
-
-}
-
-.pixel{
-	height : 75px;
-	margin-left : 0px;
-	margin-right : 0px;
-	padding-left : 0px;
-	padding-right : 0px;
-}
-
-.col-xs-6{
-	padding-right : 0px;
-}
-
-.col-xs-3{
-	padding-left : 0px;
-}
-
-.col-xs-2{
-	padding-left : 0px;
+		height: 100%;
 }
