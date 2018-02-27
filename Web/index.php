@@ -11,6 +11,7 @@
 		<h1 id="titre" class="animated fadeInDown">En construction !!!!</h1>
 		<div class="container">
 			&nbsp;
+			<?php include "obj.php"; ?>
 		</div>
 		<?php require "footer.php"; ?>
 	</body>
