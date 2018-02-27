@@ -8,5 +8,5 @@
 <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
 <!-- list of JS -->
-<script type="text/javascript" src="js/npm.js"> </script>
+<script type="text/javascript" src="js/jquery-3.3.1.min.js"> </script>
 <script type="text/javascript" src="js/bootstrap.min.js"> </script>
