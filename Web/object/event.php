@@ -4,15 +4,16 @@ date_default_timezone_set('UTC');
 class Event
 {
   private $_name = "name";
+  private $_description = "empty";
   private $_dateStart;
   private $_dateEnd;
   private $_val = 2;
 
-  public function start(){
-
-  }
-
   public function setName($name){
+    if (strlen($name) > 50) {
+      trigger_error("Le nom saisie est trop long", E_USER_ERROR);
+      return;
+    }
     $this->_name = $name;
   }
 

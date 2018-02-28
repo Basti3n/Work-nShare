@@ -12,4 +12,5 @@
 <script type="text/javascript" src="js/bootstrap.min.js"> </script>
 
 <!-- list of PHP needed -->
+<?php include "object/user.php"; ?>
 <?php include "object/event.php"; ?>
