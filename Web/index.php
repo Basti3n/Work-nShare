@@ -11,7 +11,15 @@
 		<h1 id="titre" class="animated fadeInDown">En construction !!!!</h1>
 		<div class="container">
 			&nbsp;
-			<?php include "obj.php"; ?>
+		<?php
+			echo "_____________";
+			$hentai = new Event;
+			$hentai->setName("kawaiii");
+			$hentai->startDate(12,02,1998);
+			$hentai->endDate(12,02,1999);
+
+			$hentai->speak();
+		?>
 		</div>
 		<?php require "footer.php"; ?>
 	</body>

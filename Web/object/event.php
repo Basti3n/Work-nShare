@@ -32,13 +32,4 @@ class Event
   }
 
 }
-
-echo "_____________";
-$hentai = new Event;
-$hentai->setName("kawaiii");
-$hentai->startDate(12,02,1998);
-$hentai->endDate(12,02,1999);
-
-$hentai->speak();
-
 ?>
