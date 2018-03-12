@@ -5,7 +5,9 @@
 		<link rel="stylesheet" type="text/css" href="CSS/index_style.css">
 	</head>
 	<body>
-		<h1>HELLO</h1>
+		<h1 id="titre" class="animated fadeInDown">En construction !!!!</h1
 		<script type="text/javascript" src="JS/index_script.js"></script>
+
+		<?php require "footer.php"; ?>
 	</body>
 </html>
