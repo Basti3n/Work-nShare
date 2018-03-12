@@ -64,23 +64,21 @@ if( count($_POST) == 8
 
 		$error = true;
 		$listOfErrors[] = 15;
-
 	}
 
 	// Ma clé privée
-	$secret = "	6Lc8MUwUAAAAAK6RaVXkOcu0CeDB1Dze4FUDUBWI";
+	$secret = "6Lc8MUwUAAAAAK6RaVXkOcu0CeDB1Dze4FUDUBWI";
 	// Paramètre renvoyé par le recaptcha
 	$response = $_POST['g-recaptcha-response'];
 	// On récupère l'IP de l'utilisateur
 	$remoteip = $_SERVER['REMOTE_ADDR'];
 
-	$api_url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret ."&response=".$response. "&remoteip=".$remoteip ;
+	$api_url = "https://www.google.com/recaptcha/api/siteverify?secret=".$secret ."&response=".$response. "&remoteip=".$remoteip;
 	$decode = json_decode(file_get_contents($api_url), true);
 
 	if ($decode['success'] != true) {
 		$listOfErrors[] = 8;
 	}
-
 
 	if($error){
 		$_SESSION["dataForm"] = $_POST;
