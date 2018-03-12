@@ -1,6 +1,4 @@
-<?php require "header.php" ?>
-
-<footer class="sticky-footer">
+<footer>
   <div class="container">
     <div class="row">
       <div class="col-xs-4">

@@ -1,14 +1,38 @@
+<?php
+  session_start();
+  require_once "function.php";
+  require_once "conf.inc.php";
+  $db = connectDb();
+?>
 
+<header>
+	<nav>
+		<div class="container-fluid header_libart">
+			<div class="row">
 
-<!-- list of CSS -->
-<link rel="stylesheet" type="text/css" href="css/animate.css">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<link rel="stylesheet" type="text/css" href="css/footer.css">
+				<div class="col-xs-1 headerLogo">
+					<a href="index.php"><img id="logo" src="IMG/logo.png" ></a>
+				</div>
 
-<!-- list of Polices -->
-<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+				<div class="header_list col-sm-4 ">
+					<a class="col-xs-2 headerButton" href="index.php" >Accueil</a>
+					<a class="col-xs-2 headerButton" href="service.php">Services</a>
+					<a class="col-xs-2 headerButton" href="event.php">Evènement</a>
+          <a class="col-xs-2 headerButton" href="about.php">À propos</a>
 
-<!-- list of JS -->
-<script type="text/javascript" src="js/npm.js"> </script>
-<script type="text/javascript" src="js/bootstrap.min.js"> </script>
+				</div>
+				<div class="col-sm-5"></div>
+
+				<div class="header_signup_login col-sm-2">
+					<?php if(isConnected()):?>
+						<a class="col-xs-6 headerButton" href="profil.php?id=<?php echo $_SESSION["email"]?>"><?php echo $_SESSION["email"]?></a>
+            <a class="col-xs-6 headerButton" href="logout.php">Deconnexion</a>
+					<?php else:?>
+						<a  class="col-xs-6 headerButton" href="signup.php">S'inscrire</a>
+						<a  class="col-xs-6 headerButton" href="login.php">Se connecter</a>
+					<?php endif;?>
+				</div>
+			</div>
+		</div>
+	</nav>
+</header>

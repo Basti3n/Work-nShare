@@ -1,17 +1,12 @@
-body {
-	background-image: url("../IMG/logo.png");
-	background: -webkit-linear-gradient(left, #25c481, #25b7c4);
-}
-
 h1{
 	text-align: center;
 }
 
 #titre {
-            color: rgb(203, 18, 18) !important;
-            animation: guirlande 2s alternate infinite !important;
-        }
-		
+	color: white !important;
+	animation: guirlande 2s alternate infinite !important;
+}
+
 @keyframes guirlande {
 	100% {
 		text-shadow: 1px 1px 10px rgb(162, 162, 162);
