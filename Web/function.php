@@ -30,36 +30,44 @@ function showArray($array){
   }
 
 
-  function isMe($id){
+  function isSuperAdmin(){
     if(isConnected()){
       $db = connectDb();
-      $me = $db->prepare("SELECT 1 FROM USERS WHERE email= :email AND accessToken= :token AND id= :id");
-      $me->execute(["email"=>$_SESSION["email"], "token"=>$_SESSION["accessToken"], "id"=>$id]);
-      if($me->rowCount()){
+      $admin = $db->prepare("SELECT statusUser FROM USERS WHERE email = :email");
+      $admin->execute(["email"=>$_SESSION['email']]);
+      $admin = $admin->fetch();
+      if($admin["status"] == 0){
         return true;
       }
       else return false;
     }
-    return false;
-  }
-
-  function isArtist($id){
-    $db = connectDb();
-    $artist = $db->prepare("SELECT status FROM USERS WHERE id = :id");
-    $artist->execute(["id"=>$id]);
-    $artist = $artist->fetch();
-    if($artist["status"] == 'a'){
-      return true;
-    }
     else return false;
   }
+
+
+
   function isAdmin(){
     if(isConnected()){
       $db = connectDb();
-      $admin = $db->prepare("SELECT status FROM USERS WHERE email = :email");
+      $admin = $db->prepare("SELECT statusUser FROM USERS WHERE email = :email");
       $admin->execute(["email"=>$_SESSION['email']]);
       $admin = $admin->fetch();
-      if($admin["status"] == 'd'){
+      if($admin["status"] == 1){
+        return true;
+      }
+      else return false;
+    }
+    else return false;
+  }
+
+
+  function isEmployee(){
+    if(isConnected()){
+      $db = connectDb();
+      $admin = $db->prepare("SELECT statusUser FROM USERS WHERE email = :email");
+      $admin->execute(["email"=>$_SESSION['email']]);
+      $admin = $admin->fetch();
+      if($admin["status"] == 2){
         return true;
       }
       else return false;
