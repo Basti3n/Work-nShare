@@ -32,8 +32,6 @@ if( count($_POST) == 8
 		$listOfErrors[] = 2;
 	}
 
-
-
 	//Le mot de passe doit faire plus de 8 caractères et au max 64
 	if( strlen($_POST["pwd"])<8 ||  strlen($_POST["pwd"])>64 ){
 		$error = true;
@@ -56,7 +54,6 @@ if( count($_POST) == 8
 		$error = true;
 		$listOfErrors[] = 7;
 	}
-
 
 	$db = connectDb();
 
@@ -107,7 +104,5 @@ if( count($_POST) == 8
 	}
 
 }else{
-	print_r($_POST);
-	//die("Access denied, we know who you are and where you live : ".$_SERVER['REMOTE_ADDR']);
-
+	die("Access denied, we know who you are and where you live : ".$_SERVER['REMOTE_ADDR']);
 }
