@@ -127,3 +127,37 @@ function showArray($array){
   	//stocker dans une variable de session le token
   	return $accessToken;
   }
+
+
+//SERVICE.PHP
+  $site = array(
+  "Bastille"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Cacher"
+  ),
+  "République"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Surface Pro 2 ",
+    "Cacher"
+  ),
+  "Odéon"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Mac book pro",
+    "Cacher"
+  ),
+  "Place d'Italie"=>array(
+    "Surface Laptop",
+    "Surface Laptop 2 ",
+    "Surface Pro",
+    "Cacher"
+  ),
+  "Beaubourg"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Mac book air",
+    "Cacher"
+  ),
+);

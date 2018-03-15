@@ -1,0 +1,28 @@
+.pc{
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.active, .pc:hover {
+    background-color: #222;
+    color: white;
+}
+
+canvas{
+	width: 100% !important;
+	height: 50% !important;
+}
+
+.sites{
+	display: none;
+}
+
+li{
+    margin : 10px;
+    list-style: square;
+    font-weight: bold;
+}
