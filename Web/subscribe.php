@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>SUBSCRIBE</title>
 
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
   </head>
   <body>
     <?php require "header.php" ?>

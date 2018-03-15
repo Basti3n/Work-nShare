@@ -5,7 +5,7 @@
 		<link rel="stylesheet" type="text/css" href="CSS/index_style.css">
 		<script type="text/javascript" src="JS/index_script.js"></script>
 
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
 	</head>
 	<body>
 		<?php require "header.php"; ?>

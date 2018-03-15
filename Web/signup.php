@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Signup</title>
 
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
   </head>
   <body>
     <?php require "header.php" ?>

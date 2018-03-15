@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>SERVICE</title>
 
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
     <link rel="stylesheet" type="text/css" href="CSS/service_style.css">
   </head>
   <body>
@@ -30,7 +30,7 @@
             $i=0;
             foreach ($value as $key => $value2) {
               if($i!=0)
-                echo "<button onclick='clicked(\"".$value2."\")' class='pc'>".$value2."</button>";  
+                echo "<button onclick='clicked(\"".$value2."\")' class='pc'>".$value2."</button>";
               else
                 echo "<button onclick='clicked(\"".$value2."\")' class='pc active'>".$value2."</button>";
               $i++;
@@ -43,7 +43,7 @@
       </div>
       <div id='model'>
       </div>
-      
+
       <div id='carac'>
         <ul>
           <li>Modèle : </li>
@@ -55,7 +55,7 @@
           <li>Autonomie : </li>
           <li><a href="https://www.microsoft.com/fr-fr/store/d/surface-pro/8nkt9wttrbjk?activetab=pivot:techspecstab" target="_blank">Lien vers le site officiel</a></li>
         </ul>
-        
+
       </div>
 
 
