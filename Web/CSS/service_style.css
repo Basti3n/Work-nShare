@@ -1,24 +1,15 @@
-.pc{
-    border: none;
-    outline: none;
-    padding: 10px 16px;
-    background-color: #f1f1f1;
-    cursor: pointer;
-    font-size: 18px;
-}
-
-.active, .pc:hover {
-    background-color: #222;
-    color: white;
-}
-
-canvas{
+#canvas{
 	width: 100% !important;
 	height: 50% !important;
+    display: none;
 }
 
 .sites{
 	display: none;
+}
+
+#matos{
+    display: none;
 }
 
 li{
@@ -26,3 +17,11 @@ li{
     list-style: square;
     font-weight: bold;
 }
+
+.btn{
+    margin : 0.5%;
+    background-color: #7acbc4;
+}
+
+
+

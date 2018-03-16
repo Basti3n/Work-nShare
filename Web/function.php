@@ -133,31 +133,26 @@ function showArray($array){
   $site = array(
   "Bastille"=>array(
     "Surface Laptop",
-    "Surface Pro",
-    "Cacher"
+    "Surface Pro"
   ),
   "République"=>array(
     "Surface Laptop",
     "Surface Pro",
-    "Surface Pro 2 ",
-    "Cacher"
+    "Surface Pro 2 "
   ),
   "Odéon"=>array(
     "Surface Laptop",
     "Surface Pro",
-    "Mac book pro",
-    "Cacher"
+    "Mac book pro"
   ),
   "Place d'Italie"=>array(
     "Surface Laptop",
     "Surface Laptop 2 ",
-    "Surface Pro",
-    "Cacher"
+    "Surface Pro"
   ),
   "Beaubourg"=>array(
     "Surface Laptop",
     "Surface Pro",
-    "Mac book air",
-    "Cacher"
+    "Mac book air"
   ),
 );

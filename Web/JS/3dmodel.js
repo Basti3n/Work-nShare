@@ -13,9 +13,6 @@ function clicked(value){
 			document.getElementById("model").style.visibility = 'visible';
 			drawSurfPro();
 			break;
-		case "Cacher" : 
-			document.getElementById("model").style.visibility = 'hidden';
-			break;
 		case "Surface Pro 2":
 			document.getElementById("model").style.visibility = 'hidden';
 			break;
@@ -47,6 +44,7 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setPixelRatio( window.devicePixelRatio );
+	renderer.domElement.id="canvas"
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.getElementById("model").appendChild( renderer.domElement );
 	var AxesHelper = new THREE.AxesHelper(200);

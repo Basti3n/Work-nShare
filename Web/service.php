@@ -14,26 +14,24 @@
         <?php
           $y = 0;
           echo "<div>";
+          echo "<h2> Choissisez votre site: </h2>";
           foreach ($site as $key => $value) {
-            echo "<button onclick='showPc(".$y.")' class='Ligne".$y."' >".$key."</button>";
+            echo "<button onclick='showPc(".$y.")' class='Ligne".$y." btn btn-primary' aria-pressed='true'>".$key."</button>";
             $y++;
           }
           echo "</div>";
           $y=0;
           $i=0;
           echo "<div>";
+          echo "<h2 id='matos' > Choissisez votre matériel: </h2>";
           foreach ($site as $key => $value) {
             if($y !=0)
               echo "<div id='".$y."' class='sites Ligne".$y."'>";
             else
               echo "<div id='".$y."' class='sites first Ligne".$y."'>";
-            $i=0;
+
             foreach ($value as $key => $value2) {
-              if($i!=0)
-                echo "<button onclick='clicked(\"".$value2."\")' class='pc'>".$value2."</button>";
-              else
-                echo "<button onclick='clicked(\"".$value2."\")' class='pc active'>".$value2."</button>";
-              $i++;
+                echo "<button onclick='clicked(\"".$value2."\")' class='pc btn btn-primary' aria-pressed='true'>".$value2."</button>";
             }
             echo "</div>";
             $y++;
