@@ -49,8 +49,8 @@ if( count($_POST) == 8
 	}else{
 		$db = connectDb();
 		$manage = new UserMng($db);
-
-		echo $manage->add($user);
+		$manage->add($user);
+		
 		header("Location: login.php");
 	}
 
