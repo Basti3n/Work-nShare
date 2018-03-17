@@ -34,22 +34,3 @@ class Event
 
 }
 ?>
-
-<?php
-  echo "_____________";
-  $hentai = new Event;
-  $hentai->setName("kawaiii");
-  $hentai->startDate(12,02,1998);
-  $hentai->endDate(12,02,1999);
-  $hentai->speak();
-
-  echo "<br>_____________";
-  $user = new User;
-  $user->setName("Benjamin");
-  $user->setLastname("Rousval");
-  $user->setDate();
-  $user->setEmail("salope@gmail.com");
-  $user->setPassword(password_hash("apple",PASSWORD_DEFAULT));
-  $user->speak();
-
-?>
