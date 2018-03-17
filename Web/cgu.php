@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8">
     <title>CGU</title>
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
   </head>
   <body>
+    <?php require "header.php" ?>
+
     <div class="container">
 		&nbsp;
 	</div>

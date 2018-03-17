@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <title>TICKET</title>
-    
-    <?php require "link.php" ?>
+
+    <?php require "head.php" ?>
   </head>
   <body>
     <div class="container">
