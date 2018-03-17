@@ -126,8 +126,7 @@ class UserMng
     $this->setDb($db);
   }
 
-  public function setDb(PDO $db)
-  {
+  public function setDb(PDO $db){
     $this->_db = $db;
   }
 
@@ -155,7 +154,6 @@ class UserMng
   public function get($email){
     $query = $this->_db->query('SELECT email,nameUser,surnameUser,dateSignIn,password FROM USERS WHERE email = '.$email);
     $data = $query->fetch(PDO::FETCH_ASSOC);
-
     return new User($data);
   }
 }
