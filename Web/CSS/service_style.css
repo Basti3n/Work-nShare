@@ -8,10 +8,6 @@
 	display: none;
 }
 
-#matos{
-    display: none;
-}
-
 li{
     margin : 10px;
     list-style: square;
@@ -23,5 +19,12 @@ li{
     background-color: #7acbc4;
 }
 
+#divService{
+    display: none;
+}
+
+#divMatos{
+    display: none;
+}
 
 

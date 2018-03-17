@@ -156,3 +156,10 @@ function showArray($array){
     "Mac book air"
   ),
 );
+
+  $service = array(
+    "Matériel informatique",
+    "Salle de reunion",
+    "Salle d'appel",
+    "Plateau repas"
+  );
