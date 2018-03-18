@@ -10,11 +10,33 @@ class User
   private $_password;
   public $listOfErrors = [];
 
+  function __construct($data){
+    $this->hydrate($data);
+  }
+
   public function hydrate(array $data){
     foreach ($data as $key => $value){
-      $method = 'set'.ucfirst($key);
+      switch ($key) {
+        case 'email':
+          $this->Email($value);
+          break;
+        case 'nameUser':
+          $this->Name($value);
+          break;
+        case 'surnameUser':
+          $this->Lastname($value);
+          break;
+        case 'dateSignIn':
+          $this->Date($value);
+          break;
+        case 'passwordUser':
+          $this->Password($value);
+          break;
+
+      }
+      /*$method = 'set'.ucfirst($key);
       if (method_exists($this, $method))
-        $this->$method($value);
+        $this->$method($value);*/
     }
   }
 
@@ -73,8 +95,12 @@ class User
     return 0;
   }
 
-  public function Date(){
-    $this->_dateSignUp = date("y-m-d");
+  public function Date($date = '0'){
+    if($date == '0')
+      $this->_dateSignUp = date("y-m-d");
+    else{
+      $this->_dateSignUp = strtotime($date);
+    }
     return $this->_dateSignUp;
   }
 
@@ -82,6 +108,9 @@ class User
   public function Email($email = '0', $confirm = '0'){
     if($email == '0' && $confirm == '0')
       return $this->_email;
+    if($confirm == '0'){
+      $this->_email = $email;
+    }
     trim($email);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       //trigger_error("L'email saisie est trop long", E_USER_ERROR);
@@ -152,7 +181,13 @@ class UserMng
   }
 
   public function get($email){
-    $query = $this->_db->query('SELECT email,nameUser,surnameUser,dateSignIn,password FROM USERS WHERE email = '.$email);
+    try {
+      $query = $this->_db->prepare('SELECT email,nameUser,surnameUser,dateSignIn,passwordUser FROM USERS WHERE email =:email');
+      $query->execute( ["email"=>$email]);
+    } catch(Exception $e) {
+        echo "PDOException : " . $e->getMessage();
+    }
+
     $data = $query->fetch(PDO::FETCH_ASSOC);
     return new User($data);
   }
