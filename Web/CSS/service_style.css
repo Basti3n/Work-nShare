@@ -14,7 +14,7 @@ li{
     font-weight: bold;
 }
 
-.btn{
+.btn-primary{
     margin : 0.5%;
     background-color: #7acbc4;
 }
@@ -27,4 +27,15 @@ li{
     display: none;
 }
 
+#carac{
+    display: none;
+}
+
+.button-succes{
+
+}
+
+#command{
+    display: none;
+}
 

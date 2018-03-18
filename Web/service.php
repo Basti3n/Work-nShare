@@ -14,24 +14,24 @@
         <?php
           $y = 0;
           echo "<div>";
-          echo "<h2> Choissisez votre site: </h2>";
-          foreach ($site as $key => $value) {
-            echo "<button onclick='showService()' class='Ligne".$y." btn btn-primary' aria-pressed='true'>".$key."</button>";
-            $y++;
-          }
+            echo "<h2> Choissisez votre site: </h2>";
+
+            $db = connectDb();
+            $findSites = $db->query("SELECT * FROM `SPACES`;");
+            $sites = $findSites->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach ($sites as $key => $value) {
+              echo "<button onclick='ajaxServices(".$value["idSpace"].")' class='Ligne".$y." btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameSpace'])."</button>";
+              $y++;
+            }
+
           echo "</div>";
+
           $y=0;
           $i=0;
           echo "<div id='divService'>";
-          echo "<h2> Choissisez votre service: </h2>";
-          foreach ($service as $key => $value) {
-            if($y ==0)
-                echo "<button onclick='showPc(0)' class='btn btn-primary' aria-pressed='true'>".$value."</button>";
-            else
-             echo "<button  onclick='showPc(1)'class='btn btn-primary' aria-pressed='true'>".$value."</button>";
-             $y++;
-          }
           echo "</div>";
+
           echo "<div id='divMatos'>";
           echo "<h2> Choissisez votre matériel: </h2>";
           $y=0;
@@ -41,7 +41,6 @@
               echo "<div id='".$y."' class='sites Ligne".$y."'>";
             else
               echo "<div id='".$y."' class='sites first Ligne".$y."'>";
-
             foreach ($value as $key => $value2) {
                 echo "<button onclick='clicked(\"".$value2."\")' class='pc btn btn-primary' aria-pressed='true'>".$value2."</button>";
             }
@@ -67,7 +66,7 @@
         </ul>
 
       </div>
-
+      <button type="button" class="btn btn-success" id="command">Commander</button>
 
 
 
