@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>ABOUT</title>
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
   </head>
   <body>
     <?php require "header.php" ?>

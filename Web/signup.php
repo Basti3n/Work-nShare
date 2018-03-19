@@ -4,51 +4,98 @@
     <meta charset="utf-8">
     <title>Signup</title>
 
-    <?php require "link.php" ?>
+    <?php require "head.php" ?>
   </head>
   <body>
     <?php require "header.php" ?>
-    <div class="container login">
-      	<div class="row">
-      		<div class="formulaire col-md-offset-4 col-md-4">
-      			<h1 class="inscriptionTitle">INSCRIPTION</h1>
-      			<form method="POST" action="saveUser.php">
+    <div class="container">
+      <div class="page-header">
+        <h2>Inscrivez-vous !</h2>
+      </div>
+      <section class="row">  <!-- CREATE ACCOUNT -->
+        <?php if(isset($_SESSION["errors_form"])){
+                echo '<div class="errorList col-xs-12"><div><i class="fa fa-exclamation-triangle" aria-hidden="true"></i><ul>';
+                foreach ($_SESSION["errors_form"] as $error) {
+                  echo "<li>".$listOfErrors[$error];
+                }
+                echo "</ul></div></div>";
+                $dataForm = $_SESSION["data_form"];
+                unset($_SESSION["errors_form"]);
+              }
+        ?>
+        <div class="col-md-offset-3 col-md-6 col-xs-12 col-sm-12">
+          <form method="POST" action="saveUser.php" class="form-horizontal" name="register">
 
-      				<?php
+            <div class="form-group">
+              <label class="control-label col-md-2" for="name">Nom:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control emptycheck" id="name" name="name" placeholder="Entrez votre nom" required="required" value="<?php echo(isset ($dataForm["name"]))?$dataForm["name"]:"";?>">
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
 
-      					if( !empty($_SESSION["errorsForm"]) ){
+            <div class="form-group">
+              <label class="control-label col-md-2" for="surname">Prénom:</label>
+                <div class="col-md-9">
+                  <input type="text" class="form-control emptycheck" id="surname" name="surname" placeholder="Entrez votre prénom" required="required" value="<?php echo(isset ($dataForm["surname"]))?$dataForm["surname"]:"";?>">
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
 
-      						echo "<ul>";
-      						foreach ($_SESSION["errorsForm"] as $error) {
+            <div class="form-group">
+              <label class="control-label col-md-2" for="email">Email:</label>
+                <div class="col-md-9">
+                  <input type="email" class="form-control emailcheck" id="emaili" name="email" placeholder="Entrez votre adresse email" required="required" value="<?php echo(isset ($dataForm["email"]))?$dataForm["email"]:"";?>">
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
 
-      							echo "<li>".$listOfErrors[$error];
-      						}
-      						echo "</ul>";
-      						$dataForm = $_SESSION["dataForm"];
-      					 	unset($_SESSION["errorsForm"]);
-      					}
-      				?>
-      				<br>
-      				<input type="text" name="name" placeholder="Votre nom" value="<?php echo (isset($dataForm["name"]))?$dataForm["name"]:""; ?>" id="name"><br>
-      				<input type="text" name="surname" placeholder="Votre prénom" value="<?php echo (isset($dataForm["surname"]))?$dataForm["surname"]:""; ?>" id="prenom"><br>
-      				<input type="email" name="email" placeholder="Votre email" required="required" value="<?php echo (isset($dataForm["email"]))?$dataForm["email"]:""; ?>" id="email"><br>
+            <div class="form-group">
+              <label class="control-label col-md-2" for="email2">Confirmation:</label>
+                <div class="col-md-9">
+                  <input type="email" class="form-control emailcheck" id="emaili2" name="email2" placeholder="Confirmez votre adresse email" required="required" value="<?php echo(isset ($dataForm["email2"]))?$dataForm["email2"]:"";?>">
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
 
-      				<br>
-      				<input type="password" name="pwd" placeholder="Saisissez votre mot de passe" required="required" id="pwd"><br>
-      				<input type="password" name="pwd2" placeholder="Confirmer votre mot de passe" required="required" id="pwd2"><br>
+            <div class="form-group">
+              <label class="control-label col-md-2" for="pwd">Mot de passe:</label>
+                <div class="col-md-9">
+                  <input type="password" class="form-control emptycheck" id="pwdi" name="pwd" placeholder="Entrer votre mot de passe  (entre 8 et 64 caractères)" required="required">
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
 
-      				<br>
-      				<label>
-                J'accèpte les  <a href="cgu.php" target="blank">CGUs</a>
-                <input type="checkbox" name="legacy" required="required">
+            <div class="form-group">
+              <label class="control-label col-md-2" for="pwd2">Confirmation:</label>
+                <div class="col-md-9">
+                  <input type="password" class="form-control emptycheck" id="pwdi2" name="pwd2" placeholder="Confirmez votre mot de passe" required="required">
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label col-md-2" for="captcha">Captcha:</label>
+                <div class="col-md-9">
+                  <div class="g-recaptcha" name="captcha" data-sitekey="6Lc8MUwUAAAAAIKq3_LrET3W9XIYYxGUvEw7nas2"></div>
+                  <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label class="control-label label-text">
+                <input type="checkbox" name="check"> <span class="label-text"><a href="#" target="_blank">J'accepte les CGU</a></span>
+                <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
               </label>
-              <br>
-      				<input type="submit" value="S'inscrire">
-      			</form>
-      		</div>
-      	</div>
+            </div>
 
-	  </div>
+
+            <input class="btn mybutton btn-lg btn-block" type="submit" value="inscription" onclick="check()">
+          </form>
+        </div>
+
+      </section>
+    </div>
     <?php require "footer.php"; ?>
   </body>
 </html>

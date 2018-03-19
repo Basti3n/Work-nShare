@@ -105,10 +105,12 @@ function showArray($array){
 
   function logout($redirect = false){
   	$db = connectDb();
-
-  	$out = $db->prepare("UPDATE USERS SET accessToken = null WHERE email = :email");
-  	$out->execute(["email"=>$_SESSION["email"]]);
-
+    try {
+      $out = $db->prepare("UPDATE USERS SET accessToken = null WHERE email = :email");
+    	$out->execute(["email"=>$_SESSION["email"]]);
+    } catch(Exception $e) {
+        echo "PDOException : " . $e->getMessage();
+    }
   	unset($_SESSION["accessToken"]);
   	unset($_SESSION["email"]);
 
@@ -127,3 +129,39 @@ function showArray($array){
   	//stocker dans une variable de session le token
   	return $accessToken;
   }
+
+
+//SERVICE.PHP
+  $site = array(
+  "Bastille"=>array(
+    "Surface Laptop",
+    "Surface Pro"
+  ),
+  "République"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Surface Pro 2 "
+  ),
+  "Odéon"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Mac book pro"
+  ),
+  "Place d'Italie"=>array(
+    "Surface Laptop",
+    "Surface Laptop 2 ",
+    "Surface Pro"
+  ),
+  "Beaubourg"=>array(
+    "Surface Laptop",
+    "Surface Pro",
+    "Mac book air"
+  ),
+);
+
+  $service = array(
+    "Matériel informatique",
+    "Salle de reunion",
+    "Salle d'appel",
+    "Plateau repas"
+  );

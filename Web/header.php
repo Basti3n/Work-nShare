@@ -10,18 +10,18 @@
 		<div class="container-fluid header_libart">
 			<div class="row">
 
-				<div class="col-xs-1 headerLogo">
+				<div class="col-sm-1 headerLogo">
 					<a href="index.php"><img id="logo" src="IMG/logo.png" ></a>
 				</div>
 
-				<div class="header_list col-sm-4 ">
-					<a class="col-xs-2 headerButton" href="index.php" >Accueil</a>
-					<a class="col-xs-2 headerButton" href="service.php">Services</a>
-					<a class="col-xs-2 headerButton" href="event.php">Evènement</a>
-          <a class="col-xs-2 headerButton" href="about.php">À propos</a>
+				<div class="header_list col-sm-3 ">
+					<a class="col-xs-3 headerButton" href="index.php" >Accueil</a>
+					<a class="col-xs-3 headerButton" href="service.php">Services</a>
+					<a class="col-xs-3 headerButton" href="event.php">Evènement</a>
+          <a class="col-xs-3 headerButton" href="about.php">À propos</a>
 
 				</div>
-				<div class="col-sm-5"></div>
+				<div class="col-sm-6"></div>
 
 				<div class="header_signup_login col-sm-2">
 					<?php if(isConnected()):?>
