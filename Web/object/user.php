@@ -8,6 +8,7 @@ class User
   private $_dateSignUp;
   private $_email;
   private $_password;
+  private $_isDeleted = 0;
   public $listOfErrors = [];
 
   function __construct($data){
@@ -110,6 +111,7 @@ class User
       return $this->_email;
     if($confirm == '0'){
       $this->_email = $email;
+      return 0;
     }
     trim($email);
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

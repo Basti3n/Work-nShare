@@ -8,6 +8,14 @@
 	$error = false;
 	$listOfErrors = [];
 
+/*
+	$mng = new UserMng;
+	$user = new User($mng->get($_POST["email"]));
+
+	if($user->isDeleted()){
+
+	}
+*/
 	$account = $db->prepare("SELECT passwordUser, isDeleted FROM USERS WHERE email = :email");
 	$account -> execute(["email"=>$_POST["email"]]);
 	$pwdv = $account->fetch();

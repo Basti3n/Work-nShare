@@ -105,10 +105,12 @@ function showArray($array){
 
   function logout($redirect = false){
   	$db = connectDb();
-
-  	$out = $db->prepare("UPDATE USERS SET accessToken = null WHERE email = :email");
-  	$out->execute(["email"=>$_SESSION["email"]]);
-
+    try {
+      $out = $db->prepare("UPDATE USERS SET accessToken = null WHERE email = :email");
+    	$out->execute(["email"=>$_SESSION["email"]]);
+    } catch(Exception $e) {
+        echo "PDOException : " . $e->getMessage();
+    }
   	unset($_SESSION["accessToken"]);
   	unset($_SESSION["email"]);
 

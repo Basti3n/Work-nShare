@@ -39,7 +39,7 @@ if( count($_POST) == 8
 	$decode = json_decode(file_get_contents($api_url), true);
 	if ($decode['success'] != true) {
 		$error = true;
-		$listOfErrors[] = 8;
+		$user->listOfErrors[] = 8;
 	}
 
 	if($error){
@@ -50,7 +50,7 @@ if( count($_POST) == 8
 		$db = connectDb();
 		$manage = new UserMng($db);
 		$manage->add($user);
-		
+
 		header("Location: login.php");
 	}
 
