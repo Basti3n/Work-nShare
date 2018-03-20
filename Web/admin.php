@@ -6,8 +6,11 @@
     <?php require "head.php" ?>
   </head>
   <body>
-    <div class="container">
-	</div>
+    <div class="inner">
+      <div class="container">
+        &nbsp;
+      </div>
+    </div>
     <?php require "footer.php"; ?>
   </body>
 </html>
