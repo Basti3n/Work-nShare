@@ -44,7 +44,7 @@
       <div class="col-md-9">
         <div class="container col-md-12">
           <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
-            <h4>&nbsp;&nbsp;Informations generales</h4>
+            <h4>&nbsp;&nbsp;Informations generales </h4>
           </div>
           <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
             <h4>QRCODE</h4>
