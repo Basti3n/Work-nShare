@@ -164,7 +164,7 @@ class UserMng
   public function add(User $user){
     $date = date("y-m-d");
     $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,surnameUser,dateSignIn,passwordUser,isDeleted,statusUser,qrCode,qrCodeToken)
-                                  VALUES (:email,:name, :surname,CURDATE(),:pwd,0,3,:qrCode,:qrCodeToken) ");
+                                  VALUES (:email,:name, :surname,NOW(),:pwd,0,3,:qrCode,:qrCodeToken) ");
     $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->Name(),
