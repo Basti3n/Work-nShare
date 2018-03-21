@@ -11,9 +11,9 @@
 			echo "<h2> Choissisez votre service: </h2>";
 			foreach ($res as $key => $value) {
 	            if(utf8_encode($value['nameService'])=="Matériel informatique")
-	                echo "<button onclick='showPc(0)' class='btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameService'])."</button>";
+	                echo "<button onclick='ajaxServicesContent(".$value["idService"].")' class='btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameService'])."</button>";
 	            else
-	             	echo "<button  onclick='showPc(1)'class='btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameService'])."</button>";
+	             	echo "<button  onclick='ajaxServicesContent(".$value["idService"].")' class='btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameService'])."</button>";
           	}
         }else 
 			echo "error";

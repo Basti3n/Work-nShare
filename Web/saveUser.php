@@ -16,7 +16,7 @@ if( count($_POST) == 8
 
 	$error = false;
 	$listOfErrors = [];
-	$user = new User;
+	$user = new User(null);
 
 
 	if ($user->Name($_POST["name"]))
