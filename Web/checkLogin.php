@@ -31,13 +31,13 @@
 				header("Location: index.php");
 			}else{
 				$error = true;
-				$listOfErrors[] = 17;
+				$listOfErrors[] = 12;
 			}
 		}
 	}
 	else{
 		$error = true;
-		$listOfErrors[] = 19;
+		$listOfErrors[] = 13;
 	}
 
 	if($error){

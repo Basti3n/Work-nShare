@@ -98,7 +98,7 @@ class User
 
   public function Date($date = '0'){
     if($date == '0')
-      $this->_dateSignUp = date("y-m-d");
+      $this->_dateSignUp = date('j \/ m \/ Y');
     else{
       $this->_dateSignUp = strtotime($date);
     }

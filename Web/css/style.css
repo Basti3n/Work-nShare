@@ -1,6 +1,5 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
-
 header{
 	width : 100%;
 	background-color : #222222;
@@ -33,7 +32,6 @@ header{
 	color : #FFF;
 }
 
-
 body {
     overflow: auto;
 
@@ -47,7 +45,7 @@ footer{
   bottom : 0px;
 }
 
-.container{
+.inner{
 		height: 100%;
 }
 
@@ -232,6 +230,14 @@ figcaption.mask h3 {
   padding-top:200px;
 }
 
+/* SEPARATOR */
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
 
 /* CHECKBOX */
 

@@ -11,8 +11,6 @@
   height: 92vh;
 }
 
-.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
-  color:#ffffff;
-  border-color:#46a39b;
-  background-color:#7acbc4;
+#contentTab{
+  padding-top: 20px;
 }
