@@ -23,10 +23,6 @@ li{
 
 }
 
-#command{
-    display: none;
-}
-
 .displayBlock{
     display: block;
 }
@@ -36,6 +32,6 @@ li{
 }
 
 .container{
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 

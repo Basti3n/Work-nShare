@@ -1,7 +1,10 @@
 var click;
 
-function clicked(value){
+var Idclick;
+
+function clicked(value,id){
 	click = value;
+	Idclick = id;
 	console.log(value);
 	remove();
 	switch (click){

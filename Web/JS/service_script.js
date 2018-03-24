@@ -4,7 +4,9 @@ function ajaxServices(value){
 		if(request.readyState == 4){
 			if (request.status == 200 ) {
 				document.getElementById("divService").innerHTML = request.responseText;
-				invertDisplay("divService");
+				//invertDisplay("divService");
+				document.getElementById("divService").classList.add("displayBlock");
+				document.getElementById("divService").classList.remove("displayNone");
 			}
 		}
 	};
@@ -18,8 +20,12 @@ function ajaxServicesContent(value){
 		if(request.readyState == 4){
 			if (request.status == 200 ) {
 				document.getElementById("divMatos").innerHTML = request.responseText;
-				invertDisplay("divMatos");
-				invertDisplay("model");
+				//invertDisplay("divMatos");
+				//invertDisplay("model");
+				document.getElementById("divMatos").classList.add("displayBlock");
+				document.getElementById("model").classList.add("displayBlock");
+				document.getElementById("divMatos").classList.remove("displayNone");
+				document.getElementById("model").classList.remove("displayNone");
 			}
 		}
 	};
@@ -38,3 +44,14 @@ function invertDisplay(value){
 	}
 }
 
+
+function command(){
+	/*Array.from(document.getElementsByClassName("pc .active")).forEach(
+		function(element,index,array){
+			console.log(element.value);
+		});
+	console.log("Je suis passé");*/
+	console.log("id clicked : "+Idclick);
+	console.log("click  : "+click);
+	window.location.href='reservation?choice='+Idclick;
+}

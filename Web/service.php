@@ -39,23 +39,7 @@
       <div id='model' class="displayNone">
       </div>
 
-      <div id='carac' >
-        <ul>
-          <li>Modèle : </li>
-          <li>Processeur : </li>
-          <li>Stockage : </li>
-          <li>Mémoire vive : </li>
-          <li>Poids : </li>
-          <li>Dimension : </li>
-          <li>Autonomie : </li>
-          <li><a href="https://www.microsoft.com/fr-fr/store/d/surface-pro/8nkt9wttrbjk?activetab=pivot:techspecstab" target="_blank">Lien vers le site officiel</a></li>
-        </ul>
-
-      </div>
-      <button type="button" class="btn btn-success" id="command">Commander</button>
-
-
-
+      <a type="button" onclick="command();" >Commander</a>
 
       <script src="js/three.js"></script>
       <script src="js/OrbitControls.js"></script>
