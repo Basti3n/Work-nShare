@@ -1,7 +1,6 @@
 #canvas{
 	width: 100% !important;
 	height: 50% !important;
-    display: none;
 }
 
 .sites{
@@ -14,17 +13,25 @@ li{
     font-weight: bold;
 }
 
-.btn{
+.btn-primary{
     margin : 0.5%;
     background-color: #7acbc4;
 }
 
-#divService{
+
+.button-succes{
+
+}
+
+.displayBlock{
+    display: block;
+}
+
+.displayNone{
     display: none;
 }
 
-#divMatos{
-    display: none;
+.container{
+    overflow-y: auto;
 }
-
 

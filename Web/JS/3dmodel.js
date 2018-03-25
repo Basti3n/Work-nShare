@@ -1,7 +1,10 @@
 var click;
 
-function clicked(value){
+var Idclick;
+
+function clicked(value,id){
 	click = value;
+	Idclick = id;
 	console.log(value);
 	remove();
 	switch (click){
@@ -44,7 +47,7 @@ function init() {
 
 	renderer = new THREE.WebGLRenderer();
 	renderer.setPixelRatio( window.devicePixelRatio );
-	renderer.domElement.id="canvas"
+	renderer.domElement.id="canvas";
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.getElementById("model").appendChild( renderer.domElement );
 	var AxesHelper = new THREE.AxesHelper(200);
@@ -64,7 +67,7 @@ function init() {
 	light3.position.set(0, 1, 0);
 	scene.add(light3);
 
-	clicked(0);
+	//clicked(0);
 
     window.addEventListener( 'resize', onWindowResize, false );
     controls.update();
