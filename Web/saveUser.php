@@ -16,7 +16,7 @@ if( count($_POST) == 8
 
 	$error = false;
 	$listOfErrors = [];
-	$user = new User;
+	$user = new User(null);
 
 
 	if ($user->Name($_POST["name"]))
@@ -47,6 +47,7 @@ if( count($_POST) == 8
 		$_SESSION["errorsForm"] = $user->listOfErrors;
 		header("Location: signup.php");
 	}else{
+	 	exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->Email());
 		$db = connectDb();
 		$manage = new UserMng($db);
 		$manage->add($user);

@@ -12,7 +12,8 @@ class User
   public $listOfErrors = [];
 
   function __construct($data){
-    $this->hydrate($data);
+    if ($data != null)
+      $this->hydrate($data);
   }
 
   public function hydrate(array $data){
@@ -24,10 +25,10 @@ class User
         case 'nameUser':
           $this->Name($value);
           break;
-        case 'surnameUser':
+        case 'lastnameUser':
           $this->Lastname($value);
           break;
-        case 'dateSignIn':
+        case 'dateSignUp':
           $this->Date($value);
           break;
         case 'passwordUser':
@@ -163,12 +164,12 @@ class UserMng
 
   public function add(User $user){
     $date = date("y-m-d");
-    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,surnameUser,dateSignIn,passwordUser,isDeleted,statusUser,qrCode,qrCodeToken)
-                                  VALUES (:email,:name, :surname,CURDATE(),:pwd,0,3,:qrCode,:qrCodeToken) ");
+    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isDeleted,statusUser,qrCode,qrCodeToken)
+                                  VALUES (:email,:name, :lastname,NOW(),:pwd,0,3,:qrCode,:qrCodeToken) ");
     $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->Name(),
-			"surname"=>$user->Lastname(),
+			"lastname"=>$user->Lastname(),
 			"email"=>$user->Email(),
 			"pwd"=>$user->Password(),
 			"qrCode"=>$qrCode,
@@ -184,7 +185,7 @@ class UserMng
 
   public function get($email){
     try {
-      $query = $this->_db->prepare('SELECT email,nameUser,surnameUser,dateSignIn,passwordUser FROM USERS WHERE email =:email');
+      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser FROM USERS WHERE email =:email');
       $query->execute( ["email"=>$email]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
