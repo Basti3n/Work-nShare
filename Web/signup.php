@@ -89,7 +89,6 @@
               </label>
             </div>
 
-
             <input class="btn mybutton btn-lg btn-block" type="submit" value="inscription" onclick="check()">
           </form>
         </div>

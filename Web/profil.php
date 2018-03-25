@@ -56,10 +56,10 @@
               $mng = new UserMng($db);
               $user = $mng->get($_SESSION["email"]);
             ?>
-          <div class="col-md-8">
+          <div class="col-md-7">
             <p style="color:grey;">Inscrit depuis le : <?php echo $user->Date(); ?></p>
             <div class="row text-center" id="contentTab">
-              <div class="col-md-9">
+              <div class="col-md-11">
                 <form>
                   <div class="form-group row">
                     <label for="name" class="col-sm-4 col-form-label"> Prénom</label>
@@ -111,9 +111,15 @@
               </div>
             </div>
           </div>
-          <div class="col-md-4">
-            <div class="container" style="font-size:15em">
-              <i class="fas fa-barcode"></i>
+          <div class="col-md-5">
+            <div class="col-md-12">
+              <?php
+        				if(file_exists("Qrcode_".$user->Email().".bmp"))
+        					echo '<a href="Qrcode_'.$user->Email().'.bmp" target="_blank"><img id="qr" src="Qrcode_'.$user->Email().'.bmp" height="400" width="400"></a>';
+          		?>
+            </div>
+            <div class="col-md-offset-3 col-md-5" style="padding-top:10px;">
+              <a class="btn btn-primary" href="<?php echo 'Qrcode_'.$user->Email().'.bmp'; ?>" download="MyQRCode_worknshare.bmp"><u>Télécharger votre code</u></a>
             </div>
           </div>
         </div>

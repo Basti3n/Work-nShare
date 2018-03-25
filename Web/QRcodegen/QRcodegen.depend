@@ -1,0 +1,59 @@
+# depslib dependency file v1.0
+1517945281 source:d:\2eme année\projet annuel\c\qrcode\qrcodegen\main.c
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+	"qdbmp.h"
+
+1517941945 d:\2eme année\projet annuel\c\qrcode\qrcodegen\qrcodegen.h
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+
+1517941929 source:d:\2eme année\projet annuel\c\qrcode\qrcodegen\qrcodegen.c
+	<assert.h>
+	<limits.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+
+1175885980 source:d:\2eme année\projet annuel\c\qrcode\qrcodegen\qdbmp.c
+	"qdbmp.h"
+	<stdlib.h>
+	<string.h>
+
+1175929546 d:\2eme année\projet annuel\c\qrcode\qrcodegen\qdbmp.h
+	<stdio.h>
+
+1519100526 source:d:\wamp64\www\qr\qrcodegen\qdbmp.c
+	"qdbmp.h"
+	<stdlib.h>
+	<string.h>
+
+1519100526 d:\wamp64\www\qr\qrcodegen\qdbmp.h
+	<stdio.h>
+
+1519100528 source:d:\wamp64\www\qr\qrcodegen\qrcodegen.c
+	<assert.h>
+	<limits.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+
+1519100528 d:\wamp64\www\qr\qrcodegen\qrcodegen.h
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+
+1519239426 source:d:\wamp64\www\qr\qrcodegen\main.c
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+	"qdbmp.h"
+

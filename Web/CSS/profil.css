@@ -14,3 +14,9 @@
 #contentTab{
   padding-top: 20px;
 }
+
+#qr{
+  padding: 15px;
+  border-width: 4px;
+  border-style: dashed;
+}

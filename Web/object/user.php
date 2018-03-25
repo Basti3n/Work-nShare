@@ -12,7 +12,8 @@ class User
   public $listOfErrors = [];
 
   function __construct($data){
-    $this->hydrate($data);
+    if ($data != null)
+      $this->hydrate($data);
   }
 
   public function hydrate(array $data){
