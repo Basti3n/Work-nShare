@@ -52,7 +52,7 @@ footer{
 }
 
 .inner{
-		height: 100%;
+		min-height: 100%;
 }
 
 .home_top{

@@ -2,12 +2,8 @@
   width: 33vh;
 }
 
-#rest{
-  position: absolute;
-  z-index: -1;
-  top : 0;
-
-  width: 100%;
+#list-tab{
+  background: white;
   height: 92vh;
 }
 
@@ -19,4 +15,13 @@
   padding: 15px;
   border-width: 4px;
   border-style: dashed;
+}
+
+.active#desactive-list{
+    background-color: #dc3545 !important;
+    border-color: #b30011 !important;
+}
+
+.list-group-item:first-child{
+  border-radius: 0 !important;
 }
