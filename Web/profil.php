@@ -18,12 +18,8 @@
       <div class="row">
         <div class="col-md-3" >
             <div class="list-group text-center" id="list-tab" role="tablist">
-              <a class="list-group-item list-group-item-action list-group-item-dark active" id="general-list" data-toggle="list" href="#general" role="tab" aria-controls="general">Informations générales</a>
-              <a class="list-group-item list-group-item-action list-group-item-dark" id="messages-list" data-toggle="list" href="#messages" role="tab" aria-controls="messages">Messages</a>
-              <a class="list-group-item list-group-item-action list-group-item-dark" id="abonnement-list" data-toggle="list" href="#abonnement" role="tab" aria-controls="abonnement">Abonnement</a>
-              <a class="list-group-item list-group-item-action list-group-item-dark" id="services-list" data-toggle="list" href="#services" role="tab" aria-controls="services">Services</a>
-              <a class="list-group-item list-group-item-action list-group-item-dark" id="historique-list" data-toggle="list" href="#historique" role="tab" aria-controls="historique">Historique</a>
-              <a class="list-group-item list-group-item-action list-group-item-dark" id="desactive-list" data-toggle="list" href="#desactive" role="tab" aria-controls="desactive">Désactiver son compte</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark active" id="general-list" data-toggle="tab" href="#general" role="tab" aria-controls="general">Informations générales</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="messages-list" data-toggle="tab" href="#messages" role="tab" aria-controls="messages">Messages</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="abonnement-list" data-toggle="tab" href="#abonnement" role="tab" aria-controls="abonnement">Abonnement</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="services-list" data-toggle="tab" href="#services" role="tab" aria-controls="services">Services</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="historique-list" data-toggle="tab" href="#historique" role="tab" aria-controls="historique">Historique</a>
