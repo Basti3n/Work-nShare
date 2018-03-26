@@ -24,11 +24,15 @@
               <a class="list-group-item list-group-item-action list-group-item-dark" id="services-list" data-toggle="list" href="#services" role="tab" aria-controls="services">Services</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="historique-list" data-toggle="list" href="#historique" role="tab" aria-controls="historique">Historique</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="desactive-list" data-toggle="list" href="#desactive" role="tab" aria-controls="desactive">Désactiver son compte</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="abonnement-list" data-toggle="tab" href="#abonnement" role="tab" aria-controls="abonnement">Abonnement</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="services-list" data-toggle="tab" href="#services" role="tab" aria-controls="services">Services</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="historique-list" data-toggle="tab" href="#historique" role="tab" aria-controls="historique">Historique</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="desactive-list" data-toggle="tab" href="#desactive" role="tab" aria-controls="desactive">Désactiver son compte</a>
             </div>
         </div>
         <div class="col-md-9">
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-list">
+            <div style="position:absolute;" class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-list">
               <div class="container col-md-12">
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Informations generales </h4>
@@ -111,29 +115,98 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane fade show" id="messages" role="tabpanel" aria-labelledby="messages-list">
+            <div class="tab-pane fade tabcontent" id="messages" role="tabpanel" aria-labelledby="messages-list">
               <div class="container col-md-12">
-                <p>MESSAGES</p>
+                <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                  <h4>&nbsp;&nbsp;Messages </h4>
+                </div>
+              </div>
+              <div class="container">
+                <div class="col-md-12 tablemsg">
+                  <table class="table table-striped table-bordered ">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="col-md-6 text-center">Message</th>
+                        <th scope="col" class="col-md-2 text-center">Date</th>
+                        <th scope="col" class="col-md-3 text-center">Correspondant</th>
+                        <th scope="col" class="col-md-1 text-center"> </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $msg  = "Jeanne";
+                      $date = date('j \/ m \/ Y \- H\h i\m\i\n');
+                      $who = "TOTO";
+                      $readed = [ "",               //0 : non-readed
+                                  "class='readed'"  //1 : readed
+                                ];
+
+                      for ($i=0; $i < 10; $i++) {
+                        echo "
+                          <tr>
+                            <th scope='row'".$readed[0].">".$msg."</th>
+                            <td>".$date."</td>
+                            <td class='text-center'>".$who."</td>
+                            <td class='text-center corbeille'><i class='fas fa-trash-alt'></i></td>
+                          </tr>
+                        ";
+                      } ?>
+
+                    </tbody>
+                  </table>
+                  <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                  </ul>
+                </div>
+                <div class="col-md-12">
+                  <form>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">Email</label>
+                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Contenu</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-md-7 col-sm-10 ">
+                        <button type="submit" class="btn btn-primary">Envoyer</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="abonnement" role="tabpanel" aria-labelledby="abonnement-list">
+            <div class="tab-pane fade tabcontent" id="abonnement" role="tabpanel" aria-labelledby="abonnement-list">
               <div class="container col-md-12">
-                <p>Abbo</p>
+                <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                  <h4>&nbsp;&nbsp;Abonnement </h4>
+                </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-list">
+            <div class="tab-pane fade tabcontent" id="services" role="tabpanel" aria-labelledby="services-list">
               <div class="container col-md-12">
-                <p>Services</p>
+                <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                  <h4>&nbsp;&nbsp;Services </h4>
+                </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="historique" role="tabpanel" aria-labelledby="historique-list">
+            <div class="tab-pane fade tabcontent" id="historique" role="tabpanel" aria-labelledby="historique-list">
               <div class="container col-md-12">
-                <p>histo</p>
+                <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                  <h4>&nbsp;&nbsp;Historique </h4>
+                </div>
               </div>
             </div>
-            <div class="tab-pane fade" id="desactive" role="tabpanel" aria-labelledby="desactive-list">
+            <div class="tab-pane fade tabcontent" id="desactive" role="tabpanel" aria-labelledby="desactive-list">
               <div class="container col-md-12">
-                <p>Disable</p>
+                <div class="text-uppercase text-left font-weight-bold">
+                  <h4>&nbsp;&nbsp;Désactiver son compte </h4>
+                </div>
               </div>
             </div>
           </div>

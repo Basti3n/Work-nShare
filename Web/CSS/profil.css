@@ -26,16 +26,17 @@
   border-radius: 0 !important;
 }
 
-#datepicker,#datepicker1{
-  width: 15%;
-  display: inline-table;
+.tabcontent{
+  position: absolute;
 }
 
-#time{
-  text-align: center;
+.tablemsg{
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
-body{
-  text-align: center;
+.corbeille{
+  font-size: 1em;
+  font-weight: bold;
+  color: #c94c4c;
 }
-
