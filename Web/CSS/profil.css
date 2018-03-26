@@ -25,3 +25,18 @@
 .list-group-item:first-child{
   border-radius: 0 !important;
 }
+
+.tabcontent{
+  position: absolute;
+}
+
+.tablemsg{
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.corbeille{
+  font-size: 1em;
+  font-weight: bold;
+  color: #c94c4c;
+}
