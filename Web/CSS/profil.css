@@ -25,3 +25,17 @@
 .list-group-item:first-child{
   border-radius: 0 !important;
 }
+
+#datepicker,#datepicker1{
+  width: 15%;
+  display: inline-table;
+}
+
+#time{
+  text-align: center;
+}
+
+body{
+  text-align: center;
+}
+

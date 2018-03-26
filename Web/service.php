@@ -14,6 +14,9 @@
         <?php
           $y = 0;
           echo "<div>";
+          if(isset($_GET["ok"]) && $_GET["ok"]==1){
+            echo '<div id="ok"> Votre réservation a été effectué. Vous pouvez allez la consulter sur votre <a href="profil.php">profil</a></div>';
+          }
             echo "<h2> Choissisez votre site: </h2>";
 
             $db = connectDb();
