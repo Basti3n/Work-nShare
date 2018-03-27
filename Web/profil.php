@@ -28,7 +28,7 @@
         </div>
         <div class="col-md-9">
           <div class="tab-content" id="nav-tabContent">
-            <div style="position:absolute;" class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-list">
+            <div class="tab-pane fade show tabcontent active" id="general" role="tabpanel" aria-labelledby="general-list">
               <div class="container col-md-12">
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Informations generales </h4>
@@ -182,6 +182,23 @@
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Abonnement </h4>
                 </div>
+                <div class="container">
+                  <div class="col-md-12">
+                    <?php
+                      $query = $db->prepare('SELECT dateSubscription,dateEndSubscription FROM ISSUBSCRIBED WHERE email =:email');
+                      $query->execute( ["email"=>$user->Email()]);
+                      $data = $query->fetch(PDO::FETCH_ASSOC);
+                      if(!isset($data)){
+                        echo "Abonné depuis le: ".date('j \/ m \/ Y', strtotime($data["dateSubscription"]))
+                            ." jusqu'au: ".date('j \/ m \/ Y', strtotime($data["dateEndSubscription"]));
+                      }else {
+                        echo "Vous n'êtes pas abonné ! <br>";
+                        echo "<input class='btn btn-warning' type='button' value='Abonnez-vous dès maintenant !' onclick='abbo()' />";
+                      }
+                    ?>
+
+                  </div>
+                </div>
               </div>
             </div>
             <div class="tab-pane fade tabcontent" id="services" role="tabpanel" aria-labelledby="services-list">
@@ -203,22 +220,30 @@
                 <div class="text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Désactiver son compte </h4>
                 </div>
+                <div class="container">
+                  <div class="col-md-12">
+                    <h2>Etes vous sur de vouloir supprimer votre compte ?</h2>
+                    <form class="" action="index.html" method="post">
+                      <div class="form-group row">
+                        <div class="col">
+                          <button type="submit" class="btn btn-danger">Confirmer</button>
+                        </div>
+                        <div class="col">
+                          <button type="reset" class="btn btn-danger">Annuler</button>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-
-    <!--<?php
-      $db = connectDb();
-      $mng = new UserMng($db);
-      $user = $mng->get("invis@gmail.com");
-      echo "<br>";
-      $user->speak();
-    ?>-->
     <?php require "footer.php"; ?>
-    <script type="text/javascript" src="js/profil.js"> </script>
+    <script type="text/javascript" src="JS/profil.js"></script>
   </body>
 </html>

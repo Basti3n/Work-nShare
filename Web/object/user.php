@@ -34,6 +34,9 @@ class User
         case 'passwordUser':
           $this->Password($value);
           break;
+        case 'isDeleted':
+          $this->Deleted($value);
+          break;
 
       }
       /*$method = 'set'.ucfirst($key);
@@ -137,6 +140,17 @@ class User
     return 0;
   }
 
+  public function Deleted($value = '0'){
+    if($value == '0')
+      return $this->_isDeleted;
+    if($value != 0 || $value != 1)
+      return 1;
+    else{
+      $this->_isDeleted = $value;
+    }
+    return 0;
+  }
+
   public function speak(){
     echo  "<br>\$_name : ".$this->_name.
           "<br>\$_lastname : ".$this->_lastname.
@@ -165,13 +179,14 @@ class UserMng
   public function add(User $user){
     $date = date("y-m-d");
     $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isDeleted,statusUser,qrCode,qrCodeToken)
-                                  VALUES (:email,:name, :lastname,NOW(),:pwd,0,3,:qrCode,:qrCodeToken) ");
+                                  VALUES (:email,:name, :lastname,NOW(),:pwd,:deleted,3,:qrCode,:qrCodeToken) ");
     $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->Name(),
 			"lastname"=>$user->Lastname(),
 			"email"=>$user->Email(),
 			"pwd"=>$user->Password(),
+      "deleted"=>$user->Deleted(),
 			"qrCode"=>$qrCode,
 			"qrCodeToken"=>"data/qrCode/qrCode.png"
 			]);
@@ -181,11 +196,12 @@ class UserMng
     $date = date("y-m-d");
     $query = $this->_db->prepare('UPDATE USERS SET isDeleted = 1 WHERE email =:email');
 		$query->execute( ["email"=>$user->Email()]);
+    $user->Deleted(1);
   }
 
   public function get($email){
     try {
-      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser FROM USERS WHERE email =:email');
+      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isDeleted FROM USERS WHERE email =:email');
       $query->execute( ["email"=>$email]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
