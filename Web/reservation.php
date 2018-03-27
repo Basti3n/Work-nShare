@@ -9,8 +9,9 @@
     require "object/reservation.php";
     ?>
     <link rel="stylesheet" type="text/css" href="CSS/profil.css">
-    <script src="JS/reservation_script.js"></script>
+    
     <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script src="JS/reservation_script.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
@@ -55,7 +56,49 @@
 
           //$mng->add($reservation);
 
+          /*$json = array(
+              "Lundi"=>array(
+                          "debut"=>"9",
+                          "fin"=>"20",
+              ),
+              "Mardi"=>array(
+                          "debut"=>"9",
+                          "fin"=>"20",
+              ),
+              "Mercredi"=>array(
+                          "debut"=>"9",
+                          "fin"=>"20",
+              ),
+              "Jeudi"=>array(
+                          "debut"=>"9",
+                          "fin"=>"20",
+              ),
+              "Vendredi"=>array(
+                          "debut"=>"9",
+                          "fin"=>"20",
+              ),
+              "Samedi"=>array(
+                          "debut"=>"11",
+                          "fin"=>"20",
+              ),
+              "Dimanche"=>array(
+                          "debut"=>"11",
+                          "fin"=>"20",
+              ),
+          );
+          $test = json_encode($json);
+          echo "<br>".$test."<br>";
+
+          $wow = json_decode($test);
+          foreach ($wow as $key => $value) {
+            echo $key." ";
+            foreach ($value as $key1 => $value2) {
+                          echo $key1." ".$value2;
+            }
+            echo "<br>";
+          }-*/
         ?>
+        <button onclick="add()">ici</button>
         <div id="time">
           <h2>Début de la réservation</h2>
           <div id="datepicker" class="input-group date inpm" data-date-format="mm-dd-yyyy">
@@ -63,14 +106,14 @@
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
           </div>
           <p>Heure de début</p>
-          <input type="time" value="09:00"  name="startTime">
+          <input type="time" value="09:00"  name="startTime" id="startTime">
           <h2>Fin de la réservation</h2>
           <div id="datepicker1" class="input-group date inpm" data-date-format="mm-dd-yyyy">
             <input id="val1" name="inputDate1" class="form-control" type="text" readonly />
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
           </div>
           <p>Heure de fin</p>
-          <input type="time" value="09:00" name="endTime">
+          <input type="time" value="09:00" name="endTime" id="endTime">
         </div>
         <a href="service.php">Retour en arrière</a>
         <input type="submit" value="Confirmer la reservation">

@@ -3,9 +3,10 @@
 	include "function.php";
 	include "object/reservation.php";
 	require_once "conf.inc.php";
-
-	$startDate = $_POST["inputDate"]." ".$_POST["startTime"].":00";
-	$endDate = $_POST["inputDate1"]." ".$_POST["endTime"].":00";
+	$dateS = explode(" ",$_POST["inputDate"]);
+	$startDate = $dateS[0]." ".$_POST["startTime"].":00";
+	$dateE = explode(" ",$_POST["inputDate1"]);
+	$endDate = $dateE[0]." ".$_POST["endTime"].":00";
 	$data = $arrayName = array(
 		"site" => $_GET["site"],
         "email" => $_SESSION["email"],
