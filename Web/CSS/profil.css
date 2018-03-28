@@ -9,6 +9,7 @@
 
 #contentTab{
   padding-top: 20px;
+  position : absolute;
 }
 
 #qr{
@@ -24,4 +25,8 @@
 
 .list-group-item:first-child{
   border-radius: 0 !important;
+}
+
+.tabcontent{
+  position: absolute;
 }

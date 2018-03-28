@@ -1,0 +1,159 @@
+<?php
+date_default_timezone_set('Europe/Paris');
+
+class Service{
+  private $_idService ="Empty";
+  private $_idSpace = "Empty";
+  private $_isBooked;
+  private $_nameService = "Empty";
+  private $_compInfo ="Empty";
+  private $_isDeleted;
+  public $listOfErrors=[];
+
+
+  function __construct($data){
+    if ($data != null)
+      $this->hydrate($data);
+  }
+
+  public function hydrate(array $data){
+
+    foreach ($data as $key => $value) {
+      switch ($key) {
+        case 'idService':
+          $this->IdService($value);
+          break;
+        case 'idSpace':
+          $this->IdSpace($value);
+          break;
+        case 'isBooked':
+          $this->IsBooked($value);
+          break;
+        case 'nameService':
+          $this->NameOfService($value);
+          break;
+        case 'compInfo':
+          $this->CompInfo($value);
+          break;
+        case 'isDeleted':
+          $this->IsDeleted($value);
+          break;
+
+        default:
+          break;
+      }
+    }
+  }
+
+
+  public function IdService($idService ='0'){
+    if($idService=='0')return $this->_idService;
+     $this->_idService = $idService;
+    return 0;
+  }
+
+  public function IdSpace($idSpace ='0'){
+    if($idSpace =='0')return $this->_idSpace;
+     $this->_idSpace = $idSpace;
+    return 0;
+  }
+
+  public function IsBooked($isBooked=-10){
+    if($isBooked == -10)return $this->_isBooked;
+     $this->_isBooked = $isBooked;
+    return 0;
+  }
+
+  public function NameOfService($nameOfService = '0'){
+    if($nameOfService =='0')return $this->_nameService;
+
+    trim($nameOfService);
+
+    if(strlen($nameOfService)<80){
+      $this->_nameService = $nameOfService;
+    }else{
+      $this->listOfErrors[] = 19;
+      return 1;
+    }
+  }
+
+  public function CompInfo($compInfo = '0'){
+    if($compInfo == '0')return $this->_compInfo;
+
+    $this->_compInfo == $compInfo;
+  }
+
+  public function isDeleted($isDeleted ='9'){
+    if($isDeleted=='9') return $this->_isDeleted;
+
+    $this->_isDeleted = $isDeleted;
+  }
+
+}
+
+class ServiceMng{
+  function __construct($db){
+    $this->setDb($db);
+  }
+
+  public function setDb(PDO $db){
+    $this->_db = $db;
+  }
+
+  public function add(Service $service){
+    $query = $this->_db->prepare("INSERT INTO SERVICES (idSpace,isBooked,nameService,compInfo,isDeleted)
+                                  VALUES (:idSpace,1,:nameService,:compInfo,0) ");
+    $query->execute( [
+      "idSpace"=>$service->IdSpace(),
+      "nameService"=>$service->NameOfService(),
+      "compInfo"=>$service->CompInfo()
+      ]);
+  }
+
+  public function delete(Service $service){
+    $query = $this->_db->prepare('UPDATE SERVICES SET isDeleted = 1 WHERE idService =:idService');
+		$query->execute( ["idService"=>$service->IdService()]);
+  }
+
+  public function get($idService){
+    try {
+      $query = $this->_db->prepare('SELECT  idService,idSpace,isBooked,nameService,compInfo,isDeleted FROM SPACES WHERE idService =:idService');
+      $query->execute( ["idService"=>$idService]);
+    } catch(Exception $e) {
+        echo "PDOException : " . $e->getMessage();
+    }
+
+    $data = $query->fetch(PDO::FETCH_ASSOC);
+    return new Space($data);
+  }
+
+
+  public function getAllServices(){
+    try{
+      $query = $this->_db->prepare('SELECT idService,idSpace,isBooked,nameService,compInfo,isDeleted FROM SERVICES');
+      $query->execute();
+    }catch(Exception $e){
+      echo "PDOException : " . $e->getMessage();
+
+    }
+    $data = $query->fetchAll(PDO::FETCH_ASSOC);
+    if($data !=NULL){
+      $services = [];
+
+
+      foreach ($data as $key => $service) {
+        array_push($services,new Service($service));
+      }
+      return $services;
+    }else{
+      echo "Il n'y a aucun service pour l'instant";
+      return 1;
+    }
+
+  }
+
+}
+
+
+
+ ?>

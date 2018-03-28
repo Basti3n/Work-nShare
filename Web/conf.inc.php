@@ -21,5 +21,8 @@ $listOfErrors = [
 	13=>"Le compte a été supprimé",
 	14=>"L'ancien mot de passe ne corespond pas",
 	15=>"Le nouveau mot de passe et le mot de passe de confirmation ne correspondent pas",
-	16=>"Le mot de passe a bien été modifié"
+	16=>"Le mot de passe a bien été modifié",
+	17=>"L'id de l'espace doit être composé de 7 caractères",
+	18=>"Le nom de l'espace doit être composé de 25 caractères au maximum",
+	19=>"Le nom du service doit être composé de 80 caractère au maximum"
 ];

@@ -1,0 +1,103 @@
+#addSpaceDiv{
+  position : fixed;
+  top : 0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+#createSpacePannel{
+	position:fixed;
+	width : 100%;
+	z-index: 40;
+	height: 100vh;
+	left : 0;
+	top : 0;
+	background-color: rgba(50,50,50,0.7);
+	text-align: center;
+	padding-left : 25%;
+	padding-top : 10%;
+}
+
+#createSpaceForm{
+	width : 75%;
+	background-color: rgb(170,171,170);
+	vertical-align: center;
+	text-align: center;
+	padding-top : 3%;
+	padding-bottom : 3%;
+  border-radius: 2%;
+
+}
+
+#newSpaceId{
+	width : 30%;
+  border-radius: 2%;
+  margin-bottom: 1%;
+
+}
+
+#newSpaceName{
+	width : 50%;
+  border-radius: 2%;
+  margin-bottom: 1%;
+}
+
+#addServiceButton{
+  margin-right: 1%;
+}
+
+.buttonRow{
+  margin-top:2%;
+}
+
+.pannel{
+  position:fixed;
+	width : 100%;
+	z-index: 40;
+	height: 100vh;
+	left : 0;
+	top : 0;
+	background-color: rgba(50,50,50,0.7);
+	text-align: center;
+	padding-left : 25%;
+	padding-top : 10%;
+}
+
+
+#createServiceForm{
+	width : 75%;
+	background-color: rgb(170,171,170);
+	vertical-align: center;
+	text-align: center;
+	padding-top : 3%;
+	padding-bottom : 3%;
+  border-radius: 2%;
+
+}
+
+#newServiceName{
+	width : 30%;
+  border-radius: 2%;
+  margin-bottom: 1%;
+
+}
+
+#newServiceCompInf{
+	width : 50%;
+  height: 30vh;
+  border-radius: 2%;
+  margin-bottom: 1%;
+}
+
+textarea{
+  resize: none;
+}
+
+#spaceSelector{
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 2%;
+
+}
