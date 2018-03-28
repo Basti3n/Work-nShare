@@ -46,7 +46,7 @@
     }
 
     if ($error == false) {
-      $mng->update($user, $id);
+      $mng->update($user);
       header("Location: profil.php");
     }else {
       echo "<br> Error : ";

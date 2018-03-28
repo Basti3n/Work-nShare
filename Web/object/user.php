@@ -192,7 +192,7 @@ class UserMng
 			]);
   }
 
-  public function update(User $user,$id){
+  public function update(User $user){
     $date = date("y-m-d");
     $query = $this->_db->prepare("UPDATE USERS SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr WHERE email=:id");
     $qrCode = password_hash($user->Email(),PASSWORD_DEFAULT);
@@ -202,7 +202,7 @@ class UserMng
 			"email"=>$user->Email(),
 			"pwd"=>$user->Password(),
 			"qr"=>$qrCode,
-      "id"=>$id
+      "id"=>$user->Email()
 			]);
   }
 
