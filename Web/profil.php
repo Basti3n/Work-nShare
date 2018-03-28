@@ -42,47 +42,48 @@
                     $db = connectDb();
                     $mng = new UserMng($db);
                     $user = $mng->get($_SESSION["email"]);
+                    $_SESSION["user"] = serialize($user);
                   ?>
                 <div class="col-md-7">
                   <p style="color:grey;">Inscrit depuis le : <?php echo $user->Date(); ?></p>
                   <div class="row text-center" id="contentTab">
                     <div class="col-md-11">
-                      <form>
+                      <form action="updateProfil.php" method="post">
                         <div class="form-group row">
                           <label for="name" class="col-sm-4 col-form-label"> Prénom</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="text" class="form-control" id="name" placeholder="<?php echo $user->Name(); ?>">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="<?php echo $user->Name(); ?>">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="lastname" class="col-sm-4 col-form-label">Nom</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="text" class="form-control" id="lastname" placeholder="<?php echo $user->Lastname();?>">
+                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="<?php echo $user->Lastname();?>">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="email" class="col-sm-4 col-form-label">Email</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="email" class="form-control" id="email" placeholder="<?php echo $user->Email(); ?>">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="<?php echo $user->Email(); ?>">
                           </div>
                         </div>
                         <p style="color:grey;text-align:left;">Modifier votre mot de passe actuel<hr></p>
                         <div class="form-group row">
                           <label for="pwdbefore" class="col-sm-4 col-form-label">Mot de passe actuel</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="password" class="form-control" id="pwdbefore" placeholder="*********">
+                            <input type="password" name="pwd" class="form-control" id="pwdbefore" placeholder="*********">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="pwdafter" class="col-sm-4 col-form-label">Nouveau mot de passe</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="password" class="form-control" id="pwdafter" placeholder="Password">
+                            <input type="password" name="npwd1" class="form-control" id="pwdafter" placeholder="Password">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="pwdafter2" class="col-sm-4 col-form-label">Confirmation</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="password" class="form-control" id="pwdafter2" placeholder="Password">
+                            <input type="password" name="npwd2" class="form-control" id="pwdafter2" placeholder="Password">
                           </div>
                         </div>
                         <hr>
@@ -223,10 +224,10 @@
                 <div class="container">
                   <div class="col-md-12">
                     <h2>Etes vous sur de vouloir supprimer votre compte ?</h2>
-                    <form class="" action="index.html" method="post">
+                    <form action="updateProfil.php" method="post">
                       <div class="form-group row">
                         <div class="col">
-                          <button type="submit" class="btn btn-danger">Confirmer</button>
+                          <button type="submit" class="btn btn-danger" name="ok">Confirmer</button>
                         </div>
                         <div class="col">
                           <button type="reset" class="btn btn-danger">Annuler</button>

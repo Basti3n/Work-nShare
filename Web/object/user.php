@@ -77,7 +77,7 @@ class User
   public function Password($password = '0',$confirm = '0'){
     if($password == '0' && $confirm == '0')
       return $this->_password;
-    if (strlen($password) < 8 || strlen($password) > 64) {
+    if (strlen($password) < 7 || strlen($password) > 64) {
       trigger_error("Le mot de passe saisie est trop long", E_USER_ERROR);
       $this->listOfErrors[] = 4;
       return 1;
@@ -189,6 +189,20 @@ class UserMng
       "deleted"=>$user->Deleted(),
 			"qrCode"=>$qrCode,
 			"qrCodeToken"=>"data/qrCode/qrCode.png"
+			]);
+  }
+
+  public function update(User $user,$id){
+    $date = date("y-m-d");
+    $query = $this->_db->prepare("UPDATE USERS SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr WHERE email=:id");
+    $qrCode = password_hash($user->Email(),PASSWORD_DEFAULT);
+		$query->execute( [
+			"name"=>$user->Name(),
+			"lastname"=>$user->Lastname(),
+			"email"=>$user->Email(),
+			"pwd"=>$user->Password(),
+			"qr"=>$qrCode,
+      "id"=>$id
 			]);
   }
 
