@@ -251,11 +251,6 @@ hr {
 
 /* CHECKBOX */
 
-input[type="checkbox"], input[type="radio"]{
-	position: absolute;
-	right: 11000px;
-}
-
 input[type="checkbox"] + .label-text:before{
 	content: "\f096";
 	font-family: "FontAwesome";

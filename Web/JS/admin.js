@@ -52,6 +52,14 @@ $('#cancelCreateServiceButton').on('click', function (e){
   $('#createServicePannel').addClass('hidden');
 })
 
+$('#addServiceContentButton').on('click', function (e){
+  $('#createServiceContentPannel').removeClass('hidden');
+})
+
+$('#cancelCreateServiceContentButton').on('click', function (e){
+  $('#createServiceContentPannel').addClass('hidden');
+})
+
 
 
 
@@ -90,7 +98,7 @@ function createSpace(){
 
 function updateSpaceArray(spaceId,spaceName){
   var array = document.getElementById('spaceArray');
-
+  console.log(array);
   var row = document.createElement('tr');
   array.appendChild(row);
 
@@ -121,6 +129,7 @@ function updateSpaceArray(spaceId,spaceName){
   var isDeletedCell = document.createElement('td');
   idSpaceCell.innerHTML = '0';
   row.appendChild(isDeletedCell);
+
 }
 
 
@@ -189,16 +198,69 @@ function displayCreateServicePannel(idSpace){
 
 
 function changeServiceType(){
-  if(getServiceType() == 1){
-
+  var serviceType = getServiceType();
+  var serviceDiv = document.getElementById('servicesDiv');
+  var serviceContentDiv = document.getElementById('serviceContentsDiv');
+  if(serviceType== 1){
+    serviceDiv.setAttribute('class','');
+    serviceContentDiv.setAttribute('class','hidden');
   }else{
-
+    serviceDiv.setAttribute('class','hidden');
+    serviceContentDiv.setAttribute('class','');
   }
 }
 
 
 function getServiceType(){
 	var select = document.getElementById('serviceTypeSelector');
+	var idx=select.selectedIndex;
+	var options = select.getElementsByTagName('option');
+	var selectedOption = options[idx];
+	var bookId = selectedOption.value;
+	return bookId;
+}
+
+
+function createServiceContent(){
+
+	var serviceId = getServiceId()
+	var serviceContentName = document.getElementById('newServiceContentName').value;
+  var newServiceContentInformation = document.getElementById('newServiceContentInformation').value;
+  var availableNumber = document.getElementById('newServiceContentNumber').value
+
+
+	var request = new XMLHttpRequest();
+
+	request.onreadystatechange =function(){
+	  if(request.readyState == 4){
+	    if(request.status ==200){
+	    	  console.log(request.responseText);
+          if(request.responseText != 'failure'){
+            var createSpacePannel = document.getElementById('createServiceContentPannel');
+            createSpacePannel.setAttribute('class','hidden');
+          }
+	    }
+	  }
+	};
+
+
+	request.open("POST",'ajaxFile\\createServiceContent.php');
+	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+	var params = [
+		'serviceId='+serviceId,
+		'serviceContentName='+serviceContentName,
+    'newServiceContentInformation='+newServiceContentInformation,
+    'availableNumber='+availableNumber
+	];
+	var body = params.join('&');
+	request.send(body);
+
+}
+
+
+
+function getServiceId(){
+	var select = document.getElementById('serviceSelector');
 	var idx=select.selectedIndex;
 	var options = select.getElementsByTagName('option');
 	var selectedOption = options[idx];
