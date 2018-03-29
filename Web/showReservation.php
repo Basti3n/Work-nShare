@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js"> </script>
 	<script type="text/javascript" src="js/bootstrap.min.js"> </script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.js"></script>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />  
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="CSS/reservation_style.css">
 	<script src="JS/reservation_script.js"></script>
@@ -44,7 +44,7 @@
 	              0=>array(
 	                          "debut"=>"09",
 	                          "fin"=>"20",
-	                          "jour"=>"Lundi"	
+	                          "jour"=>"Lundi"
 	              ),
 	              1=>array(
 	                          "debut"=>"09",
@@ -104,7 +104,7 @@
 		                  echo "<td class='indisponible calendarTd' id='td".$i."-".$y."' title='indisponible'> </td>";
 		                }else{
 		                  echo "<td class='libre calendarTd' onclick='changeBg(\"td".$i."-".$y."\")' id='td".$i."-".$y."' title='libre'> </td>";
-		                }                
+		                }
 	              	}
 	            echo "</tr>";
 	        }
@@ -113,7 +113,7 @@
        </table>
 		<!--<button onclick="ajaxReserv()">Confirmer La reservation</button>-->
        <?php
-       
+
 	/* function */
 	function test($i,$data,$json,$y,$date){
 		foreach ($json as $key => $index) {
@@ -128,7 +128,7 @@
             //echo $time." == ".$i.":00:00 ///  jour : ".$day."==".$date[$y]."<br>";
             if($time == $i.":00:00" && $day == $date[$y]){
             	//echo "1 ";
-            	return 1; 
+            	return 1;
             }
         }
         return 0;
