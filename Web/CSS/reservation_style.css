@@ -20,21 +20,21 @@
 
 
 .occupe{
-	background-color: red;
+	background-color: #dc3545;
 	cursor: not-allowed;
 }
 
 .libre{
-	background-color: green;
+	background-color: #28a745;
 	cursor: pointer;
 }
 
 .indisponible{
-	background-color: grey;
+	background-color: #6c757d;
 	cursor: not-allowed;
 }
 
 .vosreserv{
-	background-color: cyan;
+	background-color: #f8f9fa;
 	cursor: pointer;
 }

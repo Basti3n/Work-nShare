@@ -27,6 +27,14 @@ $(document).on('click', '#divService > button', function(e){
   $('#cmd').hide( "fast", function() {});
 });
 
+$(document).on('click', '#site > button', function(e){
+  console.log(":)");
+  $('#divMatos').hide( "slow", function() {});
+  $('#divService').hide( "fast", function() {});
+  $('#model').hide();
+  $('#cmd').hide();
+});
+
 function ajaxServices(value){
 	var request = new XMLHttpRequest();
 	request.onreadystatechange = function(){
