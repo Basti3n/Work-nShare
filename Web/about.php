@@ -28,7 +28,7 @@
                     <img style="border-radius:50%;" src="IMG/'.noAccents(utf8_encode ($name)).'.jpg" alt="Generic placeholder image" width="140" height="140">
                     <h2>'.utf8_encode ($space->NameOfSpace()).'</h2>
                     <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.</p>
-                    <p><a class="btn btn-secondary" href="about.php#'.utf8_encode ($space->NameOfSpace()).'" role="button">View details »</a></p>
+                    <p><a class="btn btn-secondary" href="#'.utf8_encode ($space->NameOfSpace()).'" role="button">View details »</a></p>
                   </div>
                 ';
               }
@@ -43,7 +43,7 @@
               echo '
               <hr>
 
-              <div class="row">
+              <div class="row" id="'.noAccents(utf8_encode ($name)).'">
                 <div class="col-md-7">
                   <h2 class="featurette-heading">'.utf8_encode ($space->NameOfSpace()).'. <span class="text-muted">It\'ll blow your mind.</span></h2>
                   <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
