@@ -25,7 +25,7 @@
               $sites = $findSites->fetchAll(PDO::FETCH_ASSOC);
 
               foreach ($sites as $key => $value) {
-                echo "<button onclick='ajaxServices(".$value["idSpace"].")' class='Ligne".$y." btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameSpace'])."</button>";
+                echo "<button onclick='ajaxServices(\"".$value["idSpace"]."\")' class='Ligne".$y." btn btn-primary' aria-pressed='true'>".utf8_encode($value['nameSpace'])."</button>";
                 $y++;
               }
 

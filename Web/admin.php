@@ -118,6 +118,7 @@
 
                       </tr>
                       <?php
+                      showArray($services);
                         foreach ($services as $service) {
 
                           echo '<tr>
