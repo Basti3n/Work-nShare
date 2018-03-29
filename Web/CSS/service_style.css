@@ -15,7 +15,6 @@ li{
 
 .btn-primary{
     margin : 0.5%;
-    background-color: #7acbc4;
 }
 
 
@@ -35,7 +34,6 @@ li{
     overflow-y: auto;
 }
 
-
 #ok{
     background-color: green;
     width: 80%;
@@ -46,4 +44,3 @@ li{
     margin-left: 10%;
     border-radius: 10px;
 }
-

@@ -2,6 +2,7 @@ $( document ).ready(function() {
     $('#model').hide();
     $('#divService').hide();
     $('#divMatos').hide();
+    $('#cmd').hide();
 });
 
 function hidemat(){
@@ -16,6 +17,14 @@ $(document).on('click', '.btn', function(e){
   e.preventDefault();
   $(this).parent().children().siblings().removeClass('active');
   $(this).toggleClass("active");
+});
+
+$(document).on('click', '#divMatos > button', function(e){
+    $('#cmd').show( "fast", function() {});
+});
+
+$(document).on('click', '#divService > button', function(e){
+  $('#cmd').hide( "fast", function() {});
 });
 
 function ajaxServices(value){
@@ -50,6 +59,7 @@ function ajaxServicesContent(value){
 	request.send();
 }
 
+/*
 function invertDisplay(value){
 	if(document.getElementById(value).classList.contains("displayNone")){
 		document.getElementById(value).classList.add("displayBlock");
@@ -60,6 +70,7 @@ function invertDisplay(value){
 		document.getElementById(value).classList.add("displayNone");
 	}
 }
+*/
 
 
 function command(){
@@ -67,8 +78,8 @@ function command(){
 		function(element,index,array){
 			console.log(element.value);
 		});
-	console.log("Je suis passé");*/
+	console.log("Je suis passé");
 	console.log("id clicked : "+Idclick);
-	console.log("click  : "+click);
+	console.log("click  : "+click);*/
 	window.location.href='reservation?choice='+Idclick;
 }
