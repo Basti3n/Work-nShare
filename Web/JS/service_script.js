@@ -1,3 +1,23 @@
+$( document ).ready(function() {
+    $('#model').hide();
+    $('#divService').hide();
+    $('#divMatos').hide();
+});
+
+function hidemat(){
+  var g = $('#divService .active').html();
+  if (g != "Matériel informatique" && g != "Plateau repas")
+    $('#model').hide( "fast", function() {});
+  else
+    $('#model').show( "fast", function() {});
+}
+
+$(document).on('click', '.btn', function(e){
+  e.preventDefault();
+  $(this).parent().children().siblings().removeClass('active');
+  $(this).toggleClass("active");
+});
+
 function ajaxServices(value){
 	var request = new XMLHttpRequest();
 	request.onreadystatechange = function(){
@@ -5,8 +25,7 @@ function ajaxServices(value){
 			if (request.status == 200 ) {
 				document.getElementById("divService").innerHTML = request.responseText;
 				//invertDisplay("divService");
-				document.getElementById("divService").classList.add("displayBlock");
-				document.getElementById("divService").classList.remove("displayNone");
+        $('#divService').show( "slow", function() {});
 			}
 		}
 	};
@@ -22,10 +41,8 @@ function ajaxServicesContent(value){
 				document.getElementById("divMatos").innerHTML = request.responseText;
 				//invertDisplay("divMatos");
 				//invertDisplay("model");
-				document.getElementById("divMatos").classList.add("displayBlock");
-				document.getElementById("model").classList.add("displayBlock");
-				document.getElementById("divMatos").classList.remove("displayNone");
-				document.getElementById("model").classList.remove("displayNone");
+        $('#divMatos').show( "slow", function() {});
+        hidemat();
 			}
 		}
 	};

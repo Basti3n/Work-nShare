@@ -32,14 +32,14 @@
 
           $y=0;
           $i=0;
-          echo "<div id='divService' class='displayNone'>";
+          echo "<div id='divService'>";
           echo "</div>";
 
-          echo "<div id='divMatos' class='displayNone'>";
+          echo "<div id='divMatos'>";
           echo "</div>";
         ?>
       </div>
-      <div id='model' class="displayNone">
+      <div id='model' class="">
       </div>
 
       <a type="button" onclick="command();" >Commander</a>
