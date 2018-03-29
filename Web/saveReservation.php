@@ -3,24 +3,27 @@
 	include "function.php";
 	include "object/reservation.php";
 	require_once "conf.inc.php";
-	$dateS = explode(" ",$_POST["inputDate"]);
-	$startDate = $dateS[0]." ".$_POST["startTime"].":00";
-	$dateE = explode(" ",$_POST["inputDate1"]);
-	$endDate = $dateE[0]." ".$_POST["endTime"].":00";
-	$data = $arrayName = array(
-		"site" => $_GET["site"],
-        "email" => $_SESSION["email"],
-        "idServiceContent" => $_GET["serviceContent"],
-        "reservationStartDate" => $startDate,
-        "reservationEndDate" => $endDate
-      );
 
-	showArray($data);
+	$date = json_decode($_GET["date"]); 
 
 	$db = connectDb();
 	$mng = new ReservationMng($db);
-	$reservation = new Reservation($data);
-	$reservation->speak();
-	$mng->add($reservation);
+	foreach ($date as $key => $value) {
+		$day = explode(" ",$value)[0];
+		$hours = explode(" ",$value)[1];
+		$hours = date("H:i",strtotime($hours)+60*60).":00";
+		echo "hours : ".$hours."     Day : ".$value."<br>";
+
+		$data = array(
+		"site" => $_GET["site"],
+        "email" => $_SESSION["email"],
+        "idServiceContent" => $_GET["serviceContent"],
+        "reservationStartDate" => $value,
+        "reservationEndDate" => $day." ".$hours
+      );
+		$reservation = new Reservation($data);
+		$mng->add($reservation);
+		showArray($data);
+	}
 
 	header("Location: service.php?ok=1");

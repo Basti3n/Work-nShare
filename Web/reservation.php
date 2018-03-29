@@ -41,9 +41,9 @@
         <h2>Recapitulatif de votre commande: </h2>
         <?php
 
-          echo "<p> Vous avez choisis ".$res[0]["nameServiceContent"]." pour le site de ".$res3[0]["nameSpace"];
+          echo "<p> Vous avez choisis ".$res[0]["nameServiceContent"]." pour le site de ".utf8_encode($res3[0]["nameSpace"]);
 
-          $tab = array(
+         /*$tab = array(
             "site" => $res3[0]["nameSpace"],
             "email" => $_SESSION["email"],
             "idServiceContent" => $_GET["choice"],
@@ -53,7 +53,7 @@
           );
           $db = connectDb();
           $mng = new ReservationMng($db);
-          $reservation = new Reservation($tab);
+          $reservation = new Reservation($tab);*/
           //$reservation->speak();
 
           //$mng->add($reservation);
@@ -147,9 +147,12 @@
           }
           echo "</tbody>";
           */
+
         ?>
        <!--</table>-->
-       <button onclick="ajaxReserv()">Confirmer La reservation</button>
+       <?php
+       echo '<button onclick="reserv(\''.utf8_encode($res3[0]["nameSpace"]).'\','.$_GET["choice"].')">Confirmer La reservation</button>';
+       ?>
     </div>
 
 </body>

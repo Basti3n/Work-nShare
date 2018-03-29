@@ -79,37 +79,32 @@ function changeBg(id){
 	}
 }
 
-function ajaxReserv(){
+function reserv(site,serviceContent){
 	var week = $('#weeklyDatePicker').val();
-	console.log(week);
+	var json = [];
+	var i = 0 ;
+	//console.log(week);
 	$(".vosreserv").each(function(){
-		var hour =(($(this).attr("id")).split("-")[0]).split("d")[1]+":00";
+		var hour =(($(this).attr("id")).split("-")[0]).split("d")[1]+":00:00";
 		var day = parseInt(($(this).attr("id")).split("-")[1])+1;
 		var test = moment(week, "YYYY-MM-DD").day(day).format("YYYY-MM-DD");
-		console.log("date : "+test);
+		console.log("date : "+test+" "+hour);
+		json[i]=test+" "+hour;
+		i++;
 	});
-
-	/*reserv.foreach(function(element) {
-	  console.log(element.id);
-	});*/
-
-	//console.log(reserv[1]);
+	json=JSON.stringify(json);
+	document.location ='saveReservation.php?site='+site+'&serviceContent='+serviceContent+'&date=' +  json;
 	/*var request = new XMLHttpRequest();
 	request.onreadystatechange = function(){
 		if(request.readyState == 4){
 			if (request.status == 200 ) {
-				document.getElementById("divMatos").innerHTML = request.responseText;
-				//invertDisplay("divMatos");
-				//invertDisplay("model");
-				document.getElementById("divMatos").classList.add("displayBlock");
-				document.getElementById("model").classList.add("displayBlock");
-				document.getElementById("divMatos").classList.remove("displayNone");
-				document.getElementById("model").classList.remove("displayNone");
+				
 			}
 		}
 	};
-	request.open('GET', 'showServiceContent.php?service=' +  value);
+	request.open('GET', 'saveReservation.php?date=' +  json);
 	request.send();*/
+
 }
 
 function ajaxShowReserv(){
