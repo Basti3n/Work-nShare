@@ -36,7 +36,7 @@ function showArray($array){
       $admin = $db->prepare("SELECT statusUser FROM USERS WHERE email = :email");
       $admin->execute(["email"=>$_SESSION['email']]);
       $admin = $admin->fetch();
-      if($admin["status"] == 0){
+      if($admin["statusUser"] == 0){
         return true;
       }
       else return false;
@@ -52,7 +52,7 @@ function showArray($array){
       $admin = $db->prepare("SELECT statusUser FROM USERS WHERE email = :email");
       $admin->execute(["email"=>$_SESSION['email']]);
       $admin = $admin->fetch();
-      if($admin["status"] == 1){
+      if($admin["statusUser"] == 1){
         return true;
       }
       else return false;
@@ -67,7 +67,7 @@ function showArray($array){
       $admin = $db->prepare("SELECT statusUser FROM USERS WHERE email = :email");
       $admin->execute(["email"=>$_SESSION['email']]);
       $admin = $admin->fetch();
-      if($admin["status"] == 2){
+      if($admin["statusUser"] == 2){
         return true;
       }
       else return false;

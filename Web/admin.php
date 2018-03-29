@@ -2,46 +2,243 @@
   require "conf.inc.php";
   require "function.php";
   include "object/user.php";
+  include "object/spaces.php";
+  include "object/services.php";
+  include "object/serviceContents.php";
+
 ?>
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>admin</title>
+    <title>Work'n Share - Profil</title>
+
     <?php require "head.php" ?>
     <link rel="stylesheet" type="text/css" href="CSS/profil.css">
+    <link rel="stylesheet" type="text/css" href="CSS/admin.css">
 
   </head>
   <body>
     <?php require "header.php" ?>
-    <div class="col-md-3" id="navbar">
-      <?php // IDEA: https://getbootstrap.com/docs/4.0/components/list-group/ ?>
+    <div class="inner">
       <div class="row">
-        <div class="col-4">
-          <div class="list-group text-center" id="list-tab" role="tablist">
-            <div class="list-group-item list-group-item-action list-group-item-dark" id="rest"></div>
-            <a class="list-group-item list-group-item-action list-group-item-dark active" id="list-services-list" data-toggle="list" href="#list-services" role="tab" aria-controls="services">Services</a>
-            <a class="list-group-item list-group-item-action list-group-item-dark" id="list-events-list" data-toggle="list" href="#list-events" role="tab" aria-controls="events">Evènement</a>
-            <a class="list-group-item list-group-item-action list-group-item-dark" id="list-spaces-list" data-toggle="list" href="#list-spaces" role="tab" aria-controls="spaces">Site</a>
-            <a class="list-group-item list-group-item-action list-group-item-dark" id="list-database-list" data-toggle="list" href="#list-database" role="tab" aria-controls="database">Base de données</a>
-            <a class="list-group-item list-group-item-action list-group-item-dark" id="list-tickets-list" data-toggle="list" href="#list-tickets" role="tab" aria-controls="tickets">Tickets</a>
-          </div>
+        <div class="col-md-3" >
+            <div class="list-group text-center" id="list-tab" role="tablist">
+              <a class="list-group-item list-group-item-action list-group-item-dark active" id="spaces-list" data-toggle="tab" href="#spaces" role="tab" aria-controls="spaces">Espace</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="services-list" data-toggle="tab" href="#services" role="tab" aria-controls="services">Services</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="events-list" data-toggle="tab" href="#events" role="tab" aria-controls="events">Evènement</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="database-list" data-toggle="tab" href="#database" role="tab" aria-controls="database">Base de données</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="tickets-list" data-toggle="tab" href="#tickets" role="tab" aria-controls="historique">Tickets</a>
+            </div>
         </div>
-        <div class="col-8">
+        <div class="col-md-9">
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="list-services" role="tabpanel" aria-labelledby="list-services-list"> Services </div>
-            <div class="tab-pane fade" id="list-events" role="tabpanel" aria-labelledby="list-events-list"> Evènements </div>
-            <div class="tab-pane fade" id="list-spaces" role="tabpanel" aria-labelledby="list-spaces-list"> Site </div>
-            <div class="tab-pane fade" id="list-database" role="tabpanel" aria-labelledby="list-database-list"> Base de données  </div>
-            <div class="tab-pane fade" id="list-tickets" role="tabpanel" aria-labelledby="list-tickets-list"> Tickets </div>
+            <div class="tab-pane tabcontent fade show active in" id="spaces" role="tabpanel" aria-labelledby="spaces-list">
+              <div class="container col-md-12">
+
+
+
+
+                <div style="margin-top:2%;">
+                  <button class="btn btn-primary" id="addSpaceButton">Ajouter un espace</button>
+                </div>
+
+                  <br>
+                <div id="spaceDiv">
+                  <?php
+                    $db = connectDb();
+                    $spaceMng = new SpaceMng($db);
+                    $spaces = $spaceMng->getAllSpaces();
+                  ?>
+
+                  <?php if(!empty($spaces)) :?>
+                    <table class="table" id ="spaceArray">
+                      <tr>
+                                <th>Id de L'espace</th>
+                                <th>Nom de l'espace</th>
+                                <th>Créer un service</th>
+                                <th>Créer un évènement</th>
+                                <th>Désactiver l'espace</th>
+
+                      </tr>
+                      <?php
+                        foreach ($spaces as $space) {
+                          echo '<tr>
+                                  <td>'.$space->IdSpace().'</td>
+                                  <td>'. $space->NameOfSpace().'</td>
+                                  <td>'.'<button onclick="displayCreateServicePannel(\''.$space->IdSpace().'\')" >Ajouter un service</button>'.'</td>
+                                  <td>'.'<button>Ajouter un évènement</button>'.'</td>
+                                  <td>'. $space->IsDeleted().'</td>
+                                </tr>';
+                        }
+
+                      ?>
+                    </table>
+                  <?php else :?>
+                  <?php endif;?>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane tabcontent fade" id="services" role="tabpanel" aria-labelledby="services-list">
+
+
+
+              <div class="container col-md-12">
+
+                <div class="row buttonRow" >
+                    <button class="btn btn-primary" id="addServiceButton">Ajouter un type de Service</button>
+                      <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
+                </div>
+                <br>
+                <div id="servicesDiv">
+                  <?php
+                    $db = connectDb();
+                    $serviceMng = new ServiceMng($db);
+                    $services = $serviceMng->getAllServices();
+                  //  echo $services[0].NameOfService();
+                  ?>
+
+                  <?php if(!empty($services)) :?>
+                    <table class="table" id ="spaceArray">
+                      <tr>
+                                <th>Nom du service général</th>
+                                <th>Information complémentaire</th>
+                                <th>Espace du service</th>
+                                <th>Disponible</th>
+                                <th>Supprimé</th>
+
+                      </tr>
+                      <?php
+                        foreach ($services as $service) {
+
+                          echo '<tr>
+                                  <td>'.$service->NameOfService().'</td>
+                                  <td>'. $service->CompInfo().'</td>
+                                  <td>'.$spaceMng->getSpaceName($service->IdSpace()).'</td>
+                                  <td>'.$service->IsBooked().'</td>
+                                  <td>'. $service->IsDeleted().'</td>
+                                </tr>';
+                        }
+
+                      ?>
+                    </table>
+                  <?php else :?>
+                  <?php endif;?>
+                </div>
+
+                <div>
+                  <?php
+                    $db = connectDb();
+                    $serviceContentMng = new ServiceContentMng($db);
+                    $serviceContents = $serviceContentMng->getAllServiceContents();
+                  //  echo $services[0].NameOfService();
+                 //showArray($serviceContents);
+                  ?>
+
+                  <?php if(!empty($serviceContents)) :?>
+
+                    <table class="table" id ="spaceContentArray">
+                      <tr>
+                                <th>Nom du service</th>
+                                <th>Information complémentaire</th>
+                                <th>Service concerné</th>
+                                <th>Disponible</th>
+                                <th>Supprimé</th>
+
+                      </tr>
+                      <?php
+                        foreach ($serviceContents as $serviceContent) {
+
+                          echo '<tr>
+                                  <td>'.$serviceContent->NameServiceContent().'</td>
+                                  <td>'. $serviceContent->InformationServiceContent().'</td>
+                                  <td>'.$serviceMng->getServiceName($serviceContent->IdService()).'</td>
+                                  <td>'.$serviceContent->IsFree().'</td>
+                                  <td>'. $serviceContent->IsDeleted().'</td>
+                                </tr>';
+                        }
+
+                      ?>
+                    </table>
+
+                  <?php else :?>
+                  <?php endif;?>
+
+                </div>
+
+
+              </div>
+            </div>
+            <div class="tab-pane tabcontent fade" id="events" role="tabpanel" aria-labelledby="events-list">
+              <div class="container col-md-12">
+                <p>Evènements</p>
+              </div>
+            </div>
+            <div class="tab-pane tabcontent fade" id="database" role="tabpanel" aria-labelledby="database-list">
+              <div class="container col-md-12">
+                <p>Base de données</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tickets" role="tabpanel" aria-labelledby="tickets-list">
+              <div class="container col-md-12">
+                <p>Tickets</p>
+              </div>
+            </div>
+            <!--  <div class="container col-md-12">
+                <p>Disable</p>
+              </div>-->
+            </div>
+
+
+            <!--Create space pannel -->
+            <div id="createSpacePannel" class="hidden">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="createSpaceForm">
+                    <input type="text" placeholder="L'id en 7 caractères de votre espace" id="newSpaceId"><br>
+                    <input type="text" placeholder="Le nom de votre espace" id="newSpaceName"><br>
+                    <button class="btn btn-primary" onclick="createSpace()">Valider</button>
+                    <button class="btn btn-primary"  id="cancelCreateSpaceButton">Annuler</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Create Space pannel-->
+
+            <!--Create service pannel-->
+            <div class="pannel hidden" id="createServicePannel">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="createServiceForm">
+                    <input type="text" placeholder="Le nom de votre service" id="newServiceName"><br>
+                    <textarea placeholder="Information complémentaire de votre service" id="newServiceCompInf"></textarea>
+                    <br>
+                    <select id="spaceSelector">
+
+                        <?php
+                          foreach ($spaces as $key => $space) {
+                            echo "<option value='".$space->IdSpace()."'>".$space->NameOfSpace()."</option>";
+                          }
+                         ?>
+                    </select>
+                    <br>
+
+                    <button class="btn btn-primary" onclick="createService()">Valider</button>
+                    <button class="btn btn-primary"  id="cancelCreateServiceButton">Annuler</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End create service pannel-->
+
+
 
           </div>
         </div>
       </div>
     </div>
-    <div class="col-md-9 container text-center" id="contentTab">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-    </div>
+
+
     <!--<?php
       $db = connectDb();
       $mng = new UserMng($db);
@@ -49,7 +246,7 @@
       echo "<br>";
       $user->speak();
     ?>-->
-
     <?php require "footer.php"; ?>
+    <script type="text/javascript" src="js/admin.js"> </script>
   </body>
 </html>
