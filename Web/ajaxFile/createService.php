@@ -3,8 +3,8 @@ session_start();
 require "../function.php";
 require "../object/services.php";
 
-
 if(isAdmin() || isSuperAdmin()){
+      showArray($_POST);
   if( count($_POST)==3 && isset($_POST["spaceId"]) && isset( $_POST["serviceName"])  && isset( $_POST["serviceCompInf"])){
     $db=connectDb();
     $service = new Service(null);
