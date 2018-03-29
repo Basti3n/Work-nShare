@@ -1,0 +1,40 @@
+.bootstrap-datetimepicker-widget .datepicker-days table tbody tr:hover {
+    background-color: #eee;
+}
+
+.calendarTd{
+	border : 1px solid black;
+    text-align: center;
+}
+.calendarTh{
+	text-align: center;
+}
+
+
+#calendar{
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	text-align: center;
+}
+
+
+.occupe{
+	background-color: red;
+	cursor: not-allowed;
+}
+
+.libre{
+	background-color: green;
+	cursor: pointer;
+}
+
+.indisponible{
+	background-color: grey;
+	cursor: not-allowed;
+}
+
+.vosreserv{
+	background-color: cyan;
+	cursor: pointer;
+}
