@@ -21,10 +21,12 @@
 		"endD"=>date("Y-m-d",strtotime($date[6].'+1 day'))/*,
 		"idServiceContent"=>37*/
 	]);
+	//showArray($date);
 
 
 	//echo " date :".date("Y-m-d",strtotime($_GET["date6"].'+1 day'))."<br>";
 	$data = $query->fetchAll(PDO::FETCH_ASSOC);
+	//showArray($data);
 	?>
 	<!--<div class="row">
             <div class="col-sm-6 form-group">
@@ -109,7 +111,7 @@
           echo "</tbody>";
         ?>
        </table>
-		 <!--<button onclick="ajaxReserv()">Confirmer La reservation</button>-->
+		<!--<button onclick="ajaxReserv()">Confirmer La reservation</button>-->
        <?php
        
 	/* function */
@@ -123,7 +125,7 @@
             $time = explode(" ",$index["reservationStartDate"])[1];
             $day = explode(" ",$index["reservationStartDate"])[0];
             //echo $time." ";
-            //echo $time." == ".$i.":00:00 ///  jour : ".$day."==".$_GET["date1"]."<br>";
+            //echo $time." == ".$i.":00:00 ///  jour : ".$day."==".$date[$y]."<br>";
             if($time == $i.":00:00" && $day == $date[$y]){
             	//echo "1 ";
             	return 1; 

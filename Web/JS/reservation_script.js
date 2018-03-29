@@ -56,7 +56,7 @@ $(document).ready(function(){
   });
   //Initialise les valeurs par defaut 
  	var first = moment().day(1).format("YYYY-MM-DD");
-    var last =  moment().day(8).format("YYYY-MM-DD");
+    var last =  moment().day(7).format("YYYY-MM-DD");
     $("#weeklyDatePicker").val(first + " - " + last);
     //affiche les réservations
     ajaxShowReserv();
@@ -69,6 +69,8 @@ $(document).ready(function(){
       var firstDate = moment(value, "YYYY-MM-DD").day(1).format("YYYY-MM-DD");
       var lastDate =  moment(value, "YYYY-MM-DD").day(7).format("YYYY-MM-DD");
       $("#weeklyDatePicker").val(firstDate + " - " + lastDate);
+      ajaxShowReserv();
+      console.log($("#weeklyDatePicker").val());
   });
 });
 
@@ -118,10 +120,12 @@ function ajaxShowReserv(){
 	var week = $('#weeklyDatePicker').val();
 	var value = [];
 	for (var i = 0;i<7;i++){
-		value[i] = moment(week, "YYYY-MM-DD").day(i).format("YYYY-MM-DD");
+		value[i] = moment(week, "YYYY-MM-DD").day(i+1).format("YYYY-MM-DD");
 	}
 
+
 	value = JSON.stringify(value);
+	//console.log(value);
 	var request = new XMLHttpRequest();
 	request.onreadystatechange = function(){
 		if(request.readyState == 4){
