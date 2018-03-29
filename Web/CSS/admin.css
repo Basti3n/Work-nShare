@@ -102,3 +102,47 @@ textarea{
   margin-bottom: 2%;
 
 }
+
+
+#createServiceContentForm{
+	width : 75%;
+	background-color: rgb(170,171,170);
+	vertical-align: center;
+	text-align: center;
+	padding-top : 3%;
+	padding-bottom : 3%;
+  border-radius: 2%;
+
+}
+
+#newServiceContentName{
+	width : 30%;
+  border-radius: 2%;
+  margin-bottom: 1%;
+
+}
+
+#newServiceContentInformation{
+	width : 50%;
+  height: 30vh;
+  border-radius: 2%;
+  margin-bottom: 1%;
+}
+
+textarea{
+  resize: none;
+}
+
+#serviceSelector{
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 2%;
+
+}
+
+#newServiceContentNumber{
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 2%;
+
+}

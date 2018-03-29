@@ -52,7 +52,8 @@
                   ?>
 
                   <?php if(!empty($spaces)) :?>
-                    <table class="table" id ="spaceArray">
+                    <table class="table" id="spaceArray">
+                      <tbody id="spaceArrayBody">
                       <tr>
                                 <th>Id de L'espace</th>
                                 <th>Nom de l'espace</th>
@@ -68,11 +69,12 @@
                                   <td>'. $space->NameOfSpace().'</td>
                                   <td>'.'<button onclick="displayCreateServicePannel(\''.$space->IdSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
-                                  <td>'. $space->IsDeleted().'</td>
+                                  <td> <input type="checkbox" '.($space->IsDeleted()?"checked":"").'></td>
                                 </tr>';
                         }
-
+                          //. $space->IsDeleted().
                       ?>
+                    </tbody>
                     </table>
                   <?php else :?>
                   <?php endif;?>
@@ -86,15 +88,15 @@
               <div class="container col-md-12">
 
                 <div class="row buttonRow" >
-                    <select>
-                      <option>Service modèle </option>
-                      <option>Service </option>
+                    <select id="serviceTypeSelector" onchange="changeServiceType()">
+                      <option value="1">Services</option>
+                      <option value="2">Service contents</options>
                     </select>
                     <button class="btn btn-primary" id="addServiceButton">Ajouter un type de Service</button>
                     <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
                 </div>
                 <br>
-                <div id="servicesDiv">
+                <div id="servicesDiv" class="">
                   <?php
                     $db = connectDb();
                     $serviceMng = new ServiceMng($db);
@@ -236,6 +238,33 @@
             <!--End create service pannel-->
 
 
+            <!--Create service content pannel-->
+            <div class="pannel hidden" id="createServiceContentPannel">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="createServiceContentForm">
+                    <input type="text" placeholder="Le nom de votre service content" id="newServiceContentName"><br>
+                    <input type="number" id="newServiceContentNumber" placeholder="Nombre disponible pour votre service content"> </input>
+                    <br>
+                    <textarea placeholder="Information  de votre service content" id="newServiceContentInformation"></textarea>
+                    <br>
+                    <select id="serviceSelector">
+
+                        <?php
+                          foreach ($services as $key => $service) {
+                            echo "<option value='".$service->IdService()."'>".$service->NameOfService()."</option>";
+                          }
+                         ?>
+                    </select>
+                    <br>
+
+                    <button class="btn btn-primary" onclick="createServiceContent()">Valider</button>
+                    <button class="btn btn-primary"  id="cancelCreateServiceContentButton">Annuler</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End create service content pannel-->
 
           </div>
         </div>

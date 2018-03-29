@@ -55,8 +55,8 @@ class ServiceContent{
     return 0;
   }
 
-  public function InformationServiceContent($informationServiceContent = '0'){
-    if($informationServiceContent) return $this->_informationServiceContent;
+  public function InformationServiceContent($informationServiceContent = '-1'){
+    if($informationServiceContent =='-1') return $this->_informationServiceContent;
 
     $this->_informationServiceContent = $informationServiceContent;
   }
@@ -67,6 +67,7 @@ class ServiceContent{
     if( (strlen($nameServiceContent)<80) ){
       $this->_nameServiceContent = $nameServiceContent;
     }else{
+        $this->listOfErrors[] = 20;
       return 1;
     }
   }
@@ -113,7 +114,7 @@ class ServiceContentMng{
       "informationServiceContent"=>$serviceContent->InformationServiceContent(),
       "nameServiceContent"=>$serviceContent->NameServiceContent(),
       "isFree"=>$serviceContent->IsFree(),
-      "idService"=>$serviceContent->IdFree()
+      "idService"=>$serviceContent->IdService()
       ]);
   }
 

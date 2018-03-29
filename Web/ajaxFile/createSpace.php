@@ -25,7 +25,6 @@ if(isAdmin() || isSuperAdmin()){
       $spaceMng->add($space);
     }
 
-    echo "Ok";
   }
 
 
