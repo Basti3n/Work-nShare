@@ -97,11 +97,11 @@
 	              for($y=0;$y<7;$y++){
 	              		$time = test($i,$data,$json,$y,$date);
 		                if($time == 1){
-		                  echo "<td class='occupe calendarTd' id='td".$i."-".$y."'> </td>";
+		                  echo "<td class='occupe calendarTd' id='td".$i."-".$y."' title='occupe'> </td>";
 		                }else if($time == 2){
-		                  echo "<td class='indisponible calendarTd' id='td".$i."-".$y."'> </td>";
+		                  echo "<td class='indisponible calendarTd' id='td".$i."-".$y."' title='indisponible'> </td>";
 		                }else{
-		                  echo "<td class='libre calendarTd' onclick='changeBg(\"td".$i."-".$y."\")' id='td".$i."-".$y."'> </td>";
+		                  echo "<td class='libre calendarTd' onclick='changeBg(\"td".$i."-".$y."\")' id='td".$i."-".$y."' title='libre'> </td>";
 		                }                
 	              	}
 	            echo "</tr>";
