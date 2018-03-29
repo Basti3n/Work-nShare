@@ -22,7 +22,7 @@ if(isAdmin() || isSuperAdmin()){
       print_r($_SESSION["errorSpaceForm"]);
     }else{
       $spaceMng = new SpaceMng($db);
-    //  $spaceMng->add($space);
+      $spaceMng->add($space);
     }
 
     echo "Ok";
