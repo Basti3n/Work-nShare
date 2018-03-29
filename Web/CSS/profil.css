@@ -9,7 +9,6 @@
 
 #contentTab{
   padding-top: 20px;
-  position : absolute;
 }
 
 #qr{
@@ -29,4 +28,15 @@
 
 .tabcontent{
   position: absolute;
+}
+
+.tablemsg{
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.corbeille{
+  font-size: 1em;
+  font-weight: bold;
+  color: #c94c4c;
 }

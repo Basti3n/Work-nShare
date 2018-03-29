@@ -93,7 +93,7 @@
                       <option value="2">Service contents</options>
                     </select>
                     <button class="btn btn-primary" id="addServiceButton">Ajouter un type de Service</button>
-                      <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
+                    <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
                 </div>
                 <br>
                 <div id="servicesDiv" class="">

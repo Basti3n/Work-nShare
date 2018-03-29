@@ -7,6 +7,11 @@ $('.list-group a').click(function() {
       $(this).addClass('active');
   });
 
+function abbo(){
+  window.location.href='http://localhost/Work-nShare/Web/subscribe.php';
+}
+/*
+$("#YourElementID").css({ display: "block" });
 $('#list-tab a[href="#general"]').on('click', function (e) {
   e.preventDefault();
   $(this).tab('show');
@@ -36,3 +41,4 @@ $('#list-tab a[href="#desactive"]').on('click', function (e) {
   e.preventDefault();
   $(this).tab('show');
 });
+*/
