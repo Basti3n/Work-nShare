@@ -60,16 +60,19 @@
                                 <th>Créer un service</th>
                                 <th>Créer un évènement</th>
                                 <th>Désactiver l'espace</th>
+                                <th>Valider les modifications</th>
 
                       </tr>
                       <?php
                         foreach ($spaces as $space) {
                           echo '<tr>
                                   <td>'.$space->IdSpace().'</td>
-                                  <td>'. $space->NameOfSpace().'</td>
+                                  <td><input type="text" id="'.$space->IdSpace().'NameSpace" value="'.$space->NameOfSpace().'"></td>
                                   <td>'.'<button onclick="displayCreateServicePannel(\''.$space->IdSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
-                                  <td> <input type="checkbox" '.($space->IsDeleted()?"checked":"").'></td>
+                                  <td> <input id="'.$space->IdSpace().'IsDeleted" type="checkbox" '.($space->IsDeleted()?"checked":"").'></td>
+                                  <td> <button onclick="updateSpace(\''.$space->IdSpace().'\')">Valider </button> </td>
+
                                 </tr>';
                         }
                           //. $space->IsDeleted().
@@ -270,15 +273,6 @@
         </div>
       </div>
     </div>
-
-
-    <!--<?php
-      $db = connectDb();
-      $mng = new UserMng($db);
-      $user = $mng->get("invis@gmail.com");
-      echo "<br>";
-      $user->speak();
-    ?>-->
     <?php require "footer.php"; ?>
     <script type="text/javascript" src="js/admin.js"> </script>
   </body>

@@ -133,6 +133,33 @@ function updateSpaceArray(spaceId,spaceName){
 }
 
 
+function updateSpace(idSpace){
+    var newNameSpace = document.getElementById(idSpace+'NameSpace').value;
+    var newIsDeletedSpace = document.getElementById(idSpace+'IsDeleted').checked;
+
+    var request = new XMLHttpRequest();
+
+  	request.onreadystatechange =function(){
+  	  if(request.readyState == 4){
+  	    if(request.status ==200){
+  	    	  console.log(request.responseText);
+
+  	    }
+  	  }
+  	};
+
+
+  	request.open("POST",'ajaxFile\\updateSpace.php');
+  	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+  	var params = [
+  		'idSpace='+idSpace,
+  		'newNameSpace='+newNameSpace,
+      'newIsDeletedSpace='+newIsDeletedSpace
+  	];
+  	var body = params.join('&');
+  	request.send(body);
+}
+
 function createService(){
 
 	var spaceId = getSpaceId()
