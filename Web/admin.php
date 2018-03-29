@@ -86,8 +86,12 @@
               <div class="container col-md-12">
 
                 <div class="row buttonRow" >
+                    <select>
+                      <option>Service modèle </option>
+                      <option>Service </option>
+                    </select>
                     <button class="btn btn-primary" id="addServiceButton">Ajouter un type de Service</button>
-                      <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
+                    <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
                 </div>
                 <br>
                 <div id="servicesDiv">
@@ -126,7 +130,7 @@
                   <?php endif;?>
                 </div>
 
-                <div>
+                <div id="serviceContentsDiv" class="hidden">
                   <?php
                     $db = connectDb();
                     $serviceContentMng = new ServiceContentMng($db);
