@@ -81,7 +81,7 @@ class ServiceContent{
     if($isDeleted =='-1') return $this->_isDeleted;
 
     $this->_isDeleted = $isDeleted;
-
+  }
 
   public function IdService($idService = '-1'){
     if($idService == '-1') return $this->_idService;

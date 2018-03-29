@@ -86,11 +86,15 @@
               <div class="container col-md-12">
 
                 <div class="row buttonRow" >
+                    <select id="serviceTypeSelector" onchange="changeServiceType()">
+                      <option value="1">Services</option>
+                      <option value="2">Service contents</options>
+                    </select>
                     <button class="btn btn-primary" id="addServiceButton">Ajouter un type de Service</button>
                       <button class="btn btn-primary" id="addServiceContentButton">Ajouter un service</button>
                 </div>
                 <br>
-                <div id="servicesDiv">
+                <div id="servicesDiv" class="hidden">
                   <?php
                     $db = connectDb();
                     $serviceMng = new ServiceMng($db);

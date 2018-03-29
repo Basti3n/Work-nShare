@@ -186,3 +186,22 @@ function displayCreateServicePannel(idSpace){
 
   console.log(createServicePannel);
 }
+
+
+function changeServiceType(){
+  if(getServiceType() == 1){
+
+  }else{
+
+  }
+}
+
+
+function getServiceType(){
+	var select = document.getElementById('serviceTypeSelector');
+	var idx=select.selectedIndex;
+	var options = select.getElementsByTagName('option');
+	var selectedOption = options[idx];
+	var bookId = selectedOption.value;
+	return bookId;
+}
