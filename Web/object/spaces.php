@@ -158,6 +158,21 @@ class SpaceMng{
 
   }
 
+  public function updateSpace($idSpace,Space $space){
+    try{
+        $query = $this->_db->prepare('UPDATE SPACES SET nameSpace =:nameSpace,isDeleted = :isDeleted WHERE idSpace = :idSpace');
+        $query->execute([
+          "nameSpace"=>$space->NameOfSpace(),
+          "isDeleted"=>$space->IsDeleted(),
+          "idSpace"=>$idSpace
+        ]);
+    }catch (Exception $e){
+      echo "PDOException : ".$e->getMessage();;
+    }
+
+      echo "Space updated";
+  }
+
 
 }
  ?>
