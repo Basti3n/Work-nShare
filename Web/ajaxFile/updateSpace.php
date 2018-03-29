@@ -9,13 +9,11 @@ if(isAdmin() || isSuperAdmin()){
     $db=connectDb();
     $space = new Space(null);
 
-    if($_POST["newIsDeletedSpace"] == true){
-
-    }
+    echo $_POST["newIsDeletedSpace"];
 
     $error = false;
     $listOfErrors = [];
-    if($space->IsDeleted(  ($_POST["newIsDeletedSpace"]?1:0)   ) ){
+    if($space->IsDeleted(  ($_POST["newIsDeletedSpace"]== "true"?1:0)   ) ){
       echo ($_POST["newIsDeletedSpace"]?1:0);
     }
 
