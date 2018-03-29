@@ -1,239 +1,231 @@
 @import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
-
-header{
-	width : 100%;
-	background-color : #222222;
-	display :block;
-	margin : auto;
-	height: 8vh;
-	z-index: 40;
-	color : #CFCFCF;
-	font-size : 18px;
+header {
+  width: 100%;
+  background-color: #222222;
+  display: block;
+  margin: auto;
+  height: 8vh;
+  z-index: 40;
+  color: #CFCFCF;
+  font-size: 18px;
 }
 
-.headerLogo{
-	margin-top : 5px;
+.headerLogo {
+  margin-top: 5px;
 }
 
-#logo{
-	display : inline-block;
-	height: 70px;
+#logo {
+  display: inline-block;
+  height: 70px;
 }
 
-.headerButton{
-	margin-top : 30px;
-	vertical-align: middle;
-	text-decoration : none;
-	color : #CFCFCF;
-}
-.headerButton:hover{
-	color : #FFF;
+.headerButton {
+  margin-top: 30px;
+  vertical-align: middle;
+  text-decoration: none;
+  color: #CFCFCF;
 }
 
-#perso{
-	padding-top: 1vh;
+.headerButton:hover {
+  color: #FFF;
 }
 
-#leave{
-	font-size: 0.7em;
+#perso {
+  padding-top: 1vh;
+}
+
+#leave {
+  font-size: 0.7em;
 }
 
 body {
-    overflow: auto;
-
-    height: 100vh;
-    /*background: -webkit-linear-gradient(left, #25c481, #25b7c4) !important;*/
-    background-color : #f2f2f2;
-    font-family: 'Ubuntu', sans-serif !important;
+  overflow: auto;
+  height: 100vh;
+  /*background: -webkit-linear-gradient(left, #25c481, #25b7c4) !important;*/
+  background-color: #f2f2f2;
+  font-family: 'Ubuntu', sans-serif !important;
 }
 
-footer{
-  bottom : 0px;
+footer {
+  bottom: 0px;
 }
 
-.inner{
-		min-height: 100%;
+.inner {
+  margin-top: 20px;
+  min-height: 100%;
 }
 
-.home_top{
+.home_top {
   padding: 10% 0 10% 0;
-  background-image : url("../IMG/homeTopBackground.jpg");
-	background-size: cover;
-  background-attachment : fixed;
+  background-image: url("../IMG/homeTopBackground.jpg");
+  background-size: cover;
+  background-attachment: fixed;
 }
 
-.home_top_text{
-    width: 100%;
-    /*margin: 0 auto;*/
-    color: #fff;
+.home_top_text {
+  width: 100%;
+  /*margin: 0 auto;*/
+  color: #fff;
 }
 
-.home_top_title{
-  align : center;
+.home_top_title {
+  align: center;
 }
 
-.home_top_text h1{
-    text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
+.home_top_text h1 {
+  text-shadow: 0 1px 6px rgba(51, 51, 51, 0.2);
 }
 
-.home_top_text p{
-    margin-top: 20px;
-    font-size: 22px;
-    line-height: 36px;
-    text-shadow: 0 1px 5px rgba(51, 51, 51, 0.4);
-    font-family: 'Oxygen', sans-serif;
+.home_top_text p {
+  margin-top: 20px;
+  font-size: 22px;
+  line-height: 36px;
+  text-shadow: 0 1px 5px rgba(51, 51, 51, 0.4);
+  font-family: 'Oxygen', sans-serif;
 }
 
-
-.home_top_link{
-    padding-top: 25px;
-    padding-bottom: 7px;
-  }
-
-.home_top_link1{
-	display: inline-block;
-	color : #fff;
-    margin: 0 5px;
-    padding: 15px 20px;
-    background: #7acbc4;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 22px;
-    border-radius: 6px;
-    cursor : pointer;
-    /*font-family: 'Arvo', serif;*/
+.home_top_link {
+  padding-top: 25px;
+  padding-bottom: 7px;
 }
 
-.home_top_link1:hover{
-	color : #B3B3B3;
+.home_top_link1 {
+  display: inline-block;
+  color: #fff;
+  margin: 0 5px;
+  padding: 15px 20px;
+  background: #7acbc4;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 22px;
+  border-radius: 6px;
+  cursor: pointer;
+  /*font-family: 'Arvo', serif;*/
 }
 
-.home_top_link2{
-	display: inline-block;
-    margin: 0 5px;
-    padding: 14px 19px;
-    background: none;
-    border: 1px solid #fff;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 22px;
-    color: #fff;
-    border-radius: 6px;
-    /*font-family: 'Arvo', serif;*/
+.home_top_link1:hover {
+  color: #B3B3B3;
 }
 
-
-.home_top_link2:hover{
-	outline: 0;
-    opacity: 0.6;
-    background: none;
-    color:#B3B3B3;
+.home_top_link2 {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 14px 19px;
+  background: none;
+  border: 1px solid #fff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 22px;
+  color: #fff;
+  border-radius: 6px;
+  /*font-family: 'Arvo', serif;*/
 }
 
-.home_top_link2{
-	display: inline-block;
-    margin: 0 5px;
-    padding: 14px 19px;
-    background: none;
-    border: 1px solid #fff;
-    font-size: 22px;
-    font-weight: 300;
-    line-height: 22px;
-    color: #fff;
-    border-radius: 6px;
+.home_top_link2:hover {
+  outline: 0;
+  opacity: 0.6;
+  background: none;
+  color: #B3B3B3;
 }
 
-
-.home_top_link2:hover{
-	outline: 0;
-    opacity: 0.6;
-    background: none;
-    color:#B3B3B3;
+.home_top_link2 {
+  display: inline-block;
+  margin: 0 5px;
+  padding: 14px 19px;
+  background: none;
+  border: 1px solid #fff;
+  font-size: 22px;
+  font-weight: 300;
+  line-height: 22px;
+  color: #fff;
+  border-radius: 6px;
 }
 
+.home_top_link2:hover {
+  outline: 0;
+  opacity: 0.6;
+  background: none;
+  color: #B3B3B3;
+}
 
-.home_description{
+.home_description {
   margin-bottom: 50px;
 }
-.home_description_title{
-	margin-top : 50px;
-	margin-bottom: 40px;
+
+.home_description_title {
+  margin-top: 50px;
+  margin-bottom: 40px;
 }
 
-.home_description_icon{
-	width : 100px;
-	height: 100px;
+.home_description_icon {
+  width: 100px;
+  height: 100px;
 }
 
-h3{
-    font-size: 200%;
-    font-weight: 700;
-    /*font-size: 26px;
+h3 {
+  font-size: 200%;
+  font-weight: 700;
+  /*font-size: 26px;
     line-height: 30px;*/
-    line-height: 200%;
+  line-height: 200%;
 }
 
-.home_description_content_title{
-	color:#7acbc4;
+.home_description_content_title {
+  color: #7acbc4;
 }
 
-.home_description_content{
-    font-size: 120%;
-    line-height:  150%;
-    margin: 0 0 10px;
-    display: block;
+.home_description_content {
+  font-size: 120%;
+  line-height: 150%;
+  margin: 0 0 10px;
+  display: block;
 }
 
 .sites-wrapper {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    text-align: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
 }
-
 
 .sites-wrapper li {
-    display: inline-block;
+  display: inline-block;
 }
-
 
 .site {
-    cursor: pointer;
-    margin: 0 1% 1% 0;
-    overflow: hidden;
-    position: relative;
-    width: 32%;
+  cursor: pointer;
+  margin: 0 1% 1% 0;
+  overflow: hidden;
+  position: relative;
+  width: 32%;
 }
 
-
 figcaption.mask {
-    background-color: rgba(54, 55, 50, 0.79);
-    bottom: -126px;
-    color: #fff;
-    padding: 25px;
-    position: absolute;
-    width: 100%;
-    text-align: left;
-
-    -webkit-transition: all 0.4s ease 0s;
-       -moz-transition: all 0.4s ease 0s;
-        -ms-transition: all 0.4s ease 0s;
-         -o-transition: all 0.4s ease 0s;
-            transition: all 0.4s ease 0s;
+  background-color: rgba(54, 55, 50, 0.79);
+  bottom: -126px;
+  color: #fff;
+  padding: 25px;
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  -webkit-transition: all 0.4s ease 0s;
+  -moz-transition: all 0.4s ease 0s;
+  -ms-transition: all 0.4s ease 0s;
+  -o-transition: all 0.4s ease 0s;
+  transition: all 0.4s ease 0s;
 }
 
 .site:hover figcaption.mask {
-    bottom: 0;
+  bottom: 0;
 }
 
 figcaption.mask h3 {
-    margin: 0;
-    color: #fff;
+  margin: 0;
+  color: #fff;
 }
 
-
-.login{
-  padding-top:200px;
+.login {
+  padding-top: 200px;
 }
 
 /* SEPARATOR */
@@ -247,108 +239,103 @@ hr {
 
 /* CHECKBOX */
 
-input[type="checkbox"], input[type="radio"]{
-	position: absolute;
-	right: 11000px;
+input[type="checkbox"], input[type="radio"] {
+  position: absolute;
+  right: 11000px;
 }
 
-input[type="checkbox"] + .label-text:before{
-	content: "\f096";
-	font-family: "FontAwesome";
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing:antialiased;
-	width: 1em;
-	display: inline-block;
-	margin-right: 5px;
+input[type="checkbox"]+.label-text:before {
+  content: "\f096";
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  width: 1em;
+  display: inline-block;
+  margin-right: 5px;
 }
 
-input[type="checkbox"]:checked + .label-text:before{
-	content: "\f14a";
-	color: #2980b9;
-	animation: effect 250ms ease-in;
+input[type="checkbox"]:checked+.label-text:before {
+  content: "\f14a";
+  color: #2980b9;
+  animation: effect 250ms ease-in;
 }
 
-input[type="checkbox"]:disabled + .label-text{
-	color: #aaa;
+input[type="checkbox"]:disabled+.label-text {
+  color: #aaa;
 }
 
-input[type="checkbox"]:disabled + .label-text:before{
-	content: "\f0c8";
-	color: #ccc;
+input[type="checkbox"]:disabled+.label-text:before {
+  content: "\f0c8";
+  color: #ccc;
 }
 
-@keyframes effect{
-	0%{transform: scale(0);}
-	25%{transform: scale(1.3);}
-	75%{transform: scale(1.4);}
-	100%{transform: scale(1);}
+@keyframes effect {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(1.3);
+  }
+  75% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
-
 
 /* RESPONSIVITE */
 
 @media (min-width: 980px) and (max-width: 1150px) {
-
-    figcaption.mask {
-        bottom: -151px;
-    }
-
+  figcaption.mask {
+    bottom: -151px;
+  }
 }
-
 
 /*============================================================
 	Tablet (Portrait) Design for a width of 768px
 ==============================================================*/
 
 @media (min-width: 768px) and (max-width: 979px) {
-    .site{
-        width: 48%;
-    }
+  .site {
+    width: 48%;
+  }
 }
-
 
 /*============================================================
 	Mobile (Portrait) Design for a width of 320px
 ==============================================================*/
 
 @media only screen and (max-width: 767px) {
-
-    body {
-        font-size: 14px;
-    }
-
-    .site{
-        margin: 0 auto 10px;
-        font-size: 14px;
-        width: 280px;
-    }
-
-    figcaption.mask {
-        bottom: -107px;
-        color: #fff;
-        padding: 15px;
-    }
-
+  body {
+    font-size: 14px;
+  }
+  .site {
+    margin: 0 auto 10px;
+    font-size: 14px;
+    width: 280px;
+  }
+  figcaption.mask {
+    bottom: -107px;
+    color: #fff;
+    padding: 15px;
+  }
 }
-
 
 /*============================================================
 	Mobile (Landscape) Design for a width of 480px
 ==============================================================*/
 
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-
-    .portfolio-item {
-        width: 48%;
-    }
-
-    figcaption.mask {
-        bottom: -132px;
-    }
-
+  .portfolio-item {
+    width: 48%;
+  }
+  figcaption.mask {
+    bottom: -132px;
+  }
 }

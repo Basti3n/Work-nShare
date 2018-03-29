@@ -189,7 +189,7 @@
                       $query = $db->prepare('SELECT dateSubscription,dateEndSubscription FROM ISSUBSCRIBED WHERE email =:email');
                       $query->execute( ["email"=>$user->Email()]);
                       $data = $query->fetch(PDO::FETCH_ASSOC);
-                      if(!isset($data)){
+                      if($data){
                         echo "Abonné depuis le: ".date('j \/ m \/ Y', strtotime($data["dateSubscription"]))
                             ." jusqu'au: ".date('j \/ m \/ Y', strtotime($data["dateEndSubscription"]));
                       }else {

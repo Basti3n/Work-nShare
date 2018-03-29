@@ -102,7 +102,7 @@ class User
 
   public function Date($date = '0'){
     if($date == '0')
-      $this->_dateSignUp = date('j \/ m \/ Y');
+      return date('j \/ m \/ Y',$this->_dateSignUp);
     else{
       $this->_dateSignUp = strtotime($date);
     }
@@ -192,9 +192,31 @@ class UserMng
 			]);
   }
 
-  public function update(User $user){
+  public function update(User $user, $id = '0'){
+    if ($id == '0')
+      $id = $user->Email();
     $date = date("y-m-d");
-    $query = $this->_db->prepare("UPDATE USERS SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr WHERE email=:id");
+    //Update all associate branches
+    if($user->Email() != $id){
+      /*
+      $assoc = $this->_db->prepare(" UPDATE TICKETS INNER JOIN ISSUBSCRIBED INNER JOIN ACCESS INNER JOIN EXITSPACE INNER JOIN RESERVATION
+                                     ON TICKETS.email = ISSUBSCRIBED.email = ACCESS.email = EXITSPACE.email = RESERVATION.email
+                                     SET TICKETS.email=:nemail, ISSUBSCRIBED.email=:nemail, ACCESS.email=:nemail, EXITSPACE.email=:nemail, RESERVATION.email=:nemail
+                                     WHERE TICKETS.email=:email");*/
+      $assoc = $this->_db->prepare(" UPDATE TICKETS SET email=:email WHERE email=:id");
+      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc = $this->_db->prepare(" UPDATE ISSUBSCRIBED SET email=:email WHERE email=:id");
+      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc = $this->_db->prepare(" UPDATE ACCESS SET email=:email WHERE email=:id");
+      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc = $this->_db->prepare(" UPDATE EXITSPACE SET email=:email WHERE email=:id");
+      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc = $this->_db->prepare(" UPDATE RESERVATION SET email=:email WHERE email=:id");
+      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      }
+    $query = $this->_db->prepare("UPDATE USERS
+                                  SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr
+                                  WHERE email=:id");
     $qrCode = password_hash($user->Email(),PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->Name(),
@@ -202,7 +224,7 @@ class UserMng
 			"email"=>$user->Email(),
 			"pwd"=>$user->Password(),
 			"qr"=>$qrCode,
-      "id"=>$user->Email()
+      "id"=>$id
 			]);
   }
 

@@ -10,8 +10,8 @@
 
   $error = 0;
 
-  $user = unserialize($_SESSION["user"]);
   //$user->speak();
+  $user = unserialize($_SESSION["user"]);
   $id = $user->Email();
 
   if (array_key_exists("ok", $_POST)) {
@@ -46,7 +46,7 @@
     }
 
     if ($error == false) {
-      $mng->update($user);
+      $mng->update($user,$id);
       header("Location: profil.php");
     }else {
       echo "<br> Error : ";
