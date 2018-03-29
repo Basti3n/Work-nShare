@@ -43,92 +43,91 @@ var json = {
   }
 };
 
-function add(){
-	console.log($('#val1').val());
-	console.log($('#val').val());
+
+$(document).ready(function(){
+    moment.updateLocale('en', {
+      week: { dow: 1 } // Monday is the first day of the week
+    });
+
+
+  //Initialize the datePicker(I have taken format as mm-dd-yyyy, you can     //have your owh)
+  $("#weeklyDatePicker").datetimepicker({
+    format: 'YYYY-MM-DD'
+  });
+
+   //Get the value of Start and End of Week
+  $('#weeklyDatePicker').on('dp.change', function (e) {
+      var value = $("#weeklyDatePicker").val();
+      var firstDate = moment(value, "YYYY-MM-DD").day(1).format("YYYY-MM-DD");
+      var lastDate =  moment(value, "YYYY-MM-DD").day(7).format("YYYY-MM-DD");
+      $("#weeklyDatePicker").val(firstDate + " - " + lastDate);
+      ajaxShowReserv();
+  });
+});
+
+
+
+
+function changeBg(id){
+	//console.log(document.getElementById(id).className);
+	if(document.getElementById(id).classList.contains("libre")){
+		document.getElementById(id).classList.add("vosreserv");
+		document.getElementById(id).classList.remove("libre");
+	}else if(document.getElementById(id).classList.contains("vosreserv")){
+		document.getElementById(id).classList.add("libre");
+		document.getElementById(id).classList.remove("vosreserv");
+	}
 }
 
-$(function () {
-	$("#datepicker").datepicker({
-	    autoclose: true,
-	    todayHighlight: true,
-	    language: 'fr',
-	    format: 'yyyy-mm-dd DD'
-
-	}).datepicker('update', new Date());
-});
-$(function () {
-	$("#datepicker1").datepicker({
-	    autoclose: true,
-	    todayHighlight: true,
-	    language: 'fr',
-	    format: 'yyyy-mm-dd DD'
-	}).datepicker('update', new Date());
-});
-
-$(document).ready(function () {
-	var fin =  new Date();
-	//debut
-	var str = $("#val").val();
-	str = str.split(" ")[1];
-	str = DAY[str];
-	//fin
-	var str2 = $("#val1").val();
-	str2 = str2.split(" ")[1];
-	str2 = DAY[str2];
-
-	//debut
-	document.getElementById("startTime").min = json[str]["debut"]+":00";
-	document.getElementById("startTime").max = (parseInt(json[str]["fin"])-1)+":00";
-	console.log("jh");
-	//fin
-	document.getElementById("endTime").max = (parseInt(json[str2]["fin"])-1)+":00";
-	document.getElementById("endTime").min = json[str2]["debut"]+":00";
-
-
-	if(fin.getHours() > parseInt(json[str]["fin"])){
-		document.getElementById("startTime").value =json[str]["debut"]+":00";
-	}else{
-		document.getElementById("startTime").value = fin.getHours()+":"+(fin.getMinutes()<10?"0"+fin.getMinutes():fin.getMinutes());
-	}
-	if(fin.getHours() > parseInt(json[str2]["fin"])){
-		document.getElementById("endTime").value =json[str2]["debut"]+":00";
-	}else{
-		document.getElementById("endTime").value = fin.getHours()+":"+(fin.getMinutes()<10?"0"+fin.getMinutes():fin.getMinutes());
-	}
-
-	$('#datepicker').datepicker().on('changeDate', function (ev) {
-	    changeValu("#val");
+function ajaxReserv(){
+	var week = $('#weeklyDatePicker').val();
+	console.log(week);
+	$(".vosreserv").each(function(){
+		var hour =(($(this).attr("id")).split("-")[0]).split("d")[1]+":00";
+		var day = parseInt(($(this).attr("id")).split("-")[1])+1;
+		var test = moment(week, "YYYY-MM-DD").day(day).format("YYYY-MM-DD");
+		console.log("date : "+test);
 	});
-	$('#datepicker1').datepicker().on('changeDate', function (ev) {
-	    changeValu("#val1");
-	});
-});
 
+	/*reserv.foreach(function(element) {
+	  console.log(element.id);
+	});*/
 
-function changeValu(value){
-	var str = $(value).val();
-	str = str.split(" ")[1];
-	str = DAY[str];
-	var fin =  new Date();
-	if(value == "#val"){
-		document.getElementById("startTime").min = json[str]["debut"]+":00";
-		document.getElementById("startTime").max = (parseInt(json[str]["fin"])-1)+":00";
-
-		if(fin.getHours() > parseInt(json[str]["fin"])){
-			document.getElementById("startTime").value =json[str]["debut"]+":00";;
-		}else{
-			document.getElementById("startTime").value = fin.getHours()+":"+(fin.getMinutes()<10?"0"+fin.getMinutes():fin.getMinutes());
-		}		
-
-	}else if(value == "#val1"){
-		document.getElementById("endTime").max = (parseInt(json[str]["fin"])-1)+":00";
-		document.getElementById("endTime").min = json[str]["debut"]+":00";
-		if(fin.getHours() > parseInt(json[str]["fin"])){
-			document.getElementById("endTime").value =json[str]["debut"]+":00";;
-		}else{
-			document.getElementById("endTime").value = fin.getHours()+":"+(fin.getMinutes()<10?"0"+fin.getMinutes():fin.getMinutes());
+	//console.log(reserv[1]);
+	/*var request = new XMLHttpRequest();
+	request.onreadystatechange = function(){
+		if(request.readyState == 4){
+			if (request.status == 200 ) {
+				document.getElementById("divMatos").innerHTML = request.responseText;
+				//invertDisplay("divMatos");
+				//invertDisplay("model");
+				document.getElementById("divMatos").classList.add("displayBlock");
+				document.getElementById("model").classList.add("displayBlock");
+				document.getElementById("divMatos").classList.remove("displayNone");
+				document.getElementById("model").classList.remove("displayNone");
+			}
 		}
+	};
+	request.open('GET', 'showServiceContent.php?service=' +  value);
+	request.send();*/
+}
+
+function ajaxShowReserv(){
+	var week = $('#weeklyDatePicker').val();
+	var value = [];
+	for (var i = 0;i<7;i++){
+		value[i] = moment(week, "YYYY-MM-DD").day(i).format("YYYY-MM-DD");
 	}
 
+	value = JSON.stringify(value);
+	var request = new XMLHttpRequest();
+	request.onreadystatechange = function(){
+		if(request.readyState == 4){
+			if (request.status == 200 ) {
+				document.getElementById("scheduler").innerHTML = request.responseText;
+			}
+		}
+	};
+	request.open('GET', 'showReservation.php?date=' +  value);
+	request.send();
 }
