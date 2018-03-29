@@ -14,7 +14,7 @@
         <div>
           <?php
             $y = 0;
-            echo "<div>";
+            echo "<div id='site'>";
             if(isset($_GET["ok"]) && $_GET["ok"]==1){
               echo '<div id="ok"> Votre réservation a été effectué. Vous pouvez allez la consulter sur votre <a href="profil.php">profil</a></div>';
             }
