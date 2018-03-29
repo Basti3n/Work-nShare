@@ -4,6 +4,8 @@
   include "object/user.php";
   include "object/spaces.php";
   include "object/services.php";
+  include "object/serviceContents.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -99,7 +101,7 @@
                   <?php if(!empty($services)) :?>
                     <table class="table" id ="spaceArray">
                       <tr>
-                                <th>Nom du service</th>
+                                <th>Nom du service général</th>
                                 <th>Information complémentaire</th>
                                 <th>Espace du service</th>
                                 <th>Disponible</th>
@@ -122,6 +124,46 @@
                     </table>
                   <?php else :?>
                   <?php endif;?>
+                </div>
+
+                <div>
+                  <?php
+                    $db = connectDb();
+                    $serviceContentMng = new ServiceContentMng($db);
+                    $serviceContents = $serviceContentMng->getAllServiceContents();
+                  //  echo $services[0].NameOfService();
+                 //showArray($serviceContents);
+                  ?>
+
+                  <?php if(!empty($serviceContents)) :?>
+
+                    <table class="table" id ="spaceContentArray">
+                      <tr>
+                                <th>Nom du service</th>
+                                <th>Information complémentaire</th>
+                                <th>Service concerné</th>
+                                <th>Disponible</th>
+                                <th>Supprimé</th>
+
+                      </tr>
+                      <?php
+                        foreach ($serviceContents as $serviceContent) {
+
+                          echo '<tr>
+                                  <td>'.$serviceContent->NameServiceContent().'</td>
+                                  <td>'. $serviceContent->InformationServiceContent().'</td>
+                                  <td>'.$serviceMng->getServiceName($serviceContent->IdService()).'</td>
+                                  <td>'.$serviceContent->IsFree().'</td>
+                                  <td>'. $serviceContent->IsDeleted().'</td>
+                                </tr>';
+                        }
+
+                      ?>
+                    </table>
+
+                  <?php else :?>
+                  <?php endif;?>
+
                 </div>
 
 

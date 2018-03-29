@@ -2,7 +2,7 @@
 date_default_timezone_set('Europe/Paris');
 
 class Service{
-  private $_idService ="Empty";
+  private $_idService;
   private $_idSpace = "Empty";
   private $_isBooked;
   private $_nameService = "Empty";
@@ -67,8 +67,6 @@ class Service{
   public function NameOfService($nameOfService = '0'){
     if($nameOfService =='0')return $this->_nameService;
 
-    trim($nameOfService);
-
     if(strlen($nameOfService)<80){
       $this->_nameService = $nameOfService;
     }else{
@@ -117,7 +115,7 @@ class ServiceMng{
 
   public function get($idService){
     try {
-      $query = $this->_db->prepare('SELECT  idService,idSpace,isBooked,nameService,compInfo,isDeleted FROM SPACES WHERE idService =:idService');
+      $query = $this->_db->prepare('SELECT  idService,idSpace,isBooked,nameService,compInfo,isDeleted FROM SERVICES WHERE idService =:idService');
       $query->execute( ["idService"=>$idService]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
@@ -125,6 +123,18 @@ class ServiceMng{
 
     $data = $query->fetch(PDO::FETCH_ASSOC);
     return new Space($data);
+  }
+
+  public function getServiceName($idService){
+    try {
+      $query = $this->_db->prepare('SELECT  nameService FROM SERVICES WHERE idService =:idService');
+      $query->execute( ["idService"=>$idService]);
+    } catch(Exception $e) {
+        echo "PDOException : " . $e->getMessage();
+    }
+
+    $data = $query->fetch(PDO::FETCH_ASSOC);
+    return $data["nameService"];
   }
 
 
