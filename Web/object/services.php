@@ -21,22 +21,22 @@ class Service{
     foreach ($data as $key => $value) {
       switch ($key) {
         case 'idService':
-          $this->IdService($value);
+          $this->idService($value);
           break;
         case 'idSpace':
-          $this->IdSpace($value);
+          $this->idSpace($value);
           break;
         case 'isBooked':
-          $this->IsBooked($value);
+          $this->isBooked($value);
           break;
         case 'nameService':
-          $this->NameOfService($value);
+          $this->nameOfService($value);
           break;
         case 'compInfo':
-          $this->CompInfo($value);
+          $this->compInfo($value);
           break;
         case 'isDeleted':
-          $this->IsDeleted($value);
+          $this->isDeleted($value);
           break;
 
         default:
@@ -46,25 +46,25 @@ class Service{
   }
 
 
-  public function IdService($idService ='0'){
+  public function idService($idService ='0'){
     if($idService=='0')return $this->_idService;
      $this->_idService = $idService;
     return 0;
   }
 
-  public function IdSpace($idSpace ='0'){
+  public function idSpace($idSpace ='0'){
     if($idSpace =='0')return $this->_idSpace;
      $this->_idSpace = $idSpace;
     return 0;
   }
 
-  public function IsBooked($isBooked=-10){
+  public function isBooked($isBooked=-10){
     if($isBooked == -10)return $this->_isBooked;
      $this->_isBooked = $isBooked;
     return 0;
   }
 
-  public function NameOfService($nameOfService = '0'){
+  public function nameOfService($nameOfService = '0'){
     if($nameOfService =='0')return $this->_nameService;
 
     if(strlen($nameOfService)<80){
@@ -75,7 +75,7 @@ class Service{
     }
   }
 
-  public function CompInfo($compInfo = '0'){
+  public function compInfo($compInfo = '0'){
     if($compInfo == '0')return $this->_compInfo;
 
     $this->_compInfo == $compInfo;
@@ -102,15 +102,15 @@ class ServiceMng{
     $query = $this->_db->prepare("INSERT INTO SERVICES (idSpace,isBooked,nameService,compInfo,isDeleted)
                                   VALUES (:idSpace,1,:nameService,:compInfo,0) ");
     $query->execute( [
-      "idSpace"=>$service->IdSpace(),
-      "nameService"=>$service->NameOfService(),
-      "compInfo"=>$service->CompInfo()
+      "idSpace"=>$service->idSpace(),
+      "nameService"=>$service->nameOfService(),
+      "compInfo"=>$service->compInfo()
       ]);
   }
 
   public function delete(Service $service){
-    $query = $this->_db->prepare('UPDATE SERVICES SET isDeleted = 1 WHERE idService =:idService');
-		$query->execute( ["idService"=>$service->IdService()]);
+    $query = $this->_db->prepare('UPDATE SERVICES SET isDeletedUser = 1 WHERE idService =:idService');
+		$query->execute( ["idService"=>$service->idService()]);
   }
 
   public function get($idService){

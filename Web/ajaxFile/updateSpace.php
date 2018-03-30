@@ -5,19 +5,19 @@ require "../object/spaces.php";
 
 
 if(isAdmin() || isSuperAdmin()){
-  if( count($_POST)==3 && isset($_POST["idSpace"]) && isset( $_POST["newNameSpace"])  && isset( $_POST["newIsDeletedSpace"]) ){
+  if( count($_POST)==3 && isset($_POST["idSpace"]) && isset( $_POST["newNameSpace"])  && isset( $_POST["newisDeletedUserSpace"]) ){
     $db=connectDb();
     $space = new Space(null);
 
-    echo $_POST["newIsDeletedSpace"];
+    echo $_POST["newisDeletedUserSpace"];
 
     $error = false;
     $listOfErrors = [];
-    if($space->IsDeleted(  ($_POST["newIsDeletedSpace"]== "true"?1:0)   ) ){
-      echo ($_POST["newIsDeletedSpace"]?1:0);
+    if($space->isDeletedUser(  ($_POST["newisDeletedUserSpace"]== "true"?1:0)   ) ){
+      echo ($_POST["newisDeletedUserSpace"]?1:0);
     }
 
-    if($space->NameOfSpace($_POST["newNameSpace"])){
+    if($space->nameOfSpace($_POST["newNameSpace"])){
       echo "yes";
     }
 

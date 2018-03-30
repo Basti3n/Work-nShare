@@ -16,13 +16,13 @@ class Space{
     foreach ($data as $key => $value) {
       switch($key){
         case 'idSpace':
-          $this->IdSpace($value);
+          $this->idSpace($value);
           break;
       case 'nameSpace':
-          $this->NameOfSpace($value);
+          $this->nameOfSpace($value);
           break;
-        case 'isDeleted':
-          $this->IsDeleted($value);
+        case 'isDeletedUser':
+          $this->isDeleted($value);
           break;
         default:
           break;
@@ -32,7 +32,7 @@ class Space{
 
   }
 
-  public function IdSpace($idSpace='0',$action ='0'){
+  public function idSpace($idSpace='0',$action ='0'){
     if($idSpace=='0')
       return $this->_idSpace;
 
@@ -46,7 +46,7 @@ class Space{
     }
   }
 
-  public function NameOfSpace($nameOfSpace ='0' , $testValue='0'){
+  public function nameOfSpace($nameOfSpace ='0' , $testValue='0'){
     if($nameOfSpace =='0')
       return $this->_nameSpace;
 
@@ -60,7 +60,7 @@ class Space{
     }
   }
 
-  public function IsDeleted($isDeleted='9'){
+  public function isDeleted($isDeleted='9'){
     if($isDeleted=='9')
       return $this->_isDeleted;
     trim($isDeleted);
@@ -100,15 +100,15 @@ class SpaceMng{
     $query = $this->_db->prepare("INSERT INTO SPACES (idSpace,nameSpace,isDeleted)
                                   VALUES (:idSpace,:nameSpace,0) ");
     $query->execute( [
-      "idSpace"=>$space->IdSpace(),
-      "nameSpace"=>$space->NameOfSpace(),
+      "idSpace"=>$space->idSpace(),
+      "nameSpace"=>$space->nameOfSpace(),
       ]);
   }
 
 
   public function delete(Space $space){
     $query = $this->_db->prepare('UPDATE SPACES SET isDeleted = 1 WHERE idSpace =:idSpace');
-		$query->execute( ["idSpace"=>$space->IdSpace()]);
+		$query->execute( ["idSpace"=>$space->idSpace()]);
   }
 
 
@@ -162,8 +162,8 @@ class SpaceMng{
     try{
         $query = $this->_db->prepare('UPDATE SPACES SET nameSpace =:nameSpace,isDeleted = :isDeleted WHERE idSpace = :idSpace');
         $query->execute([
-          "nameSpace"=>$space->NameOfSpace(),
-          "isDeleted"=>$space->IsDeleted(),
+          "nameSpace"=>$space->nameOfSpace(),
+          "isDeleted"=>$space->isDeleted(),
           "idSpace"=>$idSpace
         ]);
     }catch (Exception $e){

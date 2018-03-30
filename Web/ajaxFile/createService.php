@@ -11,13 +11,13 @@ if(isAdmin() || isSuperAdmin()){
 
     $error = false;
     $listOfErrors = [];
-    if($service->IdSpace($_POST["spaceId"]))
+    if($service->idSpace($_POST["spaceId"]))
       $error = true;
 
-    if($service->NameOfService($_POST["serviceName"]))
+    if($service->nameOfService($_POST["serviceName"]))
       $error = true;
 
-    if($service->CompInfo($_POST["serviceCompInf"]))
+    if($service->compInfo($_POST["serviceCompInf"]))
       $error = true;
 
     if($error){

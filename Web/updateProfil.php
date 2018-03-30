@@ -18,13 +18,13 @@
     $mng->delete($user);
   }else{
     if( isset($_POST["name"])){
-      if ($user->Name() != $_POST["name"])
-        if ($user->Name($_POST["name"]))
+      if ($user->name() != $_POST["name"])
+        if ($user->name($_POST["name"]))
           $error = true;
     }
     if( isset($_POST["lastname"])){
-      if ($user->Lastname() != $_POST["lastname"])
-        if ($user->Lastname($_POST["lastname"]))
+      if ($user->lastname() != $_POST["lastname"])
+        if ($user->lastname($_POST["lastname"]))
           $error = true;
     }
     if( isset($_POST["email"])){
@@ -35,10 +35,10 @@
     if( isset($_POST["pwd"])   &&
         isset($_POST["npwd1"]) &&
         isset($_POST["npwd2"])){
-        //if (password_verify($_POST["pwd"], $user->Password() ) ){
+        //if (password_verify($_POST["pwd"], $user->password() ) ){
           if ($_POST["npwd2"] != $_POST["npwd1"])
             $error = true;
-          if ($user->Password($_POST["npwd1"]))
+          if ($user->password($_POST["npwd1"]))
             $error = true;
         //}else{
         //  $error = true;

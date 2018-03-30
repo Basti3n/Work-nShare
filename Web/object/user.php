@@ -8,7 +8,7 @@ class User
   private $_dateSignUp;
   private $_email;
   private $_password;
-  private $_isDeleted = 0;
+  private $_isdeletedUser = 0;
   public $listOfErrors = [];
 
   function __construct($data){
@@ -23,19 +23,19 @@ class User
           $this->Email($value);
           break;
         case 'nameUser':
-          $this->Name($value);
+          $this->name($value);
           break;
         case 'lastnameUser':
-          $this->Lastname($value);
+          $this->lastname($value);
           break;
         case 'dateSignUp':
-          $this->Date($value);
+          $this->dateSignup($value);
           break;
         case 'passwordUser':
-          $this->Password($value);
+          $this->password($value);
           break;
         case 'isDeleted':
-          $this->Deleted($value);
+          $this->deletedUser($value);
           break;
 
       }
@@ -46,7 +46,7 @@ class User
   }
 
   //Le prenom doit faire plus de 2 caractères et au max 50
-  public function Name($name = '0'){
+  public function name($name = '0'){
     if($name == '0')
       return $this->_name;
     trim($name);
@@ -60,7 +60,7 @@ class User
   }
 
   //Le nom de famille doit faire plus de 2 caractères et au max 50
-  public function Lastname($lastname = '0'){
+  public function lastname($lastname = '0'){
     if($lastname == '0')
       return $this->_lastname;
     trim($lastname);
@@ -74,7 +74,7 @@ class User
   }
 
 //Le mot de passe doit faire plus de 8 caractères et au max 64 et confirmation correspondante
-  public function Password($password = '0',$confirm = '0'){
+  public function password($password = '0',$confirm = '0'){
     if($password == '0' && $confirm == '0')
       return $this->_password;
     if (strlen($password) < 7 || strlen($password) > 64) {
@@ -100,7 +100,7 @@ class User
     return 0;
   }
 
-  public function Date($date = '0'){
+  public function dateSignup($date = '0'){
     if($date == '0')
       return date('j \/ m \/ Y',$this->_dateSignUp);
     else{
@@ -110,7 +110,7 @@ class User
   }
 
   //email valide à la regex et confirmation correspondante, ainsi que non inscrit
-  public function Email($email = '0', $confirm = '0'){
+  public function email($email = '0', $confirm = '0'){
     if($email == '0' && $confirm == '0')
       return $this->_email;
     if($confirm == '0'){
@@ -140,13 +140,13 @@ class User
     return 0;
   }
 
-  public function Deleted($value = '0'){
+  public function deletedUser($value = '0'){
     if($value == '0')
-      return $this->_isDeleted;
+      return $this->_isdeletedUser;
     if($value != 0 || $value != 1)
       return 1;
     else{
-      $this->_isDeleted = $value;
+      $this->_isdeletedUser = $value;
     }
     return 0;
   }
@@ -178,15 +178,15 @@ class UserMng
 
   public function add(User $user){
     $date = date("y-m-d");
-    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isDeleted,statusUser,qrCode,qrCodeToken)
+    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeletedUser,statusUser,qrCode,qrCodeToken)
                                   VALUES (:email,:name, :lastname,NOW(),:pwd,:deleted,3,:qrCode,:qrCodeToken) ");
     $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
-			"name"=>$user->Name(),
-			"lastname"=>$user->Lastname(),
-			"email"=>$user->Email(),
-			"pwd"=>$user->Password(),
-      "deleted"=>$user->Deleted(),
+			"name"=>$user->name(),
+			"lastname"=>$user->lastname(),
+			"email"=>$user->email(),
+			"pwd"=>$user->password(),
+      "deleted"=>$user->deletedUser(),
 			"qrCode"=>$qrCode,
 			"qrCodeToken"=>"data/qrCode/qrCode.png"
 			]);
@@ -194,35 +194,35 @@ class UserMng
 
   public function update(User $user, $id = '0'){
     if ($id == '0')
-      $id = $user->Email();
+      $id = $user->email();
     $date = date("y-m-d");
     //Update all associate branches
-    if($user->Email() != $id){
+    if($user->email() != $id){
       /*
       $assoc = $this->_db->prepare(" UPDATE TICKETS INNER JOIN ISSUBSCRIBED INNER JOIN ACCESS INNER JOIN EXITSPACE INNER JOIN RESERVATION
                                      ON TICKETS.email = ISSUBSCRIBED.email = ACCESS.email = EXITSPACE.email = RESERVATION.email
                                      SET TICKETS.email=:nemail, ISSUBSCRIBED.email=:nemail, ACCESS.email=:nemail, EXITSPACE.email=:nemail, RESERVATION.email=:nemail
                                      WHERE TICKETS.email=:email");*/
       $assoc = $this->_db->prepare(" UPDATE TICKETS SET email=:email WHERE email=:id");
-      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       $assoc = $this->_db->prepare(" UPDATE ISSUBSCRIBED SET email=:email WHERE email=:id");
-      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       $assoc = $this->_db->prepare(" UPDATE ACCESS SET email=:email WHERE email=:id");
-      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       $assoc = $this->_db->prepare(" UPDATE EXITSPACE SET email=:email WHERE email=:id");
-      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       $assoc = $this->_db->prepare(" UPDATE RESERVATION SET email=:email WHERE email=:id");
-      $assoc->execute( [ "email"=>$user->Email(), "id"=>$id ]);
+      $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       }
     $query = $this->_db->prepare("UPDATE USERS
                                   SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr
                                   WHERE email=:id");
-    $qrCode = password_hash($user->Email(),PASSWORD_DEFAULT);
+    $qrCode = password_hash($user->email(),PASSWORD_DEFAULT);
 		$query->execute( [
-			"name"=>$user->Name(),
-			"lastname"=>$user->Lastname(),
-			"email"=>$user->Email(),
-			"pwd"=>$user->Password(),
+			"name"=>$user->name(),
+			"lastname"=>$user->lastname(),
+			"email"=>$user->email(),
+			"pwd"=>$user->password(),
 			"qr"=>$qrCode,
       "id"=>$id
 			]);
@@ -230,14 +230,14 @@ class UserMng
 
   public function delete(User $user){
     $date = date("y-m-d");
-    $query = $this->_db->prepare('UPDATE USERS SET isDeleted = 1 WHERE email =:email');
-		$query->execute( ["email"=>$user->Email()]);
-    $user->Deleted(1);
+    $query = $this->_db->prepare('UPDATE USERS SET isdeletedUser = 1 WHERE email =:email');
+		$query->execute( ["email"=>$user->email()]);
+    $user->deletedUser(1);
   }
 
   public function get($email){
     try {
-      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isDeleted FROM USERS WHERE email =:email');
+      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted FROM USERS WHERE email =:email');
       $query->execute( ["email"=>$email]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();

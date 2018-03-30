@@ -11,10 +11,10 @@ if(isAdmin() || isSuperAdmin()){
 
     $error = false;
     $listOfErrors = [];
-    if($space->IdSpace($_POST["spaceId"]))
+    if($space->idSpace($_POST["spaceId"]))
       $error = true;
 
-    if($space->NameOfSpace($_POST["spaceName"]))
+    if($space->nameOfSpace($_POST["spaceName"]))
       $error = true;
 
     if($error){

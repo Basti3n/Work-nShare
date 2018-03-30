@@ -4,7 +4,7 @@
 	include "object/reservation.php";
 	require_once "conf.inc.php";
 
-	$date = json_decode($_GET["date"]); 
+	$date = json_decode($_GET["date"]);
 
 	$db = connectDb();
 	$mng = new ReservationMng($db);
@@ -23,7 +23,7 @@
       );
 		$reservation = new Reservation($data);
 		$mng->add($reservation);
-		showArray($data);
+		//showArray($data);
 	}
 
 	header("Location: service.php?ok=1");

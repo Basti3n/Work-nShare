@@ -22,7 +22,7 @@
           <a class="col-xs-2 headerButton" href="about.php">À propos</a>
 				</div>
 
-				<div class="header_signup_login col-sm-offset-1 col-sm-2 text-right" id="perso">
+				<div class="header_signup_login col-sm-3 text-right" id="perso">
 					<?php if(isConnected()):?>
             <div class="col-sm-12">
 						  <a class="headerButton" href="profil.php?id=<?php echo $_SESSION["email"]?>"><?php echo $_SESSION["email"]?></a>

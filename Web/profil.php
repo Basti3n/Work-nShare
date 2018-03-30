@@ -45,26 +45,26 @@
                     $_SESSION["user"] = serialize($user);
                   ?>
                 <div class="col-md-7">
-                  <p style="color:grey;">Inscrit depuis le : <?php echo $user->Date(); ?></p>
+                  <p style="color:grey;">Inscrit depuis le : <?php echo $user->dateSignup(); ?></p>
                   <div class="row text-center" id="contentTab">
                     <div class="col-md-11">
                       <form action="updateProfil.php" method="post">
                         <div class="form-group row">
                           <label for="name" class="col-sm-4 col-form-label"> Prénom</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="text" name="name" class="form-control" id="name" placeholder="<?php echo $user->Name(); ?>">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="<?php echo $user->name(); ?>">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="lastname" class="col-sm-4 col-form-label">Nom</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="<?php echo $user->Lastname();?>">
+                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="<?php echo $user->lastname();?>">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="email" class="col-sm-4 col-form-label">Email</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="email" name="email" class="form-control" id="email" placeholder="<?php echo $user->Email(); ?>">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="<?php echo $user->email(); ?>">
                           </div>
                         </div>
                         <p style="color:grey;text-align:left;">Modifier votre mot de passe actuel<hr></p>
@@ -77,13 +77,13 @@
                         <div class="form-group row">
                           <label for="pwdafter" class="col-sm-4 col-form-label">Nouveau mot de passe</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="password" name="npwd1" class="form-control" id="pwdafter" placeholder="Password">
+                            <input type="password" name="npwd1" class="form-control" id="pwdafter" placeholder="password">
                           </div>
                         </div>
                         <div class="form-group row">
                           <label for="pwdafter2" class="col-sm-4 col-form-label">Confirmation</label>
                           <div class="col-sm-8 col-md-auto">
-                            <input type="password" name="npwd2" class="form-control" id="pwdafter2" placeholder="Password">
+                            <input type="password" name="npwd2" class="form-control" id="pwdafter2" placeholder="password">
                           </div>
                         </div>
                         <hr>
@@ -102,12 +102,12 @@
                 <div class="col-md-5">
                   <div class="col-md-12">
                     <?php
-              				if(file_exists("Qrcode_".$user->Email().".bmp"))
-              					echo '<a href="Qrcode_'.$user->Email().'.bmp" target="_blank"><img id="qr" src="Qrcode_'.$user->Email().'.bmp" height="400" width="400"></a>';
+              				if(file_exists("Qrcode_".$user->email().".bmp"))
+              					echo '<a href="Qrcode_'.$user->email().'.bmp" target="_blank"><img id="qr" src="Qrcode_'.$user->email().'.bmp" height="400" width="400"></a>';
                 		?>
                   </div>
                   <div class="col-md-offset-3 col-md-5" style="padding-top:10px;">
-                    <a class="btn btn-primary" href="<?php echo 'Qrcode_'.$user->Email().'.bmp'; ?>" download="MyQRCode_worknshare.bmp"><u>Télécharger votre code</u></a>
+                    <a class="btn btn-primary" href="<?php echo 'Qrcode_'.$user->email().'.bmp'; ?>" download="MyQRCode_worknshare.bmp"><u>Télécharger votre code</u></a>
                   </div>
                 </div>
               </div>
@@ -187,7 +187,7 @@
                   <div class="col-md-12">
                     <?php
                       $query = $db->prepare('SELECT dateSubscription,dateEndSubscription FROM ISSUBSCRIBED WHERE email =:email');
-                      $query->execute( ["email"=>$user->Email()]);
+                      $query->execute( ["email"=>$user->email()]);
                       $data = $query->fetch(PDO::FETCH_ASSOC);
                       if($data){
                         echo "Abonné depuis le: ".date('j \/ m \/ Y', strtotime($data["dateSubscription"]))

@@ -38069,7 +38069,7 @@
 			// Target node. May contain word characters (a-zA-Z0-9_) and '.' or '-'.
 			var nodeRe = /([\w-\.]+)?/;
 
-			// Object on target node, and accessor. Name may contain only word
+			// Object on target node, and accessor. name may contain only word
 			// characters. Accessor may contain any character except closing bracket.
 			var objectRe = /(?:\.([\w-]+)(?:\[(.+)\])?)?/;
 

@@ -2,13 +2,12 @@
 
 date_default_timezone_set('Europe/Paris');
 
-
 class Reservation{
 	private $_site= "empty";
 	private $_email = "empty";
 	private $_idServiceContent = 0;
-	private $_reservationStartDate;
-	private $_reservationEndDate;
+	private $_reservationStartDateSignup;
+	private $_reservationEndDateSignup;
 
 	//Constructreur
 	function __construct($data){
@@ -21,72 +20,72 @@ class Reservation{
 	    foreach ($data as $key => $value){
 	      switch ($key) {
 	        case 'email':
-	          	$this->SetEmail($value);
+	          	$this->email($value);
 	          	break;
 	        case 'idServiceContent':
-	          	$this->SetIdServiceContent($value);
+	          	$this->idServiceContent($value);
 	          	break;
 	        case 'reservationStartDate':
-	          	$this->SetReservationStartDate($value);
+	          	$this->reservationStartDateSignup($value);
 	         	 break;
 	        case 'reservationEndDate':
-				$this->SetReservationEndDate($value);
+				$this->reservationEndDateSignup($value);
 				break;
 	        case 'site':
-	        	$this->SetSite($value);
+	        	$this->site($value);
 
 	      }
 	    }
 	  }
 	//email
-	public function SetEmail($email = '0'){
+	public function email($email = '0'){
 		if($email == '0')
 			return $this->_email;
-		else 
-	    	return $this->_email = $email;  
+		else
+	    	return $this->_email = $email;
     }
 
     //idServiceContent
-	public function SetIdServiceContent($idServiceContent= '0'){
+	public function idServiceContent($idServiceContent= '0'){
 		if($idServiceContent == '0')
 			return $this->_idServiceContent;
 		else
-	    	return $this->_idServiceContent = $idServiceContent;  
+	    	return $this->_idServiceContent = $idServiceContent;
     }
 
-    //reservationStartDate
-	public function SetReservationStartDate($date = '0'){
+    //reservationStartDateSignup
+	public function reservationStartDateSignup($date = '0'){
 	    if($date == '0')
-	      	return $this->_reservationStartDate;
-	    else	
-	      	return $this->_reservationStartDate = $date;
-    }	
-
-    //reservationEndDate
-	public function SetReservationEndDate($date = '0'){
-	    if($date == '0')
-	      	return $this->_reservationEndDate;
+	      	return $this->_reservationStartDateSignup;
 	    else
-	    	return $this->_reservationEndDate = $date;  
+	      	return $this->_reservationStartDateSignup = $date;
+    }
+
+    //reservationEndDateSignup
+	public function reservationEndDateSignup($date = '0'){
+	    if($date == '0')
+	      	return $this->_reservationEndDateSignup;
+	    else
+	    	return $this->_reservationEndDateSignup = $date;
     }
 
     //site
-	public function SetSite($site = '0'){
-	    return $this->_site = $site ;  
+	public function site($site = '0'){
+	    return $this->_site = $site ;
     }
 
     //afficher les informations
     public function speak(){
 		echo  	"<br>\$_site : ".$this->_site.
 				"<br>\$_idServiceContent : ".$this->_idServiceContent.
-				/*"<br>\$_reservationStartDate : le ".date('j \/ m \/ Y \à G \h i \: s',$this->_reservationStartDate).
-				"<br>\$_reservationEndDate : le ".date('j \/ m \/ Y \à G \h i \: s',$this->_reservationEndDate).*/
-				"<br>\$_reservationStartDate : ".$this->_reservationStartDate.
-				"<br>\$_reservationEndDate : ".$this->_reservationEndDate.
+				/*"<br>\$_reservationStartDateSignup : le ".date('j \/ m \/ Y \à G \h i \: s',$this->_reservationStartDateSignup).
+				"<br>\$_reservationEndDateSignup : le ".date('j \/ m \/ Y \à G \h i \: s',$this->_reservationEndDateSignup).*/
+				"<br>\$_reservationStartDateSignup : ".$this->_reservationStartDateSignup.
+				"<br>\$_reservationEndDateSignup : ".$this->_reservationEndDateSignup.
 				"<br>\$_email : ".$this->_email;
   }
 
-}	
+}
 
 class ReservationMng
 {
@@ -114,13 +113,13 @@ class ReservationMng
   	}
 
   	public function add($id){
-  		$query = $this->_db->prepare("INSERT INTO RESERVATION (email,idServiceContent,reservationStartDate,reservationEndDate)
-                                  VALUES (:email,:idServiceContent,:reservationStartDate,:reservationEndDate);");
+  		$query = $this->_db->prepare("INSERT INTO RESERVATION (email,idServiceContent,reservationStartDateSignup,reservationEndDateSignup)
+                                  VALUES (:email,:idServiceContent,:reservationStartDateSignup,:reservationEndDateSignup);");
 		$query->execute( [
-			"idServiceContent"=>$id->SetIdServiceContent(),
-			"email"=>$id->SetEmail(),
-			"reservationStartDate"=>$id->SetReservationStartDate(),
-			"reservationEndDate"=>$id->SetReservationEndDate()
+			"idServiceContent"=>$id->idServiceContent(),
+			"email"=>$id->email(),
+			"reservationStartDateSignup"=>$id->reservationStartDateSignup(),
+			"reservationEndDateSignup"=>$id->reservationEndDateSignup()
 			]);
   	}
 }

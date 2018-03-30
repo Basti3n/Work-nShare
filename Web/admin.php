@@ -66,16 +66,16 @@
                       <?php
                         foreach ($spaces as $space) {
                           echo '<tr>
-                                  <td>'.$space->IdSpace().'</td>
-                                  <td><input type="text" id="'.$space->IdSpace().'NameSpace" value="'.$space->NameOfSpace().'"></td>
-                                  <td>'.'<button onclick="displayCreateServicePannel(\''.$space->IdSpace().'\')" >Ajouter un service</button>'.'</td>
+                                  <td>'.$space->idSpace().'</td>
+                                  <td><input type="text" id="'.$space->idSpace().'NameSpace" value="'.utf8_encode($space->nameOfSpace()).'"></td>
+                                  <td>'.'<button onclick="displayCreateServicePannel(\''.$space->idSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
-                                  <td> <input id="'.$space->IdSpace().'IsDeleted" type="checkbox" '.($space->IsDeleted()?"checked":"").'></td>
-                                  <td> <button onclick="updateSpace(\''.$space->IdSpace().'\')">Valider </button> </td>
+                                  <td> <input id="'.$space->idSpace().'isDeletedUser" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
+                                  <td> <button onclick="updateSpace(\''.$space->idSpace().'\')">Valider </button> </td>
 
                                 </tr>';
                         }
-                          //. $space->IsDeleted().
+                          //. $space->isDeletedUser().
                       ?>
                     </tbody>
                     </table>
@@ -104,7 +104,7 @@
                     $db = connectDb();
                     $serviceMng = new ServiceMng($db);
                     $services = $serviceMng->getAllServices();
-                  //  echo $services[0].NameOfService();
+                  //  echo $services[0].nameOfService();
                   ?>
 
                   <?php if(!empty($services)) :?>
@@ -118,15 +118,14 @@
 
                       </tr>
                       <?php
-                      showArray($services);
                         foreach ($services as $service) {
 
                           echo '<tr>
-                                  <td>'.$service->NameOfService().'</td>
-                                  <td>'. $service->CompInfo().'</td>
-                                  <td>'.$spaceMng->getSpaceName($service->IdSpace()).'</td>
-                                  <td>'.$service->IsBooked().'</td>
-                                  <td>'. $service->IsDeleted().'</td>
+                                  <td>'.utf8_encode($service->nameOfService()).'</td>
+                                  <td>'. $service->compInfo().'</td>
+                                  <td>'.utf8_encode($spaceMng->getSpaceName($service->idSpace())).'</td>
+                                  <td>'.$service->isBooked().'</td>
+                                  <td>'. $service->isDeleted().'</td>
                                 </tr>';
                         }
 
@@ -141,7 +140,7 @@
                     $db = connectDb();
                     $serviceContentMng = new ServiceContentMng($db);
                     $serviceContents = $serviceContentMng->getAllServiceContents();
-                  //  echo $services[0].NameOfService();
+                  //  echo $services[0].nameOfService();
                  //showArray($serviceContents);
                   ?>
 
@@ -160,11 +159,11 @@
                         foreach ($serviceContents as $serviceContent) {
 
                           echo '<tr>
-                                  <td>'.$serviceContent->NameServiceContent().'</td>
-                                  <td>'. $serviceContent->InformationServiceContent().'</td>
-                                  <td>'.$serviceMng->getServiceName($serviceContent->IdService()).'</td>
-                                  <td>'.$serviceContent->IsFree().'</td>
-                                  <td>'. $serviceContent->IsDeleted().'</td>
+                                  <td>'.$serviceContent->nameServiceContent().'</td>
+                                  <td>'. $serviceContent->informationServiceContent().'</td>
+                                  <td>'.$serviceMng->getServiceName($serviceContent->idService()).'</td>
+                                  <td>'.$serviceContent->isFree().'</td>
+                                  <td>'. $serviceContent->isDeleted().'</td>
                                 </tr>';
                         }
 
@@ -227,7 +226,7 @@
 
                         <?php
                           foreach ($spaces as $key => $space) {
-                            echo "<option value='".$space->IdSpace()."'>".$space->NameOfSpace()."</option>";
+                            echo "<option value='".$space->idSpace()."'>".$space->nameOfSpace()."</option>";
                           }
                          ?>
                     </select>
@@ -256,7 +255,7 @@
 
                         <?php
                           foreach ($services as $key => $service) {
-                            echo "<option value='".$service->IdService()."'>".$service->NameOfService()."</option>";
+                            echo "<option value='".$service->idService()."'>".$service->nameOfService()."</option>";
                           }
                          ?>
                     </select>

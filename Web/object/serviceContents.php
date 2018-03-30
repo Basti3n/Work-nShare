@@ -19,27 +19,27 @@ class ServiceContent{
     foreach ($data as $key => $value) {
       switch($key){
         case 'idServiceContent':
-          $this->IdServiceContent($value);
+          $this->idServiceContent($value);
           break;
 
         case 'informationServiceContent':
-          $this->InformationServiceContent($value);
+          $this->informationServiceContent($value);
           break;
 
         case 'nameServiceContent':
-          $this->NameServiceContent($value);
+          $this->nameServiceContent($value);
           break;
 
         case 'isFree':
-          $this->IsFree($value);
+          $this->isFree($value);
           break;
 
         case 'isDeleted':
-          $this->IsDeleted($value);
+          $this->isDeleted($value);
           break;
 
         case 'idService':
-          $this->IdService($value);
+          $this->idService($value);
           break;
 
         default:
@@ -48,20 +48,20 @@ class ServiceContent{
     }
   }
 
-  public function IdServiceContent($idServiceContent='-1'){
+  public function idServiceContent($idServiceContent='-1'){
     if($idServiceContent=='-1') return $this->_idServiceContent;
 
     $this->_idServiceContent = $idServiceContent;
     return 0;
   }
 
-  public function InformationServiceContent($informationServiceContent = '-1'){
+  public function informationServiceContent($informationServiceContent = '-1'){
     if($informationServiceContent =='-1') return $this->_informationServiceContent;
 
     $this->_informationServiceContent = $informationServiceContent;
   }
 
-  public function NameServiceContent($nameServiceContent ='0'){
+  public function nameServiceContent($nameServiceContent ='0'){
     if($nameServiceContent =='0') return $this->_nameServiceContent;
 
     if( (strlen($nameServiceContent)<80) ){
@@ -72,19 +72,19 @@ class ServiceContent{
     }
   }
 
-  public function IsFree($isFree ='-1'){
+  public function isFree($isFree ='-1'){
     if($isFree == '-1') return $this->_isFree;
 
     $this->_isFree = $isFree;
   }
 
-  public function IsDeleted($isDeleted = '-1'){
-    if($isDeleted =='-1') return $this->_isDeleted;
+  public function isDeleted($isDeleted = '-1'){
+    if($isDeleted =='-1') return $this->$isDeleted;
 
     $this->_isDeleted = $isDeleted;
   }
 
-  public function IdService($idService = '-1'){
+  public function idService($idService = '-1'){
     if($idService == '-1') return $this->_idService;
 
     $this->_idService = $idService ;
@@ -111,17 +111,17 @@ class ServiceContentMng{
     $query = $this->_db->prepare("INSERT INTO SERVICE_CONTENT (informationServiceContent,nameServiceContent,isFree,isDeleted,idService)
                                   VALUES (:informationServiceContent,:nameServiceContent,:isFree,0,:idService) ");
     $query->execute( [
-      "informationServiceContent"=>$serviceContent->InformationServiceContent(),
-      "nameServiceContent"=>$serviceContent->NameServiceContent(),
-      "isFree"=>$serviceContent->IsFree(),
-      "idService"=>$serviceContent->IdService()
+      "informationServiceContent"=>$serviceContent->informationServiceContent(),
+      "nameServiceContent"=>$serviceContent->nameServiceContent(),
+      "isFree"=>$serviceContent->isFree(),
+      "idService"=>$serviceContent->idService()
       ]);
   }
 
 
   public function delete(ServiceContent $serviceContent){
     $query = $this->_db->prepare('UPDATE SERVICE_CONTENT SET isDeleted = 1 WHERE idServiceContent =:idServiceContent');
-		$query->execute( ["idServiceContent"=>$service->IdServiceContent()]);
+		$query->execute( ["idServiceContent"=>$service->idServiceContent()]);
   }
 
 

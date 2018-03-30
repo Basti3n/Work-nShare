@@ -17,11 +17,11 @@ class Event
     $this->_name = $name;
   }
 
-  public function startDate($day,$month,$year){
+  public function startDateSignup($day,$month,$year){
     $this->_dateStart = mktime(0,0,0,$month,$day,$year);
   }
 
-  public function endDate($day,$month,$year){
+  public function endDateSignup($day,$month,$year){
     $this->_dateEnd = mktime(0,0,0,$month,$day,$year);
   }
 

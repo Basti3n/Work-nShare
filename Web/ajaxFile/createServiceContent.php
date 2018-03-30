@@ -10,13 +10,13 @@ if(isAdmin() || isSuperAdmin()){
 
     $error = false;
     $listOfErrors = [];
-    if($serviceContent->IdService($_POST["serviceId"]))
+    if($serviceContent->idService($_POST["serviceId"]))
       $error = true;
 
-    if($serviceContent->NameServiceContent($_POST["serviceContentName"]))
+    if($serviceContent->nameServiceContent($_POST["serviceContentName"]))
       $error = true;
 
-    if($serviceContent->InformationServiceContent($_POST["newServiceContentInformation"]))
+    if($serviceContent->informationServiceContent($_POST["newServiceContentInformation"]))
       $error = true;
 
     if($serviceContent->isFree($_POST["availableNumber"]))

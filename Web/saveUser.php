@@ -19,13 +19,13 @@ if( count($_POST) == 8
 	$user = new User(null);
 
 
-	if ($user->Name($_POST["name"]))
+	if ($user->name($_POST["name"]))
 		$error = true;
 
-	if ($user->Lastname($_POST["surname"]))
+	if ($user->lastname($_POST["surname"]))
 		$error = true;
 
-	if ($user->Password($_POST["pwd"],$_POST["pwd2"]))
+	if ($user->password($_POST["pwd"],$_POST["pwd2"]))
 		$error = true;
 
 	if($user->Email($_POST["email"],$_POST["email2"]))
