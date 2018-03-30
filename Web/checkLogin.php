@@ -12,18 +12,18 @@
 	$mng = new UserMng;
 	$user = new User($mng->get($_POST["email"]));
 
-	if($user->isDeletedUser()){
+	if($user->isDeleted()){
 
 	}
 */
-	$account = $db->prepare("SELECT passwordUser, isDeletedUser FROM USERS WHERE email = :email");
+	$account = $db->prepare("SELECT passwordUser, isDeleted FROM USERS WHERE email = :email");
 	$account -> execute(["email"=>$_POST["email"]]);
 	$pwdv = $account->fetch();
-	if(!$pwdv["isDeletedUser"]){
+	if(!$pwdv["isDeleted"]){
 		if(!empty($account)){
 			if(password_verify($_POST["pwd"], $pwdv['passwordUser'])){
 				$accessToken = MD5(uniqid()."ytklfuirkysrteqzBlackLama<sfrfG<ZE4RHF7DV<84GEAD");
-				$addToken = $db->prepare("UPDATE USERS set accessToken = :accessToken WHERE email = :email AND isDeletedUser = 0");
+				$addToken = $db->prepare("UPDATE USERS set accessToken = :accessToken WHERE email = :email AND isDeleted = 0");
 				$addToken->execute(["accessToken" => $accessToken, "email"=>$_POST["email"]]);
 				$_SESSION["accessToken"] = $accessToken;
 				$_SESSION["email"] = $_POST["email"];

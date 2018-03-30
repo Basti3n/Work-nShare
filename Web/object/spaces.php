@@ -21,7 +21,7 @@ class Space{
       case 'nameSpace':
           $this->nameOfSpace($value);
           break;
-        case 'isDeletedUser':
+        case 'isDeleted':
           $this->isDeleted($value);
           break;
         default:

@@ -109,7 +109,7 @@ class ServiceMng{
   }
 
   public function delete(Service $service){
-    $query = $this->_db->prepare('UPDATE SERVICES SET isDeletedUser = 1 WHERE idService =:idService');
+    $query = $this->_db->prepare('UPDATE SERVICES SET isDeleted = 1 WHERE idService =:idService');
 		$query->execute( ["idService"=>$service->idService()]);
   }
 

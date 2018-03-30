@@ -126,16 +126,16 @@ function updateSpaceArray(spaceId,spaceName){
   addEventButton.onclick="";
   addServiceButtonCell.appendChild(addEventButton);
 
-  var isDeletedUserCell = document.createElement('td');
+  var isDeletedCell = document.createElement('td');
   idSpaceCell.innerHTML = '0';
-  row.appendChild(isDeletedUserCell);
+  row.appendChild(isDeletedCell);
 
 }
 
 
 function updateSpace(idSpace){
     var newNameSpace = document.getElementById(idSpace+'NameSpace').value;
-    var newisDeletedUserSpace = document.getElementById(idSpace+'isDeletedUser').checked;
+    var newSpace = document.getElementById(idSpace+'newSpace').checked;
 
     var request = new XMLHttpRequest();
 
@@ -154,7 +154,7 @@ function updateSpace(idSpace){
   	var params = [
   		'idSpace='+idSpace,
   		'newNameSpace='+newNameSpace,
-      'newisDeletedUserSpace='+newisDeletedUserSpace
+      'newSpace='+newSpace
   	];
   	var body = params.join('&');
   	request.send(body);

@@ -21,7 +21,7 @@
             $mng = new SpaceMng($db);
             $spaces = $mng->getAllSpaces();
             foreach ($spaces as $key => $space) {
-              if ($space->isDeletedUser()==0) {
+              if ($space->isDeleted()==0) {
                 $name = preg_replace('/[\s\']+/', '', $space->nameOfSpace());
                 echo '
                   <div class="col-lg-4">
@@ -38,7 +38,7 @@
 
           <?php
           foreach ($spaces as $key => $space) {
-            if ($space->isDeletedUser()==0) {
+            if ($space->isDeleted()==0) {
               $name = preg_replace('/[\s\']+/', '', $space->nameOfSpace());
               echo '
               <hr>

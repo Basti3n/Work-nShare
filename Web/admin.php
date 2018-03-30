@@ -70,12 +70,12 @@
                                   <td><input type="text" id="'.$space->idSpace().'NameSpace" value="'.utf8_encode($space->nameOfSpace()).'"></td>
                                   <td>'.'<button onclick="displayCreateServicePannel(\''.$space->idSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
-                                  <td> <input id="'.$space->idSpace().'isDeletedUser" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
+                                  <td> <input id="'.$space->idSpace().'isDeleted" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
                                   <td> <button onclick="updateSpace(\''.$space->idSpace().'\')">Valider </button> </td>
 
                                 </tr>';
                         }
-                          //. $space->isDeletedUser().
+                          //. $space->isDeleted().
                       ?>
                     </tbody>
                     </table>
