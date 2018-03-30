@@ -79,7 +79,7 @@ class ServiceContent{
   }
 
   public function isDeleted($isDeleted = '-1'){
-    if($isDeleted =='-1') return $this->$isDeleted;
+    if($isDeleted =='-1') return $this->_isDeleted;
 
     $this->_isDeleted = $isDeleted;
   }
