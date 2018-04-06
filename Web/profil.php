@@ -131,6 +131,16 @@
                     </thead>
                     <tbody>
                       <?php
+
+                      $page=$_POST['page'];//page number
+                      $limit=$_POST['limit'];//number of data
+
+                      $limit1 = $page_no*$limit; //calculate the limit
+                      $start = $limit1-$limit; //calculate the start point
+
+                      $sql = "select * from Messages  limit $start,$limit";// query
+//////////////////////////////////////////////////////////////////////////////////////
+/*
                       $msg  = "Jeanne";
                       $date = date('j \/ m \/ Y \- H\h i\m\i\n');
                       $who = "TOTO";
@@ -147,8 +157,11 @@
                             <td class='text-center corbeille'><i class='fas fa-trash-alt'></i></td>
                           </tr>
                         ";
-                      } ?>
-
+                      }
+*/
+                      $mng = new TicketMng($db);
+                      $ticket = new Ticket;
+                      ?>
                     </tbody>
                   </table>
                   <ul class="pagination">
