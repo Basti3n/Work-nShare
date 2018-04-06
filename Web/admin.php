@@ -115,17 +115,26 @@
                                 <th>Espace du service</th>
                                 <th>Disponible</th>
                                 <th>Supprimé</th>
+                                <th>Valider les modifications</th>
 
                       </tr>
                       <?php
                         foreach ($services as $service) {
 
+
                           echo '<tr>
-                                  <td>'.utf8_encode($service->nameOfService()).'</td>
-                                  <td>'. $service->compInfo().'</td>
-                                  <td>'.utf8_encode($spaceMng->getSpaceName($service->idSpace())).'</td>
-                                  <td>'.$service->isBooked().'</td>
-                                  <td>'. $service->isDeleted().'</td>
+                                  <td><input type="text" id="'.$service->idService().'NameService" value="'.utf8_encode($service->nameOfService()).'"></td>
+                                  <td><textarea class="compInfoTextArea" id="'.$service->idService().'CompInfoService">'.utf8_encode($service->compInfo()).'</textarea></td>
+                                  <td>
+                                    <select id="'.$service->idService().'ServiceSpaceId">';
+                                    foreach ($spaces as $key => $space) {
+                                      echo "<option value='".$space->idSpace()."'   ".($service->idSpace()==$space->idSpace()? "selected":"")."    >".utf8_encode($space->nameOfSpace())."</option>";
+                                    }
+                          echo      '</select>
+                                  </td>
+                                  <td><input id="'.$service->idService().'IsBookedService" type="checkbox" '.($service->isBooked()?"checked":"").'></td>
+                                  <td><input id="'.$service->idService().'IsDeletedService" type="checkbox" '.($service->isDeleted()?"checked":"").'></td>
+                                  <td> <button onclick="updateService(\''.$service->idService().'\')">Valider </button> </td>
                                 </tr>';
                         }
 
@@ -153,17 +162,24 @@
                                 <th>Service concerné</th>
                                 <th>Disponible</th>
                                 <th>Supprimé</th>
+                                <th>Valider les modifications</th>
 
                       </tr>
                       <?php
                         foreach ($serviceContents as $serviceContent) {
 
                           echo '<tr>
-                                  <td>'.$serviceContent->nameServiceContent().'</td>
-                                  <td>'. $serviceContent->informationServiceContent().'</td>
-                                  <td>'.$serviceMng->getServiceName($serviceContent->idService()).'</td>
-                                  <td>'.$serviceContent->isFree().'</td>
-                                  <td>'. $serviceContent->isDeleted().'</td>
+                                  <td><input type="text" id="'.$serviceContent->idServiceContent().'NameServiceContent" value="'.utf8_encode($serviceContent->nameServiceContent()).'"></td>
+                                  <td><textarea class="compInfoTextArea" id="'.$serviceContent->idServiceContent().'InformationServiceContent">'.utf8_encode($serviceContent->informationServiceContent()).'</textarea></td>
+                                  <td><select id="'.$serviceContent->idServiceContent().'ServiceContentServiceId">';
+                                  foreach ($services as $key => $service) {
+                                    echo "<option value='".$service->idService()."'  ". ( $service->idService()==$serviceContent->idService()? "selected":"") ."  >".utf8_encode($service->nameOfService())."</option>";
+                                  }
+
+                          echo        '</select></td>
+                                  <td><input type="number" id="'.$serviceContent->idServiceContent().'IsFreeServiceContent" value="'.($serviceContent->isFree()).'"></td>
+                                  <td><input id="'.$serviceContent->idServiceContent().'IsDeletedServiceContent" type="checkbox" '.($serviceContent->isDeleted()?"checked":"").'></td>
+                                  <td> <button onclick="updateServiceContent(\''.$serviceContent->idServiceContent().'\')">Valider </button> </td>
                                 </tr>';
                         }
 
@@ -255,7 +271,7 @@
 
                         <?php
                           foreach ($services as $key => $service) {
-                            echo "<option value='".$service->idService()."'>".$service->nameOfService()."</option>";
+                            echo "<option value='".$service->idService()."'>".utf8_encode($service->nameOfService())."</option>";
                           }
                          ?>
                     </select>

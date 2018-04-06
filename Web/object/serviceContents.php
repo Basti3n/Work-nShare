@@ -59,6 +59,7 @@ class ServiceContent{
     if($informationServiceContent =='-1') return $this->_informationServiceContent;
 
     $this->_informationServiceContent = $informationServiceContent;
+    return 0;
   }
 
   public function nameServiceContent($nameServiceContent ='0'){
@@ -66,6 +67,7 @@ class ServiceContent{
 
     if( (strlen($nameServiceContent)<80) ){
       $this->_nameServiceContent = $nameServiceContent;
+      return 0;
     }else{
         $this->listOfErrors[] = 20;
       return 1;
@@ -76,18 +78,21 @@ class ServiceContent{
     if($isFree == '-1') return $this->_isFree;
 
     $this->_isFree = $isFree;
+    return 0;
   }
 
   public function isDeleted($isDeleted = '-1'){
     if($isDeleted =='-1') return $this->_isDeleted;
 
     $this->_isDeleted = $isDeleted;
+    return 0;
   }
 
   public function idService($idService = '-1'){
     if($idService == '-1') return $this->_idService;
 
     $this->_idService = $idService ;
+    return 0;
   }
 
 
@@ -149,9 +154,29 @@ class ServiceContentMng{
 
   }
 
+
+  public function updateServiceContent($idServiceContent,ServiceContent $serviceContent){
+    try{
+        $query = $this->_db->prepare('UPDATE SERVICE_CONTENT
+                      SET informationServiceContent =:informationServiceContent ,
+                      nameServiceContent = :nameServiceContent,
+                      isFree = :isFree,
+                      isDeleted = :isDeleted,
+                      idService = :idService
+                              WHERE idServiceContent = :idServiceContent');
+        $query->execute([
+          "informationServiceContent"=>$serviceContent->informationServiceContent(),
+          "nameServiceContent"=>$serviceContent->nameServiceContent(),
+          "isFree"=>$serviceContent->isFree(),
+          "isDeleted"=>$serviceContent->isDeleted(),
+          "idService"=>$serviceContent->idService(),
+          "idServiceContent"=>$idServiceContent
+        ]);
+    }catch (Exception $e){
+      echo "PDOException : ".$e->getMessage();;
+    }
+
+      echo "Service updated";
+  }
+
 }
-
-
-
-
-?>

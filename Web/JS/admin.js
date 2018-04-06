@@ -135,7 +135,7 @@ function updateSpaceArray(spaceId,spaceName){
 
 function updateSpace(idSpace){
     var newNameSpace = document.getElementById(idSpace+'NameSpace').value;
-    var newSpace = document.getElementById(idSpace+'newSpace').checked;
+    var newSpace = document.getElementById(idSpace+'isDeleted').checked;
 
     var request = new XMLHttpRequest();
 
@@ -219,7 +219,6 @@ function displayCreateServicePannel(idSpace){
   var pannel = document.getElementById('createServicePannel');
   createServicePannel.setAttribute('class','pannel');
 
-  console.log(createServicePannel);
 }
 
 
@@ -292,4 +291,107 @@ function getServiceId(){
 	var selectedOption = options[idx];
 	var bookId = selectedOption.value;
 	return bookId;
+}
+
+
+function updateService(idService){
+    var newServiceName = document.getElementById(idService+'NameService').value;
+    var newCompInfo = document.getElementById(idService+'CompInfoService').value;
+    var newSpaceId = getSpaceIdInService(idService);
+    var newIsBookedService = document.getElementById(idService+'IsBookedService').checked;
+    var newIsDeletedService = document.getElementById(idService+'IsDeletedService').checked;
+
+/*
+    console.log(newServiceName);
+    console.log(newCompInfo);
+    console.log(newSpaceId);
+    console.log(newIsBookedService);
+    console.log(newIsDeletedService);
+*/
+
+    var request = new XMLHttpRequest();
+  	request.onreadystatechange =function(){
+  	  if(request.readyState == 4){
+  	    if(request.status ==200){
+  	    	  console.log(request.responseText);
+
+  	    }
+  	  }
+  	};
+
+
+  	request.open("POST",'ajaxFile\\updateService.php');
+  	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+  	var params = [
+  		'newServiceName='+newServiceName,
+  		'newCompInfo='+newCompInfo,
+      'newSpaceId='+newSpaceId,
+      'newIsBookedService='+newIsBookedService,
+      'newIsDeletedService='+newIsDeletedService,
+      'idService='+idService
+  	];
+  	var body = params.join('&');
+  	request.send(body);
+}
+
+
+function getSpaceIdInService(idService){
+	var select = document.getElementById(idService+'ServiceSpaceId');
+	var idx=select.selectedIndex;
+	var options = select.getElementsByTagName('option');
+	var selectedOption = options[idx];
+	var spaceId = selectedOption.value;
+	return spaceId;
+}
+
+
+
+function updateServiceContent(idServiceContent){
+    var newNameServiceContent = document.getElementById(idServiceContent+'NameServiceContent').value;
+    var newInformationServiceContent = document.getElementById(idServiceContent+'InformationServiceContent').value;
+    var newServiceId = getServiceIdInServiceContent(idServiceContent);
+    var newIsFreeServiceContent = document.getElementById(idServiceContent+'IsFreeServiceContent').value;
+    var newIsDeletedServiceContent = document.getElementById(idServiceContent+'IsDeletedServiceContent').checked;
+
+
+    console.log(newNameServiceContent);
+    console.log(newInformationServiceContent);
+    console.log(newServiceId);
+    console.log(newIsFreeServiceContent);
+    console.log(newIsDeletedServiceContent);
+
+
+    var request = new XMLHttpRequest();
+  	request.onreadystatechange =function(){
+  	  if(request.readyState == 4){
+  	    if(request.status ==200){
+  	    	  console.log(request.responseText);
+
+  	    }
+  	  }
+  	};
+
+
+  	request.open("POST",'ajaxFile\\updateServiceContent.php');
+  	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+  	var params = [
+  		'newNameServiceContent='+newNameServiceContent,
+  		'newInformationServiceContent='+newInformationServiceContent,
+      'newServiceId='+newServiceId,
+      'newIsFreeServiceContent='+newIsFreeServiceContent,
+      'newIsDeletedServiceContent='+newIsDeletedServiceContent,
+      'idServiceContent='+idServiceContent
+  	];
+  	var body = params.join('&');
+  	request.send(body);
+}
+
+
+function getServiceIdInServiceContent(idServiceContent){
+	var select = document.getElementById(idServiceContent+'ServiceContentServiceId');
+	var idx=select.selectedIndex;
+	var options = select.getElementsByTagName('option');
+	var selectedOption = options[idx];
+	var serviceId = selectedOption.value;
+	return serviceId;
 }

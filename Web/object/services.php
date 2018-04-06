@@ -162,6 +162,29 @@ class ServiceMng{
 
   }
 
+  
+  public function updateService($idService,Service $service){
+    try{
+        $query = $this->_db->prepare('UPDATE SERVICES
+                      SET idSpace =:idSpace,isBooked = :isBooked,nameService = :nameService,compInfo = :compInfo,isDeleted = :isDeleted
+                              WHERE idService = :idService');
+        $query->execute([
+          "idSpace"=>$service->idSpace(),
+          "isBooked"=>$service->isBooked(),
+          "nameService"=>$service->nameOfService(),
+          "compInfo"=>$service->compInfo(),
+          "isDeleted"=>$service->isDeleted(),
+          "idService"=>$idService
+        ]);
+    }catch (Exception $e){
+      echo "PDOException : ".$e->getMessage();;
+    }
+
+      echo "Service updated";
+  }
+
+
+
 }
 
 
