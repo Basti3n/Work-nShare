@@ -1,7 +1,8 @@
 <?php
   require "conf.inc.php";
   require "function.php";
-  include "object/user.php";
+  require "object/user.php";
+  require "object/ticket.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -123,15 +124,17 @@
                   <table class="table table-striped table-bordered ">
                     <thead>
                       <tr>
+                        <th scope="col" class="col-md-1 text-center">ID</th>
                         <th scope="col" class="col-md-6 text-center">Message</th>
                         <th scope="col" class="col-md-2 text-center">Date</th>
+                        <th scope="col" class="col-md-2 text-center">Category</th>
                         <th scope="col" class="col-md-3 text-center">Correspondant</th>
-                        <th scope="col" class="col-md-1 text-center"> </th>
+                        <th scope="col" class="col-md-1 text-center">Etat</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="pagresult">
                       <?php
-
+/*
                       $page=$_POST['page'];//page number
                       $limit=$_POST['limit'];//number of data
 
@@ -139,28 +142,23 @@
                       $start = $limit1-$limit; //calculate the start point
 
                       $sql = "select * from Messages  limit $start,$limit";// query
+*/
 //////////////////////////////////////////////////////////////////////////////////////
-/*
-                      $msg  = "Jeanne";
-                      $date = date('j \/ m \/ Y \- H\h i\m\i\n');
-                      $who = "TOTO";
-                      $readed = [ "",               //0 : non-readed
-                                  "class='readed'"  //1 : readed
-                                ];
+                      $mng = new TicketMng($db);
+                      $tickets = $mng->getAll();
 
-                      for ($i=0; $i < 10; $i++) {
+                      foreach ($tickets as $key => $ticket) {
                         echo "
                           <tr>
-                            <th scope='row'".$readed[0].">".$msg."</th>
-                            <td>".$date."</td>
-                            <td class='text-center'>".$who."</td>
-                            <td class='text-center corbeille'><i class='fas fa-trash-alt'></i></td>
+                            <th scope='row' class='text-center'>".$ticket->id()."</th>
+                            <td> ".$ticket->content()."</td>
+                            <td> Le ".$ticket->date()."</td>
+                            <td> ".$ticket->category()."</td>
+                            <td> ".$ticket->email()."</td>
+                            <td class='text-center'>".$ticket->status()."</td>
                           </tr>
                         ";
                       }
-*/
-                      $mng = new TicketMng($db);
-                      $ticket = new Ticket;
                       ?>
                     </tbody>
                   </table>

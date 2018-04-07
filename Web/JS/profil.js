@@ -10,35 +10,27 @@ $('.list-group a').click(function() {
 function abbo(){
   window.location.href='http://localhost/Work-nShare/Web/subscribe.php';
 }
-/*
-$("#YourElementID").css({ display: "block" });
-$('#list-tab a[href="#general"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
 
-$('#list-tab a[href="#messages"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
 
-$('#list-tab a[href="#abonnement"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#services"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#historique"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#desactive"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-*/
+/************************\
+        pagination
+\************************/
+function getresult(url) {
+	$.ajax({
+		url: url,
+		type: "GET",
+		data:  {rowcount:$("#rowcount").val(),"pagination_setting":$("#pagination-setting").val()},
+		beforeSend: function(){$("#overlay").show();},
+		success: function(data){
+		$("#pagination-result").html(data);
+		setInterval(function() {$("#overlay").hide(); },500);
+		},
+		error: function()
+		{}
+   });
+}
+function changePagination(option) {
+	if(option!= "") {
+		getresult("pagination.ticket.php");
+	}
+}

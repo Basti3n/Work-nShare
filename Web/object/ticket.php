@@ -12,17 +12,7 @@ class Ticket
   private $_idEquipment;
   private $_expeditor = "Unknown";
   private $_readed = false;
-  public $listOfErrors = [];
-  private $_ts = ["Nouveau",
-                  "En cours",
-                  "Résolu",
-                  "En attente",
-                  "En retard" ];
-  private $_tc = [ "Matériel",
-                  "Réseau",
-                  "Alimentaire",
-                  "Réservation",
-                  "Autre" ];
+  public $errors = [];
 
   function __construct($data){
     if ($data != null)
@@ -65,11 +55,21 @@ class Ticket
     if($new == "-1")
       return $this->_id;
     if(!is_numeric($new)){
-      $listOfErrors[] = 15;
+      $errors[] = 15;
       return 1;
     }
-    $this->_id = $id;
+    $this->_id = $new;
     return 0;
+  }
+
+  public function date($new = '-1'){
+    if($new == '-1')
+      return date('j \/ m \/ Y');
+      //date('j \/ m \/ Y',$this->_dateSend);
+    else{
+      $this->_dateSend = strtotime($new);
+    }
+    return $this->_dateSend;
   }
 
   public function content($new = "-1"){
@@ -82,8 +82,8 @@ class Ticket
   public function status($new = "-1"){
     if($new == "-1")
       return $this->_status;
-    if (!isStatus($new)){
-      $this->listOfErrors[] = 17;
+    if (!$this->isStatus($new)){
+      $this->errors[] = 17;
       return 1;
     }
     $this->_status = $new;
@@ -93,8 +93,8 @@ class Ticket
   public function email($new = "-1"){
     if($new == "-1")
       return $this->_email;
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      $this->listOfErrors[] = 6;
+    if (!filter_var($new, FILTER_VALIDATE_EMAIL)) {
+      $this->errors[] = 6;
       return 1;
     }
     $this->_email = $new;
@@ -111,8 +111,8 @@ class Ticket
   public function category($new = "-1"){
     if($new == "-1")
       return $this->_category;
-    if (!isCategory($new)){
-      $this->listOfErrors[] = 17;
+    if (!$this->isCategory($new)){
+      $this->errors[] = 17;
       return 1;
     }
     $this->_category = $new;
@@ -122,16 +122,23 @@ class Ticket
   public function linkedObject($new = "-1"){
     if($new == "-1")
       return $this->_idEquipment;
-    if (!isCategory($new)){
-      $this->listOfErrors[] = 18;
-      return 1;
+    if (isset($new)){
+      $this->_idEquipment = "null";
+      return 0;
     }
     $this->_idEquipment = $new;
     return 0;
   }
 
   private function isStatus($status){
-    for ($i=0; $i < $ts.length(); $i++) {
+    $ts = [
+      "Nouveau",
+    	"En cours",
+    	"Résolu",
+    	"En attente",
+    	"En retard"
+    ];
+    for ($i=0; $i < count($ts); $i++) {
       if($ts[$i] == $status)
         return true;
     }
@@ -139,7 +146,15 @@ class Ticket
   }
 
   private function isCategory($status){
-    for ($i=0; $i < $tc.length(); $i++) {
+    $tc = [
+    	"Matériel",
+    	"Réseau",
+    	"Alimentaire",
+    	"Réservation",
+    	"Autre",
+      "Equipment"
+    ];
+    for ($i=0; $i < count($tc); $i++) {
       if($tc[$i] == $status)
         return true;
     }
