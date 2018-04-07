@@ -1,7 +1,8 @@
 <?php
   require "conf.inc.php";
   require "function.php";
-  include "object/user.php";
+  require "object/user.php";
+  require "object/ticket.php";
 ?>
 <!DOCTYPE html>
 <html>
@@ -118,46 +119,8 @@
                   <h4>&nbsp;&nbsp;Messages </h4>
                 </div>
               </div>
-              <div class="container">
-                <div class="col-md-12 tablemsg">
-                  <table class="table table-striped table-bordered ">
-                    <thead>
-                      <tr>
-                        <th scope="col" class="col-md-6 text-center">Message</th>
-                        <th scope="col" class="col-md-2 text-center">Date</th>
-                        <th scope="col" class="col-md-3 text-center">Correspondant</th>
-                        <th scope="col" class="col-md-1 text-center"> </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php
-                      $msg  = "Jeanne";
-                      $date = date('j \/ m \/ Y \- H\h i\m\i\n');
-                      $who = "TOTO";
-                      $readed = [ "",               //0 : non-readed
-                                  "class='readed'"  //1 : readed
-                                ];
-
-                      for ($i=0; $i < 10; $i++) {
-                        echo "
-                          <tr>
-                            <th scope='row'".$readed[0].">".$msg."</th>
-                            <td>".$date."</td>
-                            <td class='text-center'>".$who."</td>
-                            <td class='text-center corbeille'><i class='fas fa-trash-alt'></i></td>
-                          </tr>
-                        ";
-                      } ?>
-
-                    </tbody>
-                  </table>
-                  <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                  </ul>
+              <div class="container" id="contain">
+                <div class="col-md-12 tablemsg" id="pagresult">
                 </div>
                 <div class="col-md-12">
                   <form>

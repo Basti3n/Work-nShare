@@ -20,7 +20,7 @@ class User
     foreach ($data as $key => $value){
       switch ($key) {
         case 'email':
-          $this->Email($value);
+          $this->email($value);
           break;
         case 'nameUser':
           $this->name($value);

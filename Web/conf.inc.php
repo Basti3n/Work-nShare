@@ -27,3 +27,19 @@ $listOfErrors = [
 	19=>"Le nom du service doit être composé de 80 caractère au maximum",
 	20=>"Le nom du content service doit être composé de 80 caractères au maximum"
 ];
+
+$ts = [
+	1=>"Nouveau",
+	2=>"En cours",
+	3=>"Résolu",
+	4=>"En attente",
+	5=>"En retard"
+];
+
+$tc = [
+	1=>"Matériel",
+	2=>"Réseau",
+	3=>"Alimentaire",
+	4=>"Réservation",
+	5=>"Autre"
+];
