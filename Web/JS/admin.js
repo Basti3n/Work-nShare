@@ -1,40 +1,13 @@
-
 //Jquery
 $( document ).ready(function() {
     $('#list-tab a[href="#general"]').tab('show');
+    getresult("pagination.ticket.php");//tickets pagination
 });
 
 $('.list-group a').click(function() {
       $(this).siblings('a').removeClass('active');
       $(this).addClass('active');
   });
-
-/*
-$('#list-tab a[href="#services"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#events"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#spaces"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#database"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-
-$('#list-tab a[href="#tickets"]').on('click', function (e) {
-  e.preventDefault();
-  $(this).tab('show');
-});
-*/
 
 $('#addSpaceButton').on('click', function (e){
   $('#createSpacePannel').removeClass('hidden');
@@ -59,8 +32,6 @@ $('#addServiceContentButton').on('click', function (e){
 $('#cancelCreateServiceContentButton').on('click', function (e){
   $('#createServiceContentPannel').addClass('hidden');
 })
-
-
 
 
 //function JS
@@ -394,4 +365,30 @@ function getServiceIdInServiceContent(idServiceContent){
 	var selectedOption = options[idx];
 	var serviceId = selectedOption.value;
 	return serviceId;
+}
+
+
+/***************************************************
+                      Tickets
+****************************************************/
+function getresult(url) {
+  $("#pagresult").remove();
+  $("#contain").prepend( "<div id='pagresult'></div>" );
+	$.ajax({
+		url: url,
+		type: "GET",
+		data:  {rowcount:$("#rowcount").val()},
+		beforeSend: function(){$("#overlay").show();},
+		success: function(data){
+		$("#pagresult").html(data);
+		setInterval(function() {$("#overlay").hide(); },500);
+		},
+		error: function()
+		{}
+   });
+}
+function changePagination(option) {
+	if(option!= "") {
+		getresult("pagination.ticket.php");
+	}
 }

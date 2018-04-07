@@ -5,6 +5,7 @@
   include "object/spaces.php";
   include "object/services.php";
   include "object/serviceContents.php";
+  require "object/ticket.php";
 
 ?>
 <!DOCTYPE html>
@@ -34,10 +35,10 @@
         <div class="col-md-9">
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane tabcontent fade show active in" id="spaces" role="tabpanel" aria-labelledby="spaces-list">
+              <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;ESPACES </h4>
+              </div>
               <div class="container col-md-12">
-
-
-
 
                 <div style="margin-top:2%;">
                   <button class="btn btn-primary" id="addSpaceButton">Ajouter un espace</button>
@@ -85,9 +86,9 @@
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="services" role="tabpanel" aria-labelledby="services-list">
-
-
-
+              <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;SERVICES </h4>
+              </div>
               <div class="container col-md-12">
 
                 <div class="row buttonRow" >
@@ -195,25 +196,30 @@
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="events" role="tabpanel" aria-labelledby="events-list">
-              <div class="container col-md-12">
-                <p>Evènements</p>
+              <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;EVENEMENTS </h4>
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="database" role="tabpanel" aria-labelledby="database-list">
-              <div class="container col-md-12">
-                <p>Base de données</p>
+              <div class="col-md-12 col-sm-12 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;BASE DE DONNEES </h4>
               </div>
             </div>
             <div class="tab-pane fade" id="tickets" role="tabpanel" aria-labelledby="tickets-list">
               <div class="container col-md-12">
-                <p>Tickets</p>
+                <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                  <h4>&nbsp;&nbsp;Tickets </h4>
+                </div>
+              </div>
+              <div class="container" id="contain">
+                <div class="col-md-12 tablemsg" id="pagresult">
+                </div>
               </div>
             </div>
             <!--  <div class="container col-md-12">
                 <p>Disable</p>
               </div>-->
             </div>
-
 
             <!--Create space pannel -->
             <div id="createSpacePannel" class="hidden">
