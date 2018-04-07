@@ -1,5 +1,6 @@
 $( document ).ready(function() {
     $('#list-tab a[href="#general"]').tab('show');
+    getresult("pagination.ticket.php");
 });
 
 $('.list-group a').click(function() {
@@ -16,13 +17,15 @@ function abbo(){
         pagination
 \************************/
 function getresult(url) {
+  $("#pagresult").remove();
+  $("#contain").prepend( "<div id='pagresult'></div>" );
 	$.ajax({
 		url: url,
 		type: "GET",
-		data:  {rowcount:$("#rowcount").val(),"pagination_setting":$("#pagination-setting").val()},
+		data:  {rowcount:$("#rowcount").val()},
 		beforeSend: function(){$("#overlay").show();},
 		success: function(data){
-		$("#pagination-result").html(data);
+		$("#pagresult").html(data);
 		setInterval(function() {$("#overlay").hide(); },500);
 		},
 		error: function()
