@@ -80,8 +80,8 @@ class Reservation{
 				"<br>\$_idServiceContent : ".$this->_idServiceContent.
 				/*"<br>\$_reservationStartDateSignup : le ".date('j \/ m \/ Y \à G \h i \: s',$this->_reservationStartDateSignup).
 				"<br>\$_reservationEndDateSignup : le ".date('j \/ m \/ Y \à G \h i \: s',$this->_reservationEndDateSignup).*/
-				"<br>\$_reservationStartDateSignup : ".$this->_reservationStartDateSignup.
-				"<br>\$_reservationEndDateSignup : ".$this->_reservationEndDateSignup.
+				"<br>\$_reservationStartDateSignup : ".$this->_reservationStartDate.
+				"<br>\$_reservationEndDateSignup : ".$this->_reservationEndDate.
 				"<br>\$_email : ".$this->_email;
   }
 
@@ -113,7 +113,7 @@ class ReservationMng
   	}
 
   	public function add($id){
-  		$query = $this->_db->prepare("INSERT INTO RESERVATION (email,idServiceContent,reservationStartDateSignup,reservationEndDateSignup)
+  		$query = $this->_db->prepare("INSERT INTO RESERVATION (email,idServiceContent,reservationStartDate,reservationEndDate)
                                   VALUES (:email,:idServiceContent,:reservationStartDateSignup,:reservationEndDateSignup);");
 		$query->execute( [
 			"idServiceContent"=>$id->idServiceContent(),

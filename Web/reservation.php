@@ -16,7 +16,6 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />  
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <script src="JS/reservation_script.js"></script>
     <link rel="stylesheet" type="text/css" href="CSS/reservation_style.css">
   </head>
   <body>
@@ -36,8 +35,13 @@
       $query3 = $db->prepare("SELECT * FROM `SPACES` WHERE idSpace=?");
       $query3->execute(array($res2[0]["idSpace"]));
       $res3 = $query3->fetchAll(PDO::FETCH_ASSOC);
+
+      $space =$res2[0]["idSpace"]; 
     ?>
-    <div> 
+    <script type="text/javascript">
+        var space='<?PHP echo $_GET["choice"];?>';
+    </script>
+    <div>     
         <h2>Recapitulatif de votre commande: </h2>
         <?php
 
@@ -154,6 +158,6 @@
        echo '<button onclick="reserv(\''.utf8_encode($res3[0]["nameSpace"]).'\','.$_GET["choice"].')">Confirmer La reservation</button>';
        ?>
     </div>
-
+    <script src="JS/reservation_script.js"></script>
 </body>
 </html>

@@ -131,6 +131,9 @@ function ajaxShowReserv(){
 			}
 		}
 	};
-	request.open('GET', 'showReservation.php?date=' +  value);
+	request.open('GET', 'showReservation.php?date=' +  value+"&site="+space);
 	request.send();
 }
+
+
+console.log(space);

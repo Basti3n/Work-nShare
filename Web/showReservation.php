@@ -15,11 +15,11 @@
 	<?php
 	$db = connectDb();
 	$date = json_decode($_GET["date"]);
-	$query = $db->prepare("SELECT * FROM `reservation` WHERE (reservationStartDate BETWEEN :startD AND :endD ) /*AND idServiceContent =:idServiceContent*/");
+	$query = $db->prepare("SELECT * FROM `reservation` WHERE (reservationStartDate BETWEEN :startD AND :endD ) AND idServiceContent =:idServiceContent");
 	$query->execute([
 		"startD"=>$date[0],
-		"endD"=>date("Y-m-d",strtotime($date[6].'+1 day'))/*,
-		"idServiceContent"=>37*/
+		"endD"=>date("Y-m-d",strtotime($date[6].'+1 day')),
+		"idServiceContent"=>$_GET["site"]
 	]);
 	//showArray($date);
 
@@ -42,23 +42,23 @@
 	        //horaire
 	        $json = array(
 	              0=>array(
-	                          "debut"=>"09",
+	                          "debut"=>"13",
 	                          "fin"=>"20",
 	                          "jour"=>"Lundi"
 	              ),
 	              1=>array(
-	                          "debut"=>"09",
-	                          "fin"=>"20",
+	                          "debut"=>"18",
+	                          "fin"=>"24",
 	                          "jour"=>"Mardi"
 	              ),
 	              2=>array(
-	                          "debut"=>"09",
-	                          "fin"=>"23",
+	                          "debut"=>"01",
+	                          "fin"=>"05",
 	                          "jour"=>"Mercredi"
 	              ),
 	              3=>array(
 	                          "debut"=>"09",
-	                          "fin"=>"20",
+	                          "fin"=>"12",
 	                          "jour"=>"Jeudi"
 	              ),
 	              4=>array(
@@ -68,7 +68,7 @@
 	              ),
 	              5=>array(
 	                          "debut"=>"11",
-	                          "fin"=>"20",
+	                          "fin"=>"23",
 	                          "jour"=>"Samedi"
 	              ),
 	              6=>array(
