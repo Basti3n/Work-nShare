@@ -52,11 +52,11 @@ $(document).ready(function(){
 
   //Initialize the datePicker(I have taken format as mm-dd-yyyy, you can     //have your owh)
   $("#weeklyDatePicker").datetimepicker({
-    format: 'YYYY-MM-DD'
+    format: 'DD-MM-YYYY'
   });
   //Initialise les valeurs par defaut
- 	var first = moment().day(1).format("YYYY-MM-DD");
-    var last =  moment().day(7).format("YYYY-MM-DD");
+ 	var first = moment().day(1).format("DD-MM-YYYY");
+    var last =  moment().day(7).format("DD-MM-YYYY");
     $("#weeklyDatePicker").val(first + " - " + last);
     //affiche les réservations
     ajaxShowReserv();
@@ -64,8 +64,8 @@ $(document).ready(function(){
    //Get the value of Start and End of Week
   $('#weeklyDatePicker').on('dp.change', function (e) {
       var value = $("#weeklyDatePicker").val();
-      var firstDate = moment(value, "YYYY-MM-DD").day(1).format("YYYY-MM-DD");
-      var lastDate =  moment(value, "YYYY-MM-DD").day(7).format("YYYY-MM-DD");
+      var firstDate = moment(value, "DD-MM-YYYY").day(1).format("DD-MM-YYYY");
+      var lastDate =  moment(value, "DD-MM-YYYY").day(7).format("DD-MM-YYYY");
       $("#weeklyDatePicker").val(firstDate + " - " + lastDate);
 			ajaxShowReserv();
   });
