@@ -40,7 +40,19 @@
 	<table id="calendar">
         <?php
 	        //horaire
-	        $json = array(
+        $query = $db->prepare("SELECT horaire FROM `spaces` WHERE idSpace =
+					        	( SELECT idSpace FROM `services` WHERE idService =
+					        		(SELECT idService FROM `service_content` WHERE idServiceContent =:idServiceContent)
+					        	)"
+					        );
+        $query->execute([
+			"idServiceContent"=>$_GET["site"]
+		]);
+		$data2 = $query->fetchAll(PDO::FETCH_ASSOC);
+
+		$json =json_decode($data2[0]["horaire"],true);
+		//showArray($json);
+	        /*$json3 = array(
 	              0=>array(
 	                          "debut"=>"13",
 	                          "fin"=>"20",
@@ -77,6 +89,7 @@
 	                          "jour"=>"Dimanche"
 	              )
 	          );
+	        showArray($json3);*/
 	       	//calendrier
 			echo "<thead>";
 			echo "<th class='calendarTh'> </th>";
@@ -113,6 +126,7 @@
        </table>
 		<!--<button onclick="ajaxReserv()">Confirmer La reservation</button>-->
        <?php
+       //echo json_encode($json);
 
 	/* function */
 	function test($i,$data,$json,$y,$date){

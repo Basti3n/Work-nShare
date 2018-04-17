@@ -12,7 +12,7 @@ var DAY = {
 };
 
 
-var json = {
+/*var json = {
   	"Lundi":{
               "debut":"09",
               "fin":"20"
@@ -41,7 +41,7 @@ var json = {
               "debut":"11",
               "fin":"20"
   }
-};
+};*/
 
 
 $(document).ready(function(){
@@ -87,7 +87,7 @@ function changeBg(id){
 
 function reserv(site,serviceContent){
 	var week = $('#weeklyDatePicker').val();
-	var json = [];
+	var json1 = [];
 	var i = 0 ;
 	//console.log(week);
 	$(".vosreserv").each(function(){
@@ -95,11 +95,11 @@ function reserv(site,serviceContent){
 		var day = parseInt(($(this).attr("id")).split("-")[1])+1;
 		var test = moment(week, "YYYY-MM-DD").day(day).format("YYYY-MM-DD");
 		console.log("date : "+test+" "+hour);
-		json[i]=test+" "+hour;
+		json1[i]=test+" "+hour;
 		i++;
 	});
-	json=JSON.stringify(json);
-	document.location ='saveReservation.php?site='+site+'&serviceContent='+serviceContent+'&date=' +  json;
+	json1=JSON.stringify(json1);
+	document.location ='saveReservation.php?site='+site+'&serviceContent='+serviceContent+'&date=' +  json1;
 	/*var request = new XMLHttpRequest();
 	request.onreadystatechange = function(){
 		if(request.readyState == 4){
