@@ -162,7 +162,7 @@ class ServiceMng{
 
   }
 
-  
+
   public function updateService($idService,Service $service){
     try{
         $query = $this->_db->prepare('UPDATE SERVICES

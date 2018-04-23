@@ -1,18 +1,16 @@
 <?php
 date_default_timezone_set('Europe/Paris');
 
-class Ticket
-{
-  private $_id;
-  private $_content = " - ";
-  private $_dateSend;
-  private $_status;
-  private $_file;
-  private $_category;
-  private $_idEquipment;
-  private $_expeditor = "Unknown";
-  private $_readed = false;
-  public $errors = [];
+class Ticket{
+  private $_idTicket = -1;
+  private $_contentTicket = "Empty";
+  private $_email = "Empty";
+  private $_ticketCategory ="Empty";
+  private $_idPrimaryTicket =-1;
+  private $_ticketLinkDoc = "Empty";
+  private $_idEquipment  = -1;
+  private $_statusTicket = -1;
+  private $_ticketSenderStatus = -1;
 
   function __construct($data){
     if ($data != null)
@@ -20,167 +18,147 @@ class Ticket
   }
 
   public function hydrate(array $data){
-    foreach ($data as $key => $value){
-      switch ($key) {
+    foreach ($data as $key => $value) {
+      switch($key){
         case 'idTicket':
-          $this->id($value);
+          $this->idTicket($value);
           break;
         case 'contentTicket':
-          $this->content($value);
+          $this->contentTicket($value);
           break;
         case 'statusTicket':
-          $this->status($value);
+          $this->statusTicket($value);
           break;
         case 'email':
           $this->email($value);
           break;
         case 'ticketLinkDoc':
-          $this->linkedFile($value);
+          $this->ticketLinkDoc($value);
           break;
         case 'ticketCategory':
-          $this->category($value);
+          $this->ticketCategory($value);
           break;
         case 'idEquipment':
-          $this->linkedObject($value);
+          $this->idEquipment($value);
+          break;
+        case 'idPrimaryTicket':
+          $this->idPrimaryTicket($value);
+          break;
+        case 'dateTicket':
+          $this->dateTicket($value);
+          break;
+        case 'ticketSenderStatus':
+          $this->ticketSenderStatus($value);
           break;
 
+        default:
+          break;
       }
-      /*$method = 'set'.ucfirst($key);
-      if (method_exists($this, $method))
-        $this->$method($value);*/
     }
   }
 
-  public function id($new = "-1"){
-    if($new == "-1")
-      return $this->_id;
-    if(!is_numeric($new)){
-      $errors[] = 15;
-      return 1;
-    }
-    $this->_id = $new;
+
+
+  public function idTicket($idTicket = -2){
+    if($idTicket == -2)
+      return $this->_idTicket;
+    else
+      $this->_idTicket= $idTicket;
     return 0;
   }
 
-  public function date($new = '-1'){
-    if($new == '-1')
-      return date('j \/ m \/ Y');
-      //date('j \/ m \/ Y',$this->_dateSend);
+
+  public function contentTicket($contentTicket = "0"){
+    if($contentTicket == "0")
+      return $this->_contentTicket;
+    else
+      $this->_contentTicket= $contentTicket;
+    return 0;
+  }
+
+
+  public function statusTicket($statusTicket = -2){
+    if($statusTicket == -2)
+      return $this->_statusTicket;
     else{
-      $this->_dateSend = strtotime($new);
+      if($statusTicket >= 0 && $statusTicket <= 5){
+        $this->_statusTicket= $statusTicket;
+        return 0;
+      }else{
+        return 1;
+      }
     }
-    return $this->_dateSend;
   }
 
-  public function content($new = "-1"){
-    if($new == "-1")
-      return $this->_content;
-    $this->_content = $new;
-    return 0;
-  }
 
-  public function status($new = "-1"){
-    if($new == "-1")
-      return $this->_status;
-    if (!$this->isStatus($new)){
-      $this->errors[] = 17;
-      return 1;
+  public function ticketSenderStatus($ticketSenderStatus = -2){
+    if($ticketSenderStatus == -2)
+      return $this->_ticketSenderStatus;
+    else{
+      if($ticketSenderStatus >= 0 && $ticketSenderStatus <= 3){
+        $this->_ticketSenderStatus= $ticketSenderStatus;
+        return 0;
+      }else{
+        return 1;
+      }
     }
-    $this->_status = $new;
-    return 0;
   }
 
-  public function email($new = "-1"){
-    if($new == "-1")
+  public function email($email = "0"){
+    if($email == "0")
       return $this->_email;
-    if (!filter_var($new, FILTER_VALIDATE_EMAIL)) {
-      $this->errors[] = 6;
-      return 1;
-    }
-    $this->_email = $new;
+    else
+      $this->_email= $email;
     return 0;
   }
 
-  public function linkedFile($new = "-1"){
-    if($new == "-1")
-      return $this->_file;
-    $this->_file = $new;
+  public function ticketLinkDoc($ticketLinkDoc = "0"){
+    if($ticketLinkDoc == "0")
+      return $this->_ticketLinkDoc;
+    else
+      $this->_ticketLinkDoc= $ticketLinkDoc;
     return 0;
   }
 
-  public function category($new = "-1"){
-    if($new == "-1")
-      return $this->_category;
-    if (!$this->isCategory($new)){
-      $this->errors[] = 17;
-      return 1;
-    }
-    $this->_category = $new;
+
+  public function ticketCategory($ticketCategory = "0"){
+    if($ticketCategory == "0")
+      return $this->_ticketCategory;
+    else
+      $this->_ticketCategory= $ticketCategory;
     return 0;
   }
 
-  public function linkedObject($new = "-1"){
-    if($new == "-1")
+
+  public function idEquipment($idEquipment = "0"){
+    if($idEquipment == "0")
       return $this->_idEquipment;
-    if (isset($new)){
-      $this->_idEquipment = "null";
-      return 0;
-    }
-    $this->_idEquipment = $new;
+    else
+      $this->_idEquipment= $idEquipment;
     return 0;
   }
 
-  private function isStatus($status){
-    $ts = [
-      "Nouveau",
-    	"En cours",
-    	"Résolu",
-    	"En attente",
-    	"En retard"
-    ];
-    for ($i=0; $i < count($ts); $i++) {
-      if($ts[$i] == $status)
-        return true;
+
+  public function dateTicket($date = '0'){
+    if($date == '0')
+      return date('j \/ m \/ Y H:i:s',$this->_dateTicket);
+    else{
+      $this->_dateTicket = strtotime($date);
     }
-    return false;
+    return $this->_dateTicket;
   }
 
-  private function isCategory($status){
-    $tc = [
-    	"Matériel",
-    	"Réseau",
-    	"Alimentaire",
-    	"Réservation",
-    	"Autre",
-      "Equipment"
-    ];
-    for ($i=0; $i < count($tc); $i++) {
-      if($tc[$i] == $status)
-        return true;
-    }
-    return false;
+  public function idPrimaryTicket($idPrimaryTicket = "0"){
+    if($idPrimaryTicket == "0")
+      return $this->_idPrimaryTicket;
+    else
+      $this->_idPrimaryTicket= $idPrimaryTicket;
+    return 0;
   }
-
-  public function speak(){
-    echo  "<br>\$_id : ".$this->_id.
-          "<br>\$_content : ".$this->_content.
-          "<br>\$_status : ".$this->_status.
-          "<br>\$_email : ".$this->_email.
-          "<br>\$_category : ".$this->_category.
-          "<br>\$_linkedObject : ".$this->_idEquipment.
-          "<br>\$_linkedFile : ".$this->_file;
-  }
-
 }
 
-/**
- * Obligatoire pour la gestion de l'objet (norme)
- */
-class TicketMng
-{
-  private $_db;
-  private $_nbLine = 0;
 
+class TicketMng{
   function __construct($db){
     $this->setDb($db);
   }
@@ -189,107 +167,96 @@ class TicketMng
     $this->_db = $db;
   }
 
-  public function add(Ticket $data){
-    $date = date("y-m-d");
-    $query = $this->_db->prepare("INSERT INTO TICKETS (idTicket,contentTicket,statusTicket,email,ticketLinkDoc,ticketCategory,idEquipment)
-                                  VALUES (:id,:content, :status, :email, :file, :category, :idEquipment) ");
-		$query->execute( [
-			"id" => $data->id(),
-      "content" => $data->content(),
-      "status" => $data->status(),
-      "email" => $data->email(),
-      "file" => $data->linkedFile(),
-      "category" => $data->category(),
-      "idEquipment" => $data->linkedObject()
-			]);
-  }
 
-  public function update(Ticket $data){
-    $date = date("y-m-d");
-    $query = $this->_db->prepare("UPDATE TICKETS
-                                  SET idTicket=:id,contentTicket=:content,statusTicket=:status,email=:email,ticketLinkDoc=:file,ticketCategory=:category,idEquipment=:idEquipment
-                                  WHERE idTicket=:id");
-    $query->execute( [
-			"id" => $data->id(),
-      "content" => $data->content(),
-      "status" => $data->status(),
-      "email" => $data->email(),
-      "file" => $data->linkedFile(),
-      "category" => $data->category(),
-      "idEquipment" => $data->linkedObject()
-			]);
-  }
-
-  public function get($email){
-    try {
-      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted FROM USERS WHERE email =:email');
-      $query->execute( ["email"=>$email]);
-    } catch(Exception $e) {
-        echo "PDOException : " . $e->getMessage();
-    }
-
-    $data = $query->fetch(PDO::FETCH_ASSOC);
-    return new User($data);
-  }
-
-  public function getAll(){
+  public function add(Ticket $ticket){
     try{
-      $query = $this->_db->prepare('SELECT * FROM TICKETS');
-      $query->execute();
-      $this->_nbLine = $query->rowCount();
+      $query = $this->_db->prepare("INSERT INTO TICKETS (contentTicket,statusTicket,email,ticketLinkDoc,ticketCategory,idEquipment,idPrimaryTicket,dateTicket,ticketSenderStatus)
+                                    VALUES (:contentTicket,1,:email,:ticketLinkDoc,:ticketCategory,:idEquipment,:idPrimaryTicket,NOW(),:ticketSenderStatus)");
+      $query->execute( [
+        "contentTicket"=>$ticket->contentTicket(),
+        "email"=>$ticket->email(),
+        "ticketLinkDoc"=>$ticket->ticketLinkDoc(),
+        "ticketCategory"=>$ticket->ticketCategory(),
+        "idEquipment"=>$ticket->idEquipment(),
+        "idPrimaryTicket"=>$ticket->idPrimaryTicket(),
+        "ticketSenderStatus"=>$ticket->ticketSenderStatus()
+        ]);
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
     }
+
+  }
+
+
+  public function get($idTicket='-11'){
+    if($idTicket == -1)
+      return -1;
+
+    $query = $this->_db->prepare('SELECT * FROM TICKETS WHERE idTicket = :idTicket');
+    $query->execute(["idTicket"=> $idTicket]);
     $data = $query->fetchAll(PDO::FETCH_ASSOC);
-    if($data != NULL){
+    if($data !=NULL){
+      return new Ticket($data[0]);
+    }else{
+      return -1;
+    }
+  }
+
+  public function getAllTickets($value="-1"){
+    try{
+      if($value =="-1"){
+        $query = $this->_db->prepare('SELECT * FROM TICKETS WHERE ticketSenderStatus=0 ORDER BY idTicket ');
+        $query->execute();
+      }else{
+        $query = $this->_db->prepare('SELECT * FROM TICKETS WHERE idPrimaryTicket = :idPrimaryTicket ORDER BY dateTicket ASC');
+        $query->execute(["idPrimaryTicket"=>$value]);
+      }
+
+    }catch(Exception $e){
+      echo "PDOException : " . $e->getMessage();
+
+    }
+    $data = $query->fetchAll(PDO::FETCH_ASSOC);
+    if($data !=NULL){
       $tickets = [];
       foreach ($data as $key => $ticket) {
         array_push($tickets,new Ticket($ticket));
       }
       return $tickets;
     }else{
-      echo "Il n'y a aucun ticket pour l'instant";
       return 1;
     }
-    return 0;
+
   }
 
-  public function getParse($start,$end){
-    $sql = "SELECT * FROM TICKETS LIMIT $start,$end";// query
-    try{
-      $query = $this->_db->prepare($sql);
-      $query->execute();
-      $this->_nbLine = $query->rowCount();
-    }catch(Exception $e){
-      echo "PDOException : " . $e->getMessage();
-    }
+
+  public function getLastMessageDate(Ticket $ticket){
+    $query = $this->_db->prepare('SELECT * FROM TICKETS WHERE idPrimaryTicket = :idTicket ORDER BY dateTicket DESC');
+    $query->execute(["idTicket"=>$ticket->idTicket()]);
+
     $data = $query->fetchAll(PDO::FETCH_ASSOC);
-    if($data != NULL){
-      $tickets = [];
-      foreach ($data as $key => $ticket) {
-        array_push($tickets,new Ticket($ticket));
-      }
-      return $tickets;
+    if($data!=NULL){
+      $lastTicket = new Ticket($data[0]);
+      return $lastTicket->dateTicket();
     }else{
-      echo "Il n'y a aucun ticket pour l'instant";
-      return 1;
+      return $ticket->dateTicket();
     }
-    return 0;
   }
 
-  public function getLine($choice = "0"){
-    if($choice != "0")
-      return $this->_nbLine;
+  public function updateTicketStatus($idTicket , $statusTicket){
+
+
     try{
-      $query = $this->_db->prepare('SELECT * FROM TICKETS');
-      $query->execute();
-      $this->_nbLine = $query->rowCount();
+      $query = $this->_db->prepare('UPDATE TICKETS SET statusTicket = :statusTicket WHERE idTicket = :idTicket');
+      $query->execute([
+        "statusTicket"=>$statusTicket,
+        "idTicket"=>$idTicket
+      ]);
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
     }
-    return (int)$this->_nbLine;
   }
+
+
 
 }
-
-?>

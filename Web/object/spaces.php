@@ -4,7 +4,7 @@ date_default_timezone_set('Europe/Paris');
 class Space{
   private $_idSpace = "Empty";
   private $_nameSpace = "Empty";
-  private $_isDeleted;
+  private $_isDeleted = -1;
   public $listOfErrors =[];
 
   function __construct($data){

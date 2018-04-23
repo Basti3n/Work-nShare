@@ -9,6 +9,7 @@ class User
   private $_email;
   private $_password;
   private $_isdeletedUser = 0;
+  private $_statusUser = -1;
   public $listOfErrors = [];
 
   function __construct($data){
@@ -36,6 +37,9 @@ class User
           break;
         case 'isDeleted':
           $this->deletedUser($value);
+          break;
+        case 'statusUser':
+          $this->statusUser($value);
           break;
 
       }
@@ -151,6 +155,18 @@ class User
     return 0;
   }
 
+
+  public function statusUser($value = '-1'){
+    if($value == '-1')
+      return $this->_statusUser;
+    if($value != 0 && $value != 1 && $value != 2 && $value != 3)
+      return 1;
+    else{
+      $this->_statusUser = $value;
+    }
+    return 0;
+  }
+
   public function speak(){
     echo  "<br>\$_name : ".$this->_name.
           "<br>\$_lastname : ".$this->_lastname.
@@ -178,7 +194,7 @@ class UserMng
 
   public function add(User $user){
     $date = date("y-m-d");
-    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeletedUser,statusUser,qrCode,qrCodeToken)
+    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser,qrCode,qrCodeToken)
                                   VALUES (:email,:name, :lastname,NOW(),:pwd,:deleted,3,:qrCode,:qrCodeToken) ");
     $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
@@ -245,6 +261,31 @@ class UserMng
 
     $data = $query->fetch(PDO::FETCH_ASSOC);
     return new User($data);
+  }
+
+
+  public function getAll(){
+    try{
+      $query = $this->_db->prepare('SELECT * FROM USERS');
+      $query->execute();
+    }catch(Exception $e){
+      echo "PDOException : " . $e->getMessage();
+
+    }
+    $data = $query->fetchAll(PDO::FETCH_ASSOC);
+    if($data !=NULL){
+      $users = [];
+
+      //showArray($data);
+      foreach ($data as $key => $user) {
+        array_push($users,new User($user));
+      }
+      return $users;
+    }else{
+      echo "Il n'y a aucun service pour l'instant";
+      return 1;
+    }
+
   }
 }
 
