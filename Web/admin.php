@@ -1,10 +1,12 @@
 <?php
   require "conf.inc.php";
   require "function.php";
-  include "object/user.php";
-  include "object/spaces.php";
-  include "object/services.php";
-  include "object/serviceContents.php";
+  require "object/user.php";
+  require "object/spaces.php";
+  require "object/services.php";
+  require "object/serviceContents.php";
+  require "object/ticket.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -35,10 +37,6 @@
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane tabcontent fade show active in" id="spaces" role="tabpanel" aria-labelledby="spaces-list">
               <div class="container col-md-12">
-
-
-
-
                 <div style="margin-top:2%;">
                   <button class="btn btn-primary" id="addSpaceButton">Ajouter un espace</button>
                 </div>
@@ -75,7 +73,7 @@
 
                                 </tr>';
                         }
-                          //. $space->isDeleted().
+                          //
                       ?>
                     </tbody>
                     </table>
@@ -104,11 +102,10 @@
                     $db = connectDb();
                     $serviceMng = new ServiceMng($db);
                     $services = $serviceMng->getAllServices();
-                  //  echo $services[0].nameOfService();
                   ?>
 
                   <?php if(!empty($services)) :?>
-                    <table class="table" id ="spaceArray">
+                    <table class="table" id ="serviceArray">
                       <tr>
                                 <th>Nom du service général</th>
                                 <th>Information complémentaire</th>
@@ -149,13 +146,11 @@
                     $db = connectDb();
                     $serviceContentMng = new ServiceContentMng($db);
                     $serviceContents = $serviceContentMng->getAllServiceContents();
-                  //  echo $services[0].nameOfService();
-                 //showArray($serviceContents);
                   ?>
 
                   <?php if(!empty($serviceContents)) :?>
 
-                    <table class="table" id ="spaceContentArray">
+                    <table class="table" id ="serviceContentArray">
                       <tr>
                                 <th>Nom du service</th>
                                 <th>Information complémentaire</th>
@@ -182,16 +177,11 @@
                                   <td> <button onclick="updateServiceContent(\''.$serviceContent->idServiceContent().'\')">Valider </button> </td>
                                 </tr>';
                         }
-
                       ?>
                     </table>
-
                   <?php else :?>
                   <?php endif;?>
-
                 </div>
-
-
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="events" role="tabpanel" aria-labelledby="events-list">
@@ -200,19 +190,172 @@
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="database" role="tabpanel" aria-labelledby="database-list">
-              <div class="container col-md-12">
-                <p>Base de données</p>
+                <select id="tableSelect" onchange="changeTable()">
+                  <option value="users">Utilisateur</option>
+                  <option value="spaces">Espace</option>
+                  <option value="services">Modèle service</option>
+                  <option value="service_content">Service</option>
+                  <option value="tickets">Tickets</option>
+                  <option value="subscriptions">Abonnement</options>
+                  <option value="reservation">Réservation</options>
+                  <option value="equipments">Equipement</options>
+                </select>
+
+              <br>
+              <div class="container col-md-12" id="databaseContainer">
+
+                <!--
+                <table class="table" id ="dbUsers">
+                  <tr>
+                            <th>Email</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Date inscription</th>
+                            <th>Status</th>
+                            <th>Supprimé</th>
+                            <th>Valider les modifications<th>
+
+                  </tr>
+
+
+                  <?php
+                  /*
+                  $db = connectDb();
+                  $users = new UserMng($db);
+                  $users = $users->getAll();
+
+
+                    foreach ($users as $user) {
+
+                      echo '<tr>
+                              <td><input type="text" id="'.$user->email().'Email" value="'.utf8_encode($user->email()).'"></td>
+                              <td><input type="text" id="'.$user->email().'LastName" value="'.utf8_encode($user->lastName()).'"></td>
+                              <td><input type="text" id="'.$user->email().'Name" value="'.utf8_encode($user->name()).'"></td>
+                              <td>'.$user->dateSignUp().'</td>
+                              <td><select>';
+                              foreach ($statusUserArray as $key => $statusUser) {
+                                echo "<option value='".$key."'  ". ( $user->statusUser()==$key? "selected":"") ."  >".$statusUser."</option>";
+                              }
+                      echo    '</select></td>
+                              <td><input id="'.$user->email().'IsDeletedUser" type="checkbox" '.($user->deletedUser()?"checked":"").'></td>
+                              <td> <button onclick="updateUser(\''.$user->email().'\')">Valider </button> </td>
+                            </tr>';
+                    }*/
+                    ?>
+                </table>
+              -->
               </div>
             </div>
             <div class="tab-pane fade" id="tickets" role="tabpanel" aria-labelledby="tickets-list">
               <div class="container col-md-12">
-                <p>Tickets</p>
+                <h1>Tickets</h1>
+                <div class="row">
+                  <div class="col-xs-8">
+                    <?php
+                      $db = connectDb();
+                      $ticketMng = new TicketMng($db);
+                      $tickets = $ticketMng->getAllTickets();
+                      //showArray($tickets);
+                    ?>
+
+                    <table class="table">
+                      <tr>
+                        <th>#</th>
+                        <th>Catégorie</th>
+                        <th>Message</th>
+                        <th>Date début</th>
+                        <th>Dernier message</th>
+                        <th>Correspondant</th>
+                        <th>Etat</th>
+                      </tr>
+                      <?php
+                        foreach ($tickets as $ticket) {
+                          echo '<tr onclick="displayTicket('.$ticket->idTicket().',\''.$_SESSION["email"].'\','.$ticket->statusTicket().','.$ticket->idPrimaryTicket().')">
+                                    <td>'.$ticket->idTicket().'</td>
+                                    <td>'.$ticket->ticketCategory().'</td>
+                                    <td>'.$ticket->contentTicket().'</td>
+                                    <td>'.$ticket->dateTicket().'</td>
+                                    <td>'.$ticketMng->getLastMEssageDate($ticket).'</td>
+                                    <td>'.$ticket->email().'</td>
+                                    <td>'.$statusTicket[$ticket->statusTicket()].'</td>
+                                </tr>';
+                        }
+                      ?>
+                    </table>
+                  </div>
+
+                  <div class="col-xs-4">
+                    <div id="ticketAdvancedInfo">
+                      <div class ="row" id="ticketInformation">
+                          <div class="col-xs-3" id="idTicketAdvancedInfo">
+                            <?php
+                              echo "ID :".$tickets[2]->idTicket();
+                            ?>
+                          </div>
+
+                          <div class="col-xs-9" id="emailSenderAdvancedInfo">
+                            <?php
+                              echo "Correspondant :".$tickets[2]->email();
+                            ?>
+                          </div>
+                       </div>
+                      <br>
+                      <div id="ticketAdvancedInfoHistorique">
+                        <?php
+                          $ticketsAdvanced = $ticketMng->getAllTickets($tickets[2]->idTicket());
+                          echo '<div class="ticketAdvancedMessage receiver">'.$tickets[2]->contentTicket().'</div>';
+                          foreach($ticketsAdvanced as $ticketAdvanced){
+                            if($ticketAdvanced->ticketSenderStatus()== 0){
+                              echo '<div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div>';
+                            }else{
+                              echo '<div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div>';
+                            }
+                          }
+                        ?>
+                      </div>
+                      <br>
+                      <div>
+                        <div class="form-group">
+                          <label for="ticketAnswer">Réponse</label>
+                          <textarea class="form-control" id="ticketAnswer" rows="4"></textarea>
+                        </div>
+                      </div>
+
+                      <div>
+                        <div class="row">
+                          <div class="col-xs-6">
+                            Etat :
+                            <select id="ticketStatusSelect" onchange="updateTicketStatus(<?php $tickets[2]->idTicket()?>)">
+                              <?php
+                                foreach ($statusTicket as $key =>  $status) {
+                                  echo "<option value='".$key."'  ". ( $tickets[2]->statusTicket()==$key? "selected":"") ."  >".$status."</option>";
+                                }
+                              ?>
+                            </select>
+                          </div>
+
+
+                          <div class="col-xs-6">
+                            <div class="form-group row">
+                              <div class="col-md-7 col-sm-10 ">
+                                <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer(<?php echo $tickets[2]->idTicket();echo ",'"; echo $_SESSION['email']."'";?>)"  >Envoyer</button>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                  </div>
+                </div>
               </div>
             </div>
             <!--  <div class="container col-md-12">
                 <p>Disable</p>
               </div>-->
-            </div>
+          </div>
 
 
             <!--Create space pannel -->
@@ -285,7 +428,7 @@
             </div>
             <!--End create service content pannel-->
 
-          </div>
+
         </div>
       </div>
     </div>

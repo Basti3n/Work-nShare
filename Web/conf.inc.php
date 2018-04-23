@@ -27,3 +27,19 @@ $listOfErrors = [
 	19=>"Le nom du service doit être composé de 80 caractère au maximum",
 	20=>"Le nom du content service doit être composé de 80 caractères au maximum"
 ];
+
+$statusUserArray =[
+		0=>"Super admin",
+		1=>"Admin",
+		2=>"Employé",
+		3=>"Utilisateur"
+];
+
+$statusTicket =[
+	0=>"Ouvert",
+	1=>"Nouveau",
+	2=>"En cours",
+	3=>"Résolue",
+	4=>"En attente",
+	5=>"En retard"
+];

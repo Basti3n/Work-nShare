@@ -42,3 +42,41 @@ $('#list-tab a[href="#desactive"]').on('click', function (e) {
   $(this).tab('show');
 });
 */
+
+function sendTicket(email){
+  var ticketCategory = getTicketCategory();
+  var contentTicket = document.getElementById('inputContentTicket').value;
+
+  //console.log(ticketCategory + email + contentTicket);
+
+  var request = new XMLHttpRequest();
+
+	request.onreadystatechange =function(){
+	  if(request.readyState == 4){
+	    if(request.status ==200){
+	    	  console.log(request.responseText);
+
+	    }
+	  }
+	};
+
+
+	request.open("POST",'ajaxFile\\createTicket.php');
+	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+	var params = [
+		'ticketCategory='+ticketCategory,
+		'email='+email,
+    'contentTicket='+contentTicket
+	];
+	var body = params.join('&');
+	request.send(body);
+}
+
+function getTicketCategory(){
+	var select = document.getElementById('inputCategoryTicket');
+	var idx=select.selectedIndex;
+	var options = select.getElementsByTagName('option');
+	var selectedOption = options[idx];
+	var value = selectedOption.value;
+	return value;
+}

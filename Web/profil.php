@@ -2,6 +2,8 @@
   require "conf.inc.php";
   require "function.php";
   include "object/user.php";
+  include "object/ticket.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -120,6 +122,7 @@
               </div>
               <div class="container">
                 <div class="col-md-12 tablemsg">
+
                   <table class="table table-striped table-bordered ">
                     <thead>
                       <tr>
@@ -159,22 +162,34 @@
                     <li class="page-item"><a class="page-link" href="#">Next</a></li>
                   </ul>
                 </div>
+                <h2>Nouveau ticket</h2><br>
                 <div class="col-md-12">
-                  <form>
-                    <div class="form-group">
-                      <label for="exampleFormControlInput1">Email</label>
-                      <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                  <!--Select , ticket catégories-->
+
+                  <select class="select" id="inputCategoryTicket">
+                    <option>Administratif</option>
+                    <option>Logiciel</option>
+                    <option>Technique</option>
+                    <option>Sécurité</option>
+                  </select>
+                  <br>
+
+                  <div class="form-group">
+                    <label for="inputEmailTicket">Email</label>
+                    <input type="email" class="form-control" id="inputEmailTicket" value="<?php echo $_SESSION["email"]?>">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="inputContentTicket">Contenu</label>
+                    <textarea class="form-control" id="inputContentTicket" rows="4"></textarea>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-md-7 col-sm-10 ">
+                      <button  class="btn btn-primary" onclick="sendTicket(<?php $_SESSION["email"] ?>)" >Envoyer</button>
                     </div>
-                    <div class="form-group">
-                      <label for="exampleFormControlTextarea1">Contenu</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"></textarea>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-md-7 col-sm-10 ">
-                        <button type="submit" class="btn btn-primary">Envoyer</button>
-                      </div>
-                    </div>
-                  </form>
+                  </div>
+
                 </div>
               </div>
             </div>

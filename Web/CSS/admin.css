@@ -146,3 +146,33 @@ textarea{
   margin-bottom: 2%;
 
 }
+
+
+#ticketAdvancedInfoHistorique{
+  height: 50vh;
+  border-radius: 5%;
+  border-color: black;
+  border-style : solid;
+  padding: 4%;
+  overflow-y: scroll;
+}
+
+.ticketAdvancedMessage{
+  width : 50%;
+  margin-bottom: 3%;
+}
+
+.sender{
+  background-color:  rgba(50,50,50,0.7);
+  right : 0px;
+  border-radius: 5%;
+  padding: 4%;
+  position :relative;
+}
+
+.receiver{
+  background-color:  rgb(170,171,170);
+  left : 0px;
+  border-radius: 5%;
+  padding: 4%;
+}
