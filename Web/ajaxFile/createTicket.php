@@ -6,17 +6,15 @@ require "../object/user.php";
 
 
 if(isAdmin() || isSuperAdmin()){
-  if( count($_POST)==3 && isset($_POST["ticketCategory"]) && isset( $_POST["email"])
+  if( count($_POST)==3 && isset($_POST["ticketCategory"]) && isset( $_POST["emailToSave"])
     && isset( $_POST["contentTicket"]) ){
     $db=connectDb();
     $ticket = new Ticket(null);
-    $userMng = new UserMng($db);
-    $user = $userMng->get($_POST["email"]);
 
     $error = false;
     $listOfErrors = [];
-
-    if($ticket->email($_POST["email"]))
+    echo $_POST["emailToSave"];
+    if($ticket->email($_POST["emailToSave"]))
       $error = true;
 
     if($ticket->contentTicket($_POST["contentTicket"]))

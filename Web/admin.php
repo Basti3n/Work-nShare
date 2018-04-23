@@ -1,20 +1,14 @@
 <?php
   require "conf.inc.php";
   require "function.php";
-<<<<<<< HEAD
-  include "object/user.php";
-  include "object/spaces.php";
-  include "object/services.php";
-  include "object/serviceContents.php";
-  require "object/ticket.php";
-=======
+
+
   require "object/user.php";
   require "object/spaces.php";
   require "object/services.php";
   require "object/serviceContents.php";
   require "object/ticket.php";
 
->>>>>>> patrick2
 
 ?>
 <!DOCTYPE html>
@@ -38,7 +32,7 @@
               <a class="list-group-item list-group-item-action list-group-item-dark" id="services-list" data-toggle="tab" href="#services" role="tab" aria-controls="services">Services</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="events-list" data-toggle="tab" href="#events" role="tab" aria-controls="events">Evènement</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="database-list" data-toggle="tab" href="#database" role="tab" aria-controls="database">Base de données</a>
-              <a class="list-group-item list-group-item-action list-group-item-dark" id="tickets-list" data-toggle="tab" href="#tickets" role="tab" aria-controls="historique">Tickets</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="tickets-list" data-toggle="tab" href="#tickets" role="tab" aria-controls="tickets">Tickets</a>
             </div>
         </div>
         <div class="col-md-9">
@@ -48,10 +42,7 @@
                 <h4>&nbsp;&nbsp;ESPACES </h4>
               </div>
               <div class="container col-md-12">
-<<<<<<< HEAD
 
-=======
->>>>>>> patrick2
                 <div style="margin-top:2%;">
                   <button class="btn btn-primary" id="addSpaceButton">Ajouter un espace</button>
                 </div>
@@ -205,10 +196,10 @@
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="database" role="tabpanel" aria-labelledby="database-list">
-<<<<<<< HEAD
+
               <div class="col-md-12 col-sm-12 text-uppercase text-left font-weight-bold">
                 <h4>&nbsp;&nbsp;BASE DE DONNEES </h4>
-=======
+
                 <select id="tableSelect" onchange="changeTable()">
                   <option value="users">Utilisateur</option>
                   <option value="spaces">Espace</option>
@@ -263,19 +254,20 @@
                     ?>
                 </table>
               -->
->>>>>>> patrick2
+
               </div>
             </div>
-            <div class="tab-pane fade" id="tickets" role="tabpanel" aria-labelledby="tickets-list">
+
+
+          </div>
+            <div class="tab-pane tabcontent fade" id="tickets" role="tabpanel" aria-labelledby="tickets-list">
               <div class="container col-md-12">
-<<<<<<< HEAD
-                <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
-                  <h4>&nbsp;&nbsp;Tickets </h4>
-                </div>
-              </div>
+
+
               <div class="container" id="contain">
                 <div class="col-md-12 tablemsg" id="pagresult">
-=======
+
+
                 <h1>Tickets</h1>
                 <div class="row">
                   <div class="col-xs-8">
@@ -317,28 +309,31 @@
                       <div class ="row" id="ticketInformation">
                           <div class="col-xs-3" id="idTicketAdvancedInfo">
                             <?php
-                              echo "ID :".$tickets[2]->idTicket();
+                              echo "ID :".$tickets[0]->idTicket();
                             ?>
                           </div>
 
                           <div class="col-xs-9" id="emailSenderAdvancedInfo">
                             <?php
-                              echo "Correspondant :".$tickets[2]->email();
+                              echo "Correspondant :".$tickets[0]->email();
                             ?>
                           </div>
                        </div>
                       <br>
                       <div id="ticketAdvancedInfoHistorique">
                         <?php
-                          $ticketsAdvanced = $ticketMng->getAllTickets($tickets[2]->idTicket());
+                          $ticketsAdvanced = $ticketMng->getAllTickets($tickets[0]->idTicket());
                           echo '<div class="ticketAdvancedMessage receiver">'.$tickets[2]->contentTicket().'</div>';
-                          foreach($ticketsAdvanced as $ticketAdvanced){
-                            if($ticketAdvanced->ticketSenderStatus()== 0){
-                              echo '<div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div>';
-                            }else{
-                              echo '<div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div>';
+                          if(($ticketsAdvanced !=1)){
+                            foreach($ticketsAdvanced as $ticketAdvanced){
+                              if($ticketAdvanced->ticketSenderStatus()== 0){
+                                echo '<div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div>';
+                              }else{
+                                echo '<div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div>';
+                              }
                             }
                           }
+
                         ?>
                       </div>
                       <br>
@@ -377,13 +372,13 @@
 
 
                   </div>
->>>>>>> patrick2
                 </div>
               </div>
             </div>
             <!--  <div class="container col-md-12">
                 <p>Disable</p>
               </div>-->
+            </div>
           </div>
 
             <!--Create space pannel -->

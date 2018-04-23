@@ -14,27 +14,27 @@ $('.list-group a').click(function() {
 
 $('#addSpaceButton').on('click', function (e){
   $('#createSpacePannel').removeClass('hidden');
-})
+});
 
 $('#cancelCreateSpaceButton').on('click', function (e){
   $('#createSpacePannel').addClass('hidden');
-})
+});
 
 $('#addServiceButton').on('click', function (e){
   $('#createServicePannel').removeClass('hidden');
-})
+});
 
 $('#cancelCreateServiceButton').on('click', function (e){
   $('#createServicePannel').addClass('hidden');
-})
+});
 
 $('#addServiceContentButton').on('click', function (e){
   $('#createServiceContentPannel').removeClass('hidden');
-})
+});
 
 $('#cancelCreateServiceContentButton').on('click', function (e){
   $('#createServiceContentPannel').addClass('hidden');
-})
+});
 
 
 

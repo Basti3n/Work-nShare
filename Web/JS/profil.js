@@ -42,7 +42,7 @@ function sendTicket(email){
   var ticketCategory = getTicketCategory();
   var contentTicket = document.getElementById('inputContentTicket').value;
 
-  //console.log(ticketCategory + email + contentTicket);
+  console.log(ticketCategory + email + contentTicket);
 
   var request = new XMLHttpRequest();
 
@@ -55,12 +55,11 @@ function sendTicket(email){
 	  }
 	};
 
-
 	request.open("POST",'ajaxFile\\createTicket.php');
 	request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
 	var params = [
 		'ticketCategory='+ticketCategory,
-		'email='+email,
+		'emailToSave='+email,
     'contentTicket='+contentTicket
 	];
 	var body = params.join('&');
