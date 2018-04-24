@@ -9,7 +9,8 @@ if(isAdmin() || isSuperAdmin()){
     && isset($_POST["lastname"]) && isset( $_POST["name"])
     && isset($_POST["status"]) && isset( $_POST["isDeleted"])){
     $db=connectDb();
-    $user = new User(null);
+    $userMng = new UserMng($db);
+    $user = $userMng->get($_POST["email"]);
     $error = false;
     $listOfErrors = [];
 
@@ -33,7 +34,6 @@ if(isAdmin() || isSuperAdmin()){
     $listOfErrors = $user->listOfErrors;
     showArray($listOfErrors);
     if(!$error){
-      $userMng = new UserMng($db);
       $userMng->update($user,$_POST["email"]);
       echo "OK";
     }else{

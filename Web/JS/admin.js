@@ -433,7 +433,7 @@ function displayDatabaseUsers(element,array){
     });
      select += "</select>";
 
-    displayArray.innerHTML += '<tr><td><input type="text" id="'+user.email+'EmailDb" value="'+user.email+'"></td><td><input type="text" id="'+user.email+'LastNameDb" value="'+user.lastName+'"></td><td><input type="text" id="'+user.email+'NameDb" value="'+user.name+'"></td><td>'+user.dateSignup+'</td><td>'+select+'</td><td><input id="'+user.email+'IsDeletedUserDb" type="checkbox" '+(user.isDeleted?"checked":"")+'></td><td> <button onclick="updateUser(\''+ user.email +'\')">Valider </button> </td></tr>';
+    displayArray.innerHTML += '<tr><td><input type="text" id="'+user.email+'EmailDb" value="'+user.email+'"></td><td><input type="text" id="'+user.email+'LastNameDb" value="'+user.lastName+'"></td><td><input type="text" id="'+user.email+'NameDb" value="'+user.name+'"></td><td>'+user.dateSignup+'</td><td>'+select+'</td><td><input id="'+user.email+'IsDeletedUserDb" type="checkbox" '+(user.isDeleted=="1"?"checked":"")+'></td><td> <button onclick="updateUser(\''+ user.email +'\')">Valider </button> </td></tr>';
 
   });
 

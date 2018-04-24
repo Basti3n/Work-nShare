@@ -148,11 +148,11 @@ class User
   public function deletedUser($value = '-1'){
     if($value == '-1')
       return $this->_isdeletedUser;
-    if($value != 0 || $value != 1)
-      return 1;
-    else{
+    if($value == 0 || $value == 1)
       $this->_isdeletedUser = $value;
-    }
+    else
+      return 2;
+
     return 0;
   }
 
@@ -232,7 +232,7 @@ class UserMng
       $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       }
     $query = $this->_db->prepare("UPDATE USERS
-                                  SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr,isDeleted=:isDeleted,statusUser  = :statusUser
+                                  SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr,isDeleted=:isDeleted,statusUser=:statusUser
                                   WHERE email=:id");
     $qrCode = password_hash($user->email(),PASSWORD_DEFAULT);
 		$query->execute( [
@@ -241,7 +241,8 @@ class UserMng
 			"email"=>$user->email(),
 			"pwd"=>$user->password(),
 			"qr"=>$qrCode,
-      "isDeleted"=>$user->isDeleted(),
+      "isDeleted"=>$user->deletedUser(),
+      "statusUser"=>$user->statusUser(),
       "id"=>$id
 			]);
     exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->Email());
