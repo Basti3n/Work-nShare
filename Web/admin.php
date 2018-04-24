@@ -8,8 +8,6 @@
   require "object/services.php";
   require "object/serviceContents.php";
   require "object/ticket.php";
-
-
 ?>
 <!DOCTYPE html>
 <html>

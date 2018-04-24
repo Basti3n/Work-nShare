@@ -28,6 +28,7 @@ header {
 #logo {
   display: inline-block;
   height: 70px;
+	z-index: 100;
 }
 
 .headerButton {

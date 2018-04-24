@@ -8,7 +8,7 @@
   <body>
     <?php require "header.php" ?>
 
-		<div class="inner">
+		<div class="inner container">
       <div class="page-header">
         <h2>Connexion !</h2>
       </div>
