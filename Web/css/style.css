@@ -234,10 +234,6 @@ figcaption.mask h3 {
   color: #fff;
 }
 
-.login {
-  padding-top: 200px;
-}
-
 /* SEPARATOR */
 
 hr {
@@ -249,9 +245,6 @@ hr {
 
 /* CHECKBOX */
 
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
 input[type="checkbox"], input[type="radio"] {
   position: absolute;
   right: 11000px;
@@ -270,22 +263,6 @@ input[type="checkbox"]+.label-text:before {
   width: 1em;
   display: inline-block;
   margin-right: 5px;
-=======
->>>>>>> master
-input[type="checkbox"] + .label-text:before{
-	content: "\f096";
-	font-family: "FontAwesome";
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-	-webkit-font-smoothing:antialiased;
-	width: 1em;
-	display: inline-block;
-	margin-right: 5px;
->>>>>>> patrick2
 }
 
 input[type="checkbox"]:checked+.label-text:before {

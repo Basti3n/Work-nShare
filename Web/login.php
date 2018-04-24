@@ -8,38 +8,44 @@
   <body>
     <?php require "header.php" ?>
 
-			<div class="container login">
-				<div class="row">
-					<div class="formulaire col-md-offset-4 col-md-4">
-						<center>
-							<h1>CONNEXION</h1>
-						</center>
-						<form method="POST" action="checkLogin.php">
-								<?php
-									if( !empty($_SESSION["errorsForm"]) ){
+		<div class="inner">
+      <div class="page-header">
+        <h2>Connexion !</h2>
+      </div>
+        <section class="row">  <!-- CREATE ACCOUNT -->
+          <?php if(isset($_SESSION["errors_form"])){
+                  echo '<div class="errorList col-xs-12"><div><i class="fa fa-exclamation-triangle" aria-hidden="true"></i><ul>';
+                  foreach ($_SESSION["errors_form"] as $error) {
+                    echo "<li>".$listOfErrors[$error];
+                  }
+                  echo "</ul></div></div>";
+                  $dataForm = $_SESSION["data_form"];
+                  unset($_SESSION["errors_form"]);
+                }
+          ?>
+          <div class="col-md-offset-3 col-md-6 col-xs-12 col-sm-12">
+            <form method="POST" action="checkLogin.php" class="form-horizontal" name="login">
 
-										echo "<ul>";
-										foreach ($_SESSION["errorsForm"] as $error) {
+              <div class="form-group">
+                <label class="control-label col-md-2" for="email">Email:</label>
+                  <div class="col-md-9">
+                    <input type="email" class="form-control emailcheck" id="emaili" name="email" placeholder="Entrez votre adresse email" required="required" value="<?php echo(isset ($dataForm["email"]))?$dataForm["email"]:"";?>">
+                    <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                  </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-2" for="pwd">Mot de passe:</label>
+                  <div class="col-md-9">
+                    <input type="password" class="form-control emptycheck" id="pwdi" name="pwd" placeholder="Entrer votre mot de passe  (entre 8 et 64 caractères)" required="required">
+                    <i class="fa fa-times errorfield" style="visibility: hidden" aria-hidden="true" ></i>
+                  </div>
+              </div>
 
-											echo "<li>".$listOfErrors[$error];
-										}
-										echo "</ul>";
-										$dataForm = $_SESSION["dataForm"];
-									 	unset($_SESSION["errorsForm"]);
-									}
-							 ?>
-							<center>
-									<label for="email"> </label> <input type="email" name="email" placeholder="Votre email" required="required" id="email"  value="<?php echo (isset($dataForm["email"]))?$dataForm["email"]:""; ?>"><br>
-							</center>
-							<center>
-								<label  for="pwd"></label> <input type="password" name="pwd" placeholder="Saisissez votre mot de passe" required="required" id="pwd"><br>
-							</center>
-							<center>
-								<input type="submit" value="Se connecter">
-							</center>
-						</form>
-					</div>
-				</div>
+              <input class="btn mybutton btn-lg btn-block" type="submit" value="Connexion">
+            </form>
+          </div>
+
+        </section>
 			</div>
     <?php require "footer.php"; ?>
   </body>
