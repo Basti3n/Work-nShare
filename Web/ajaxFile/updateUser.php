@@ -9,31 +9,33 @@ if(isAdmin() || isSuperAdmin()){
     && isset($_POST["lastname"]) && isset( $_POST["name"])
     && isset($_POST["status"]) && isset( $_POST["isDeleted"])){
     $db=connectDb();
-    $user = new User(null);
+    $userMng = new UserMng($db);
+    $user = $userMng->get($_POST["email"]);
     $error = false;
     $listOfErrors = [];
 
     showArray($_POST);
 
     if($user->email( $_POST["newEmail"]) )
-      $error = true;
+      echo "1";
 
     if($user->name( $_POST["name"]))
-      $error = true;
+      echo "2";
 
     if($user->lastname( $_POST["lastname"]))
-      $error = true;
+      echo "3";
 
     if($user->deletedUser(  ($_POST["isDeleted"]== "true"?1:0)   ) )
-      $error = true;
+      echo "4";
 
     if($user->statusUser( $_POST["status"]))
-      $error = true;
+      echo "5";
 
+    $listOfErrors = $user->listOfErrors;
+    showArray($listOfErrors);
     if(!$error){
-      $userMng = new UserMng($db);
-      
-
+      $userMng->update($user,$_POST["email"]);
+      echo "OK";
     }else{
       echo "Erreur à la mise à jour de l'utilisateur";
     }
