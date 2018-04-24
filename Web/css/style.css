@@ -247,7 +247,6 @@ hr {
 
 input[type="checkbox"], input[type="radio"] {
   position: absolute;
-  right: 11000px;
 }
 
 input[type="checkbox"]+.label-text:before {
