@@ -27,8 +27,17 @@ if(isAdmin() || isSuperAdmin()){
     if($user->deletedUser(  ($_POST["isDeleted"]== "true"?1:0)   ) )
       $error = true;
 
+    if($user->statusUser( $_POST["status"]))
+      $error = true;
+
+    if(!$error){
+      $userMng = new UserMng($db);
       
-    echo "OK";
+
+    }else{
+      echo "Erreur à la mise à jour de l'utilisateur";
+    }
+
   }
 }else{
   echo "Vous n'êtes pas autorisé à accéder à cette page.";

@@ -241,7 +241,7 @@ class UserMng
 			"email"=>$user->email(),
 			"pwd"=>$user->password(),
 			"qr"=>$qrCode,
-      "isDeleted"=>$user->isDeleted();
+      "isDeleted"=>$user->isDeleted(),
       "id"=>$id
 			]);
     exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->Email());
