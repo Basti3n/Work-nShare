@@ -258,5 +258,41 @@ class TicketMng{
   }
 
 
+    public function getParse($start,$end){
+      $sql = "SELECT * FROM TICKETS LIMIT $start,$end";// query
+      try{
+        $query = $this->_db->prepare($sql);
+        $query->execute();
+        $this->_nbLine = $query->rowCount();
+      }catch(Exception $e){
+        echo "PDOException : " . $e->getMessage();
+      }
+      $data = $query->fetchAll(PDO::FETCH_ASSOC);
+      if($data != NULL){
+        $tickets = [];
+        foreach ($data as $key => $ticket) {
+          array_push($tickets,new Ticket($ticket));
+        }
+        return $tickets;
+      }else{
+        echo "Il n'y a aucun ticket pour l'instant";
+        return 1;
+      }
+      return 0;
+    }
+
+    public function getLine($choice = "0"){
+      if($choice != "0")
+        return $this->_nbLine;
+      try{
+        $query = $this->_db->prepare('SELECT * FROM TICKETS');
+        $query->execute();
+        $this->_nbLine = $query->rowCount();
+      }catch(Exception $e){
+        echo "PDOException : " . $e->getMessage();
+      }
+      return (int)$this->_nbLine;
+    }
+
 
 }
