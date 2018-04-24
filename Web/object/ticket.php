@@ -64,6 +64,10 @@ class Ticket{
     if($idTicket == -2)
       return $this->_idTicket;
     else
+    if(!is_numeric($idTicket)){
+      $errors[] = 15;
+      return 1;
+    }
       $this->_idTicket= $idTicket;
     return 0;
   }
@@ -77,6 +81,18 @@ class Ticket{
     return 0;
   }
 
+/** Stocké en char
+public function status($new = "-1"){
+  if($new == "-1")
+    return $this->_status;
+  if (!$this->isStatus($new)){
+    $this->errors[] = 17;
+    return 1;
+  }
+  $this->_status = $new;
+  return 0;
+}
+**/
 
   public function statusTicket($statusTicket = -2){
     if($statusTicket == -2)
@@ -142,7 +158,7 @@ class Ticket{
 
   public function dateTicket($date = '0'){
     if($date == '0')
-      return date('j \/ m \/ Y H:i:s',$this->_dateTicket);
+      return date('j \/ m \/ Y');
     else{
       $this->_dateTicket = strtotime($date);
     }
@@ -157,7 +173,6 @@ class Ticket{
     return 0;
   }
 }
-
 
 class TicketMng{
   function __construct($db){
