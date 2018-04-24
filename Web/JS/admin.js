@@ -389,6 +389,37 @@ function changeTable(){
 }
 
 
+function updateUser(email){
+  var newEmail = document.getElementById(email+'EmailDb').value;
+  var lastname = document.getElementById(email+'LastNameDb').value;
+  var name = document.getElementById(email+'NameDb').value;
+  var status = getSelectedIndex(email+'UserStatusDb');
+  var isDeleted = document.getElementById(email+'IsDeletedUserDb').checked;
+
+  //console.log(newEmail+" "+lastname+" "+name+" "+status+" "+isDeleted+" ");
+
+  var request = new XMLHttpRequest();
+  request.onreadystatechange =function(){
+    if(request.readyState == 4){
+      if(request.status ==200){
+        console.log(request.responseText);
+      }
+    }
+  };
+  request.open("POST",'ajaxFile\\updateUser.php');
+  request.setRequestHeader("Content-Type","application/x-www-form-urlencoded")
+  var params = [
+    'email='+email,
+    'newEmail='+newEmail,
+    'lastname='+lastname,
+    'name='+name,
+    'status='+status,
+    'isDeleted='+isDeleted
+  ];
+  var body = params.join('&');
+  request.send(body);
+}
+
 
 function displayDatabaseUsers(element,array){
   //console.log(array);
@@ -396,13 +427,13 @@ function displayDatabaseUsers(element,array){
   element.innerHTML += '</table>'
   var displayArray = document.getElementById('dbUsers');
   array.forEach(function(user){
-    var select = "<select>";
+    var select = "<select id='"+user.email+"UserStatusDb'>";
     statusUserArray.forEach(function (statusUser){
-      select += "<option value='"+statusUser.index+"'  "+ (user.statusUser==statusUser.index? "selected":"") +"  >"+statusUser+"</option>"
+      select += "<option value='"+statusUserArray.indexOf(statusUser)+"'  "+ (user.statusUser==statusUserArray.indexOf(statusUser)? "selected":"") +"  >"+statusUser+"</option>"
     });
      select += "</select>";
 
-    displayArray.innerHTML += '<tr><td><input type="text" id="'+user.email+'Email" value="'+user.email+'"></td><td><input type="text" id="'+user.email+'LastName" value="'+user.lastName+'"></td><td><input type="text" id="'+user.email+'Name" value="'+user.name+'"></td><td>'+user.dateSignup+'</td><td>'+select+'</td><td><input id="'+user.email+'IsDeletedUser" type="checkbox" '+(user.isDeleted?"checked":"")+'></td><td> <button onclick="updateUser(\''+ user.email +'\')">Valider </button> </td></tr>';
+    displayArray.innerHTML += '<tr><td><input type="text" id="'+user.email+'EmailDb" value="'+user.email+'"></td><td><input type="text" id="'+user.email+'LastNameDb" value="'+user.lastName+'"></td><td><input type="text" id="'+user.email+'NameDb" value="'+user.name+'"></td><td>'+user.dateSignup+'</td><td>'+select+'</td><td><input id="'+user.email+'IsDeletedUserDb" type="checkbox" '+(user.isDeleted?"checked":"")+'></td><td> <button onclick="updateUser(\''+ user.email +'\')">Valider </button> </td></tr>';
 
   });
 
