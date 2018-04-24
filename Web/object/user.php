@@ -12,6 +12,7 @@ class User
   private $_statusUser = -1;
   public $listOfErrors = [];
 
+
   function __construct($data){
     if ($data != null)
       $this->hydrate($data);
@@ -144,8 +145,8 @@ class User
     return 0;
   }
 
-  public function deletedUser($value = '0'){
-    if($value == '0')
+  public function deletedUser($value = '-1'){
+    if($value == '-1')
       return $this->_isdeletedUser;
     if($value != 0 || $value != 1)
       return 1;
@@ -231,7 +232,7 @@ class UserMng
       $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       }
     $query = $this->_db->prepare("UPDATE USERS
-                                  SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr
+                                  SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr,isDeleted=:isDeleted,statusUser  = :statusUser
                                   WHERE email=:id");
     $qrCode = password_hash($user->email(),PASSWORD_DEFAULT);
 		$query->execute( [
@@ -240,8 +241,10 @@ class UserMng
 			"email"=>$user->email(),
 			"pwd"=>$user->password(),
 			"qr"=>$qrCode,
+      "isDeleted"=>$user->isDeleted();
       "id"=>$id
 			]);
+    exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->Email());
   }
 
   public function delete(User $user){
@@ -253,7 +256,7 @@ class UserMng
 
   public function get($email){
     try {
-      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted FROM USERS WHERE email =:email');
+      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser FROM USERS WHERE email =:email');
       $query->execute( ["email"=>$email]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
