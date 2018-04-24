@@ -37,12 +37,12 @@ $out ='
 foreach ($tickets as $key => $ticket) {
   $out = $out."
             <tr>
-              <th scope='row' class='text-center'>".$ticket->id()."</th>
-              <td> ".$ticket->content()."</td>
-              <td> Le ".$ticket->date()."</td>
-              <td> ".$ticket->category()."</td>
-              <td> ".$ticket->email()."</td>
-              <td class='text-center'>".$ticket->status()."</td>
+              <th scope='row' class='text-center'>".$ticket->idTicket()."</th>
+              <td> ".$ticket->contentTicket()."</td>
+              <td> Le ".$ticket->dateTicket()."</td>
+              <td> ".$ticket->ticketCategory()."</td>
+              <td> ".$ticket->ticketSenderStatus()."</td>
+              <td class='text-center'>".$ticket->statusTicket()."</td>
             </tr>
   ";
 }

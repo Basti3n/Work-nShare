@@ -11,6 +11,7 @@ class Ticket{
   private $_idEquipment  = -1;
   private $_statusTicket = -1;
   private $_ticketSenderStatus = -1;
+  private $_dateTicket;
 
   function __construct($data){
     if ($data != null)

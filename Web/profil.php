@@ -116,8 +116,6 @@
             </div>
             <div class="tab-pane fade tabcontent" id="messages" role="tabpanel" aria-labelledby="messages-list">
               <div class="container col-md-12">
-              <!--
-
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Messages </h4>
                 </div>
@@ -125,7 +123,6 @@
               <div class="container" id="contain">
                 <div class="col-md-12 tablemsg" id="pagresult">
               </div>
-            -->
 
                 <h2>Nouveau ticket</h2><br>
                 <div class="col-md-12">
