@@ -69,7 +69,7 @@
                         foreach ($spaces as $space) {
                           echo '<tr>
                                   <td>'.$space->idSpace().'</td>
-                                  <td><input type="text" id="'.$space->idSpace().'NameSpace" value="'.utf8_encode($space->nameOfSpace()).'"></td>
+                                  <td><input type="text" class="form-control" id="'.$space->idSpace().'NameSpace" value="'.utf8_encode($space->nameOfSpace()).'"></td>
                                   <td>'.'<button onclick="displayCreateServicePannel(\''.$space->idSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
                                   <td> <input id="'.$space->idSpace().'isDeleted" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
@@ -124,8 +124,8 @@
 
 
                           echo '<tr>
-                                  <td><input type="text" id="'.$service->idService().'NameService" value="'.utf8_encode($service->nameOfService()).'"></td>
-                                  <td><textarea class="compInfoTextArea" id="'.$service->idService().'CompInfoService">'.utf8_encode($service->compInfo()).'</textarea></td>
+                                  <td><input type="text" class="form-control" id="'.$service->idService().'NameService" value="'.utf8_encode($service->nameOfService()).'"></td>
+                                  <td><textarea class="form-control compInfoTextArea" id="'.$service->idService().'CompInfoService">'.utf8_encode($service->compInfo()).'</textarea></td>
                                   <td>
                                     <select id="'.$service->idService().'ServiceSpaceId">';
                                     foreach ($spaces as $key => $space) {
@@ -168,8 +168,8 @@
                         foreach ($serviceContents as $serviceContent) {
 
                           echo '<tr>
-                                  <td><input type="text" id="'.$serviceContent->idServiceContent().'NameServiceContent" value="'.utf8_encode($serviceContent->nameServiceContent()).'"></td>
-                                  <td><textarea class="compInfoTextArea" id="'.$serviceContent->idServiceContent().'InformationServiceContent">'.utf8_encode($serviceContent->informationServiceContent()).'</textarea></td>
+                                  <td><input type="text" class="form-control" id="'.$serviceContent->idServiceContent().'NameServiceContent" value="'.utf8_encode($serviceContent->nameServiceContent()).'"></td>
+                                  <td><textarea class="form-control compInfoTextArea" id="'.$serviceContent->idServiceContent().'InformationServiceContent">'.utf8_encode($serviceContent->informationServiceContent()).'</textarea></td>
                                   <td><select id="'.$serviceContent->idServiceContent().'ServiceContentServiceId">';
                                   foreach ($services as $key => $service) {
                                     echo "<option value='".$service->idService()."'  ". ( $service->idService()==$serviceContent->idService()? "selected":"") ."  >".utf8_encode($service->nameOfService())."</option>";
@@ -236,9 +236,9 @@
                     foreach ($users as $user) {
 
                       echo '<tr>
-                              <td><input type="text" id="'.$user->email().'Email" value="'.utf8_encode($user->email()).'"></td>
-                              <td><input type="text" id="'.$user->email().'LastName" value="'.utf8_encode($user->lastName()).'"></td>
-                              <td><input type="text" id="'.$user->email().'Name" value="'.utf8_encode($user->name()).'"></td>
+                              <td><input type="text" class="form-control" id="'.$user->email().'Email" value="'.utf8_encode($user->email()).'"></td>
+                              <td><input type="text" class="form-control" id="'.$user->email().'LastName" value="'.utf8_encode($user->lastName()).'"></td>
+                              <td><input type="text" class="form-control" id="'.$user->email().'Name" value="'.utf8_encode($user->name()).'"></td>
                               <td>'.$user->dateSignUp().'</td>
                               <td><select>';
                               foreach ($statusUserArray as $key => $statusUser) {
@@ -338,7 +338,7 @@
                       <div>
                         <div class="form-group">
                           <label for="ticketAnswer">Réponse</label>
-                          <textarea class="form-control" id="ticketAnswer" rows="4"></textarea>
+                          <textarea class="form-control form-control" id="ticketAnswer" rows="4"></textarea>
                         </div>
                       </div>
 
@@ -384,8 +384,8 @@
               <div class="row">
                 <div class="col-xs-12">
                   <div id="createSpaceForm">
-                    <input type="text" placeholder="L'id en 7 caractères de votre espace" id="newSpaceId"><br>
-                    <input type="text" placeholder="Le nom de votre espace" id="newSpaceName"><br>
+                    <input type="text" class="form-control" placeholder="L'id en 7 caractères de votre espace" id="newSpaceId"><br>
+                    <input type="text" class="form-control" placeholder="Le nom de votre espace" id="newSpaceName"><br>
                     <button class="btn btn-primary" onclick="createSpace()">Valider</button>
                     <button class="btn btn-primary"  id="cancelCreateSpaceButton">Annuler</button>
                   </div>
@@ -399,7 +399,7 @@
               <div class="row">
                 <div class="col-xs-12">
                   <div id="createServiceForm">
-                    <input type="text" placeholder="Le nom de votre service" id="newServiceName"><br>
+                    <input type="text" class="form-control" placeholder="Le nom de votre service" id="newServiceName"><br>
                     <textarea placeholder="Information complémentaire de votre service" id="newServiceCompInf"></textarea>
                     <br>
                     <select id="spaceSelector">
@@ -426,7 +426,7 @@
               <div class="row">
                 <div class="col-xs-12">
                   <div id="createServiceContentForm">
-                    <input type="text" placeholder="Le nom de votre service content" id="newServiceContentName"><br>
+                    <input type="text" class="form-control" placeholder="Le nom de votre service content" id="newServiceContentName"><br>
                     <input type="number" id="newServiceContentNumber" placeholder="Nombre disponible pour votre service content"> </input>
                     <br>
                     <textarea placeholder="Information  de votre service content" id="newServiceContentInformation"></textarea>
