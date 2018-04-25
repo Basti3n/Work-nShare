@@ -75,7 +75,7 @@
                                   <td>'.'<button onclick="displayCreateServicePannel(\''.$space->idSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
                                   <td> <input id="'.$space->idSpace().'isDeleted" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
-                                  <td> <button onclick="updateSpace(\''.$space->idSpace().'\')">Valider </button> </td>
+                                  <td> <button class="btn btn-primary" onclick="updateSpace(\''.$space->idSpace().'\')">Valider </button> </td>
 
                                 </tr>';
                         }
@@ -137,7 +137,7 @@
                                   </td>
                                   <td><input id="'.$service->idService().'IsBookedService" type="checkbox" '.($service->isBooked()?"checked":"").'></td>
                                   <td><input id="'.$service->idService().'IsDeletedService" type="checkbox" '.($service->isDeleted()?"checked":"").'></td>
-                                  <td> <button onclick="updateService(\''.$service->idService().'\')">Valider </button> </td>
+                                  <td> <button class="btn btn-primary" onclick="updateService(\''.$service->idService().'\')">Valider </button> </td>
                                 </tr>';
                         }
 
@@ -180,7 +180,7 @@
                           echo        '</select></td>
                                   <td><input type="number" id="'.$serviceContent->idServiceContent().'IsFreeServiceContent" value="'.($serviceContent->isFree()).'"></td>
                                   <td><input id="'.$serviceContent->idServiceContent().'IsDeletedServiceContent" type="checkbox" '.($serviceContent->isDeleted()?"checked":"").'></td>
-                                  <td> <button onclick="updateServiceContent(\''.$serviceContent->idServiceContent().'\')">Valider </button> </td>
+                                  <td> <button class="btn btn-primary" onclick="updateServiceContent(\''.$serviceContent->idServiceContent().'\')">Valider </button> </td>
                                 </tr>';
                         }
                       ?>

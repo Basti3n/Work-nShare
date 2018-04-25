@@ -433,7 +433,7 @@ function displayDatabaseUsers(element,array){
     });
      select += "</select>";
 
-    displayArray.innerHTML += '<tr><td><input type="text" id="'+user.email+'EmailDb" value="'+user.email+'"></td><td><input type="text" id="'+user.email+'LastNameDb" value="'+user.lastName+'"></td><td><input type="text" id="'+user.email+'NameDb" value="'+user.name+'"></td><td>'+user.dateSignup+'</td><td>'+select+'</td><td><input id="'+user.email+'IsDeletedUserDb" type="checkbox" '+(user.isDeleted=="1"?"checked":"")+'></td><td> <button onclick="updateUser(\''+ user.email +'\')">Valider </button> </td></tr>';
+    displayArray.innerHTML += '<tr><td><input type="text" id="'+user.email+'EmailDb" value="'+user.email+'"></td><td><input type="text" id="'+user.email+'LastNameDb" value="'+user.lastName+'"></td><td><input type="text" id="'+user.email+'NameDb" value="'+user.name+'"></td><td>'+user.dateSignup+'</td><td>'+select+'</td><td><input id="'+user.email+'IsDeletedUserDb" type="checkbox" '+(user.isDeleted=="1"?"checked":"")+'></td><td> <button class="btn btn-primary" onclick="updateUser(\''+ user.email +'\')">Valider </button> </td></tr>';
 
   });
 
@@ -443,7 +443,7 @@ function displayDatabaseSpaces(element,array){
   element.innerHTML += '<table class="table" id="dbSpaces"><tbody><tr><th>Id de L\'espace</th><th>Nom de l\'espace</th><th>Désactiver l`\'espace</th><th>Valider les modifications</th></tr></table>';
   var displayArray = document.getElementById('dbSpaces');
   array.forEach(function(space){
-    displayArray.innerHTML += '<tr><td>'+space.idSpace+'</td><td><input type="text" id="'+space.idSpace+'NameSpaceDb" value="'+space.name+'"></td><td> <input id="'+space.idSpace+'isDeletedDb" type="checkbox" '+(space.isDeleted=="1"?"checked":"")+'></td><td> <button onclick="updateSpaceDb(\''+space.idSpace+'\')">Valider </button> </td></tr>';
+    displayArray.innerHTML += '<tr><td>'+space.idSpace+'</td><td><input type="text" id="'+space.idSpace+'NameSpaceDb" value="'+space.name+'"></td><td> <input id="'+space.idSpace+'isDeletedDb" type="checkbox" '+(space.isDeleted=="1"?"checked":"")+'></td><td> <button class="btn btn-primary" onclick="updateSpaceDb(\''+space.idSpace+'\')">Valider </button> </td></tr>';
   });
 }
 
