@@ -8,6 +8,13 @@ $('.list-group a').click(function() {
       $(this).addClass('active');
   });
 
+  $('#cancelAnswerButtonDiv').on('click', function(e) {
+    $('#cancelAnswerButtonDiv').addClass('hidden');
+    $('#answerButtonDiv').addClass('hidden');
+    $('#ticketChainDiv').addClass('hidden');
+    $('#sendTicketButtonDiv').removeClass('hidden');
+  });
+
 function abbo(){
   window.location.href='http://localhost/Work-nShare/Web/subscribe.php';
 }

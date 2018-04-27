@@ -117,7 +117,7 @@
             <div class="tab-pane fade tabcontent" id="messages" role="tabpanel" aria-labelledby="messages-list">
               <div class="container col-md-12">
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
-                  <h4>&nbsp;&nbsp;Messages </h4>
+                  <h4>&nbsp;&nbsp;Vos messages </h4>
                 </div>
               </div>
               <div class="container" id="contain">
