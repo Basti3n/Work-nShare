@@ -574,12 +574,12 @@ function setTicketInformation(idTicket, email) {
 
 function setTicketAdvancedInfoHistorique(test, search) {
   var ticketAdvancedInfoHistorique = document.getElementById('ticketAdvancedInfoHistorique');
-  ticketAdvancedInfoHistorique.innerHTML = "";
-
-  search.forEach(function(ticket) {
-    ticketAdvancedInfoHistorique.innerHTML += '<div class="ticketAdvancedMessage ' + (ticket.ticketSenderStatus == "1" ? "receiver" : "sender") + '">' + ticket.contentTicket + '</div>';
-  });
-
+  ticketAdvancedInfoHistorique.innerHTML ="";
+  if(test!="NO VALUE"){
+    search.forEach(function(ticket){
+      ticketAdvancedInfoHistorique.innerHTML += '<div class="col-md-12"> <div class="ticketAdvancedMessage '+(ticket.ticketSenderStatus=="1"?"receiver":"sender")+'">'+ticket.contentTicket+'</div> </div>';
+    });
+  }
 }
 
 function setTicketStatusSelect(statusTicket, idTicket) {

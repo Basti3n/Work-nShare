@@ -13,6 +13,7 @@ class Ticket{
   private $_ticketSenderStatus = -1;
   private $_dateTicket;
 
+
   function __construct($data){
     if ($data != null)
       $this->hydrate($data);
@@ -81,7 +82,7 @@ class Ticket{
     return 0;
   }
 
-/** Stocké en char
+/* Stocké en char
 public function status($new = "-1"){
   if($new == "-1")
     return $this->_status;
@@ -92,7 +93,7 @@ public function status($new = "-1"){
   $this->_status = $new;
   return 0;
 }
-**/
+*/
 
   public function statusTicket($statusTicket = -2){
     if($statusTicket == -2)
@@ -175,6 +176,10 @@ public function status($new = "-1"){
 }
 
 class TicketMng{
+
+  private $_db;
+  private $_nbLine = 0;
+
   function __construct($db){
     $this->setDb($db);
   }
@@ -274,35 +279,37 @@ class TicketMng{
   }
 
 
-    public function getParse($start,$end){
-      $sql = "SELECT * FROM TICKETS LIMIT $start,$end";// query
+    public function getParse($start,$end,$email){
+      $sql = "SELECT * FROM TICKETS WHERE email = :email LIMIT $start,$end";// query
       try{
         $query = $this->_db->prepare($sql);
-        $query->execute();
-        $this->_nbLine = $query->rowCount();
+        $query->execute(["email"=>$email]);
+
       }catch(Exception $e){
         echo "PDOException : " . $e->getMessage();
       }
       $data = $query->fetchAll(PDO::FETCH_ASSOC);
       if($data != NULL){
+        $this->_nbLine = $query->rowCount();
         $tickets = [];
         foreach ($data as $key => $ticket) {
           array_push($tickets,new Ticket($ticket));
         }
         return $tickets;
       }else{
+
         echo "Il n'y a aucun ticket pour l'instant";
         return 1;
       }
       return 0;
     }
 
-    public function getLine($choice = "0"){
+    public function getLine($email,$choice = "0"){
       if($choice != "0")
         return $this->_nbLine;
       try{
-        $query = $this->_db->prepare('SELECT * FROM TICKETS');
-        $query->execute();
+        $query = $this->_db->prepare('SELECT * FROM TICKETS WHERE email = :email');
+        $query->execute(["email"=>$email]);
         $this->_nbLine = $query->rowCount();
       }catch(Exception $e){
         echo "PDOException : " . $e->getMessage();
