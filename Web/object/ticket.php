@@ -82,7 +82,7 @@ class Ticket{
     return 0;
   }
 
-/** Stocké en char
+/* Stocké en char
 public function status($new = "-1"){
   if($new == "-1")
     return $this->_status;
@@ -93,7 +93,7 @@ public function status($new = "-1"){
   $this->_status = $new;
   return 0;
 }
-**/
+*/
 
   public function statusTicket($statusTicket = -2){
     if($statusTicket == -2)

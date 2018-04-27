@@ -125,7 +125,7 @@
               </div>
 
                 <h2>Nouveau ticket</h2><br>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <!--Select , ticket catégories-->
 
                   <select class="select" id="inputCategoryTicket">
@@ -137,22 +137,31 @@
                   <br>
 
                   <div class="form-group">
-                    <label for="inputEmailTicket">Email</label>
-                    <input type="email" class="form-control" id="inputEmailTicket" value="<?php echo $_SESSION["email"]?>">
-                  </div>
-
-                  <div class="form-group">
                     <label for="inputContentTicket">Contenu</label>
                     <textarea class="form-control" id="inputContentTicket" rows="4"></textarea>
                   </div>
 
                   <div class="form-group row">
-                    <div class="col-md-7 col-sm-10 ">
-                      <button  class="btn btn-primary" onclick="sendTicket('<?php echo $_SESSION["email"] ?>')" >Envoyer</button>
+                    <div id="sendTicketButtonDiv" class="col-md-7 col-sm-10 ">
+                      <button  class="btn btn-primary" onclick="sendTicket('<?php echo $_SESSION["email"] ?>',-1)" >Envoyer</button>
+                    </div>
+
+                    <div class="col-md-6 hidden" id="answerButtonDiv">
+                      <button  id="answerButton" class="btn btn-primary" onclick="sendTicket()" >Répondre</button>
+                    </div>
+
+                    <div class="col-md-6 hidden" id="cancelAnswerButtonDiv">
+                      <button  class="btn btn-primary" >Annuler réponse</button>
                     </div>
                   </div>
 
                 </div>
+
+                <div class="col-md-6 hidden" id="ticketChainDiv">
+
+                </div>
+
+
               </div>
             </div>
             <div class="tab-pane fade tabcontent" id="abonnement" role="tabpanel" aria-labelledby="abonnement-list">

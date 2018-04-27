@@ -29,7 +29,6 @@ $out ='
               <th scope="col" class="col-md-6 text-center">Message</th>
               <th scope="col" class="col-md-2 text-center">Date</th>
               <th scope="col" class="col-md-2 text-center">Category</th>
-              <th scope="col" class="col-md-3 text-center">Correspondant</th>
               <th scope="col" class="col-md-1 text-center">Etat</th>
             </tr>
           </thead>
@@ -37,13 +36,12 @@ $out ='
 if($tickets != 1){
   foreach ($tickets as $key => $ticket) {
     $out = $out."
-              <tr>
+              <tr class='ticketTableRow' onclick='displayTickets(\"".$ticket->idTicket()."\",\"".$ticket->email()."\")'>
                 <th scope='row' class='text-center'>".$ticket->idTicket()."</th>
                 <td> ".$ticket->contentTicket()."</td>
                 <td> Le ".$ticket->dateTicket()."</td>
                 <td> ".$ticket->ticketCategory()."</td>
-                <td> ".$ticket->ticketSenderStatus()."</td>
-                <td class='text-center'>".$ticket->statusTicket()."</td>
+                <td class='text-center'>".$statusTicket[$ticket->statusTicket()]."</td>
               </tr>
     ";
   }

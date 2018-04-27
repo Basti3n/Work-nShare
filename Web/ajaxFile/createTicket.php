@@ -6,8 +6,8 @@ require "../object/user.php";
 
 
 if(isAdmin() || isSuperAdmin()){
-  if( count($_POST)==3 && isset($_POST["ticketCategory"]) && isset( $_POST["emailToSave"])
-    && isset( $_POST["contentTicket"]) ){
+  if( count($_POST)==4 && isset($_POST["ticketCategory"]) && isset( $_POST["emailToSave"])
+    && isset( $_POST["contentTicket"])  && isset( $_POST["idPrimaryTicket"]) ){
     $db=connectDb();
     $ticket = new Ticket(null);
 
@@ -24,6 +24,9 @@ if(isAdmin() || isSuperAdmin()){
       $error = true;
 
     if( $ticket->ticketSenderStatus(0) )
+      $error = true;
+
+    if($ticket->idPrimaryTicket($_POST["idPrimaryTicket"]))
       $error = true;
 
     if($error){

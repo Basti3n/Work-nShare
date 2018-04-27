@@ -321,13 +321,13 @@
                       <div id="ticketAdvancedInfoHistorique">
                         <?php
                           $ticketsAdvanced = $ticketMng->getAllTickets($tickets[0]->idTicket());
-                          echo '<div class="ticketAdvancedMessage receiver">'.$tickets[2]->contentTicket().'</div>';
+                          echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$tickets[2]->contentTicket().'</div> </div>';
                           if(($ticketsAdvanced !=1)){
                             foreach($ticketsAdvanced as $ticketAdvanced){
                               if($ticketAdvanced->ticketSenderStatus()== 0){
-                                echo '<div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div>';
+                                echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div> </div>';
                               }else{
-                                echo '<div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div>';
+                                echo '<div class="col-md-12"><div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div></div>';
                               }
                             }
                           }
