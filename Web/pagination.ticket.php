@@ -51,7 +51,7 @@ if($tickets != 1){
           </tbody>
         </table>
         <ul class="pagination">';
-  $result = $nb->pagination($mng->getLine(), "pagination.ticket.php?page=");
+  $result = $nb->pagination($mng->getLine($_SESSION["email"]), "pagination.ticket.php?page=");
   $out = $out . $result;
   $out = $out."</ul>";
 

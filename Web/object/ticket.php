@@ -177,6 +177,7 @@ public function status($new = "-1"){
 
 class TicketMng{
 
+  private $_db;
   private $_nbLine = 0;
 
   function __construct($db){
@@ -303,12 +304,12 @@ class TicketMng{
       return 0;
     }
 
-    public function getLine($choice = "0"){
+    public function getLine($email,$choice = "0"){
       if($choice != "0")
         return $this->_nbLine;
       try{
-        $query = $this->_db->prepare('SELECT * FROM TICKETS');
-        $query->execute();
+        $query = $this->_db->prepare('SELECT * FROM TICKETS WHERE email = :email');
+        $query->execute(["email"=>$email]);
         $this->_nbLine = $query->rowCount();
       }catch(Exception $e){
         echo "PDOException : " . $e->getMessage();
