@@ -13,6 +13,7 @@ class Ticket{
   private $_ticketSenderStatus = -1;
   private $_dateTicket;
 
+
   function __construct($data){
     if ($data != null)
       $this->hydrate($data);
@@ -175,6 +176,9 @@ public function status($new = "-1"){
 }
 
 class TicketMng{
+
+  private $_nbLine = 0;
+
   function __construct($db){
     $this->setDb($db);
   }
@@ -274,23 +278,25 @@ class TicketMng{
   }
 
 
-    public function getParse($start,$end){
-      $sql = "SELECT * FROM TICKETS LIMIT $start,$end";// query
+    public function getParse($start,$end,$email){
+      $sql = "SELECT * FROM TICKETS WHERE email = :email LIMIT $start,$end";// query
       try{
         $query = $this->_db->prepare($sql);
-        $query->execute();
-        $this->_nbLine = $query->rowCount();
+        $query->execute(["email"=>$email]);
+
       }catch(Exception $e){
         echo "PDOException : " . $e->getMessage();
       }
       $data = $query->fetchAll(PDO::FETCH_ASSOC);
       if($data != NULL){
+        $this->_nbLine = $query->rowCount();
         $tickets = [];
         foreach ($data as $key => $ticket) {
           array_push($tickets,new Ticket($ticket));
         }
         return $tickets;
       }else{
+
         echo "Il n'y a aucun ticket pour l'instant";
         return 1;
       }

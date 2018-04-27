@@ -26,7 +26,9 @@ function getresult(url) {
 		beforeSend: function(){$("#overlay").show();},
 		success: function(data){
 		$("#pagresult").html(data);
-		setInterval(function() {$("#overlay").hide(); },500);
+		setInterval(function() {
+      $("#overlay").hide(); 
+    },500);
 		},
 		error: function()
 		{}
