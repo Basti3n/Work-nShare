@@ -62,6 +62,7 @@
                                 <th>Créer un service</th>
                                 <th>Créer un évènement</th>
                                 <th>Désactiver l'espace</th>
+                                <th>Changer les horraires</th>
                                 <th>Valider les modifications</th>
 
                       </tr>
@@ -73,6 +74,7 @@
                                   <td>'.'<button onclick="displayCreateServicePannel(\''.$space->idSpace().'\')" >Ajouter un service</button>'.'</td>
                                   <td>'.'<button>Ajouter un évènement</button>'.'</td>
                                   <td> <input id="'.$space->idSpace().'isDeleted" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
+                                  <td> <button class="btn btn-primary" onclick="displayChangeSchedule(\''.$space->idSpace().'\')">Horaire </button> </td>
                                   <td> <button class="btn btn-primary" onclick="updateSpace(\''.$space->idSpace().'\')">Valider </button> </td>
 
                                 </tr>';

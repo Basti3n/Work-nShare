@@ -1,3 +1,7 @@
+<?php
+	require "object/spaces.php";
+
+ ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -90,15 +94,31 @@
  				</div>
  				<div class="container">
  					<div class="row">
-
  						<ul class="sites-wrapper wow animated fadeInUp">
+							<?php
+								$db = connectDb();
+								$spaceMng = new SpaceMng($db);
+								$spaces = $spaceMng->getAllSpaces(1);
 
+
+
+								foreach ($spaces as $key => $space) {
+									if($spaces != 1){
+										echo ($key%3==0?'<div class="row">':'').'<li class="col-sm-4 site">
+						 								<img src="IMG/'.$space->idSpace().'.jpg" class="img-responsive" alt="'.utf8_encode($space->nameOfSpace()) .'">
+						 								<figcaption class="mask">
+						 									<h3>'.utf8_encode($space->nameOfSpace()).'</h3>
+						 								</figcaption>
+						 							</li>'.($key%3==2?'</div>':'');
+									}
+								}
+							?>
+<!--
  							<li class="site">
  								<img src="IMG/bastille.jpg" class="img-responsive" alt="Bastille">
  								<figcaption class="mask">
  									<h3>Bastille</h3>
  								</figcaption>
-
  							</li>
 
  							<li class="site">
@@ -137,9 +157,9 @@
  									<h3>Beaubourg</h3>
  								</figcaption>
  							</li>
-
+-->
 						</ul>
-					</div>
+
 				</div>
 			</section>
 

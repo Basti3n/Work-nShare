@@ -136,9 +136,11 @@ class SpaceMng{
     return $data["nameSpace"];
   }
 
-  public function getAllSpaces(){
+  public function getAllSpaces($deleted="-1"){
+    $sql = 'SELECT * FROM SPACES'.($deleted==1?' WHERE isDeleted = 0':'');
+
     try{
-      $query = $this->_db->prepare('SELECT * FROM SPACES');
+      $query = $this->_db->prepare($sql);
       $query->execute();
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
