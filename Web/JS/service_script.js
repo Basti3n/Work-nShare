@@ -7,7 +7,7 @@ $( document ).ready(function() {
 
 function hidemat(){
   var g = $('#divService .active').html();
-  if (g != "Matériel informatique" && g != "Plateau repas")
+  if (g != "Matériel informatique" && g != "Salle de réunion")
     $('#model').hide( "fast", function() {});
   else
     $('#model').show( "fast", function() {});

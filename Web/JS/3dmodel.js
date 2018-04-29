@@ -19,7 +19,10 @@ function clicked(value,id){
 		case "Surface Pro 2":
 			document.getElementById("model").style.visibility = 'hidden';
 			break;
-
+	}
+	if(click.includes('Salle R')){
+		document.getElementById("model").style.visibility = 'visible';
+		drawReunion();
 	}
 }
 
@@ -51,7 +54,7 @@ function init() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.getElementById("model").appendChild( renderer.domElement );
 	var AxesHelper = new THREE.AxesHelper(200);
-	//scene.add(AxesHelper);
+	scene.add(AxesHelper);
 
 	controls = new THREE.OrbitControls( camera,document.getElementById("model"));
 	controls.enableZoom = true;
@@ -120,4 +123,24 @@ function drawSurfPro(){
             scene.add( object );
         } );
     });
+}
+
+function drawReunion(){
+	THREE.Loader.Handlers.add( /.dds$/i, new THREE.DDSLoader() );
+    var mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath( 'modele/Reunion/' );
+    mtlLoader.load( 'interieur.mtl', function( materials ) {
+        materials.preload();
+        var objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials( materials );
+        objLoader.setPath( 'modele/Reunion/' );
+        objLoader.load( 'interieur.obj', function ( object ) {
+            object.scale.set(10,10,10);
+            //object.position.y = -10;
+            object.name= "test";
+            object.rotation.x=3*Math.PI/2;
+            scene.add( object );
+        });
+    });
+    console.log('loaded');
 }
