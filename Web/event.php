@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Event</title>
+    <title>Work'n Share - EVENT</title>
     <link rel="stylesheet" type="text/css" href="CSS/event.css">
     <?php require "head.php" ?>
   </head>
@@ -11,7 +11,7 @@
     <div class="inner">
       <div class="container">
         &nbsp;
-        
+
         <div id="eventList">
           <?php
           $db = connectDb();
@@ -35,16 +35,16 @@
                         <p>
                           '.$value["descriptionEvent"].'
                         </p>
-                        <img src="IMG/'.$resSpace[0]["idSpace"].'.jpg" height="200" width="200"> 
-                        
+                        <img src="IMG/'.$resSpace[0]["idSpace"].'.jpg" height="200" width="200">
+
                       </div>
                         <div class="fin">
-                          <p class="heureFin dateDesc">Heure de fin : '.$heureFin.'</p> 
+                          <p class="heureFin dateDesc">Heure de fin : '.$heureFin.'</p>
                           <p class="dateFin dateDesc">Date de fin : '.$dateFin.'</p>
-                        </div> 
+                        </div>
                         <div class="debut">
-                          <p class="heureDebut dateDesc">Heure de debut : '.$heureDebut.'</p> 
-                          <p class="dateDebut dateDesc">Date de debut : '.$dateDebut.'</p> 
+                          <p class="heureDebut dateDesc">Heure de debut : '.$heureDebut.'</p>
+                          <p class="dateDebut dateDesc">Date de debut : '.$dateDebut.'</p>
                         </div>
                     </div>';
             }
@@ -58,15 +58,15 @@
               <p>
                 Ceci est une description longue <br>Et sans interet certain <br>Elle est la, elle decrit mais personne ne sait quoi
               </p>
-              <img src="IMG/01basti.jpg" height="200" width="200"> 
+              <img src="IMG/01basti.jpg" height="200" width="200">
             </div>
               <div class="fin">
-                <p class="heureFin dateDesc">Heure de fin : 15h30</p> 
+                <p class="heureFin dateDesc">Heure de fin : 15h30</p>
                 <p class="dateFin dateDesc">Date de fin : 25-08-2018</p>
-              </div> 
+              </div>
               <div class="debut">
-                <p class="heureDebut dateDesc">Heure de debut : 11h20</p> 
-                <p class="dateDebut dateDesc">Date de debut : 19-06-2018</p> 
+                <p class="heureDebut dateDesc">Heure de debut : 11h20</p>
+                <p class="dateDebut dateDesc">Date de debut : 19-06-2018</p>
               </div>
           </div>-->
 

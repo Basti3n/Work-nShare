@@ -7,7 +7,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>ABOUT</title>
+    <title>Work'n Share - ABOUT</title>
     <?php require "head.php" ?>
 		<link rel="stylesheet" type="text/css" href="CSS/about.css">
   </head>

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Event</title>
+    <title>Work'n Share - CONNEXION</title>
     <?php require "head.php" ?>
   </head>
   <body>

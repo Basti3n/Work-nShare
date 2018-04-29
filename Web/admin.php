@@ -13,7 +13,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Work'n Share - Profil</title>
+    <title>Work'n Share - ADMIN</title>
 
     <?php require "head.php" ?>
     <link rel="stylesheet" type="text/css" href="CSS/profil.css">

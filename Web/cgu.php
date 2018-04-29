@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>CGU</title>
+    <title>Work'n Share - CGU</title>
     <?php require "head.php" ?>
   </head>
   <body>
