@@ -13,6 +13,7 @@
 	$user = $mng->get($_POST["email"]);
 
 	if(!$user->deletedUser()){
+		//echo "check : ".$user->emailCheck("1")."<br>";
 		if ($user->emailCheck()) {
 			$accessToken = MD5(uniqid()."ytklfuirkysrteqzBlackLama<sfrfG<ZE4RHF7DV<84GEAD");
 			$addToken = $db->prepare("UPDATE USERS set accessToken = :accessToken WHERE email = :email");

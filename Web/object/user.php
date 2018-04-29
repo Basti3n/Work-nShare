@@ -26,7 +26,10 @@ class User
           $this->email($value);
           break;
         case 'email_check':
-          $this->emailCheck(is_null($value)?"generate":$value);
+          if($value != NULL)
+            $this->emailCheck($value);
+          else
+            $this->emailCheck("generate");
           break;
         case 'nameUser':
           $this->name($value);
@@ -154,13 +157,13 @@ class User
     	$this->_emailCheck = md5(microtime(TRUE)*100000);
       return $this->_emailCheck;
     }
-    if ($value == "0") {
+    if ($value == '0') {
       if($this->_emailCheck == "1")
-        return true;
+        return 0;
       else
-        return false;
+        return 1;
     }
-    if ($value == 1) {
+    if ($value == "1") {
       return $this->_emailCheck;
     }
     $this->_emailCheck = $value;
