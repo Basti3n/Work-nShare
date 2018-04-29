@@ -2,6 +2,32 @@
 
 require_once "conf.inc.php";
 
+//Mail
+function emailConfirmation($email, $name, $email_check){
+
+	$subjet = "Activation de votre compte" ;
+	$header = "From: noreply@worknshare.com" ;
+	$message = 'Bienvenue chez Worknshare,'.$name.' !
+	Vous pouvez confirmer votre email de compte en cliquant sur ce lien : '.'http://localhost/Work-nShare/Web/emailConfirmed.php?email='.urlencode($email).'&email_check='.urlencode($email_check).'
+	Si vous avez des questions à propos de Worknshare, vous êtes libre de nous envoyer un mail à lesbg@worknshare.net. Ce message est un message automatique, veuillez ne pas répondre !\n
+
+	Amicalement,
+
+	L\'équipe Worknshare ';
+	mail('invisible.amc@gmail.com', $subjet, $message, $header) ;
+}
+
+function emailConfirmed(){
+  $db = connectDb();
+	$req = $db->prepare('SELECT email_check FROM USERS WHERE email=:email');
+	$req->execute(["email"=>$_GET["email"]]);
+  $success = $req->fetch(PDO::FETCH_ASSOC);
+	if ($_GET["email_check"] == $success["email_check"] && !empty($_GET["email_check"])){
+		return true;
+	}else{
+		return false;
+  }
+}
 
 function showArray($array){
    echo "<pre>";

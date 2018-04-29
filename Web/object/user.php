@@ -7,6 +7,7 @@ class User
   private $_lastname = "Empty";
   private $_dateSignUp;
   private $_email;
+  private $_emailCheck;
   private $_password;
   private $_isdeletedUser = 0;
   private $_statusUser = -1;
@@ -23,6 +24,9 @@ class User
       switch ($key) {
         case 'email':
           $this->email($value);
+          break;
+        case 'email_check':
+          $this->emailCheck(is_null($value)?"generate":$value);
           break;
         case 'nameUser':
           $this->name($value);
@@ -145,6 +149,24 @@ class User
     return 0;
   }
 
+  public function emailCheck($value = '0') {
+    if ($value == "generate") {
+    	$this->_emailCheck = md5(microtime(TRUE)*100000);
+      return $this->_emailCheck;
+    }
+    if ($value == "0") {
+      if($this->_emailCheck == "1")
+        return true;
+      else
+        return false;
+    }
+    if ($value == 1) {
+      return $this->_emailCheck;
+    }
+    $this->_emailCheck = $value;
+    return 0;
+  }
+
   public function deletedUser($value = '-1'){
     if($value == '-1')
       return $this->_isdeletedUser;
@@ -195,13 +217,14 @@ class UserMng
 
   public function add(User $user){
     $date = date("y-m-d");
-    $query = $this->_db->prepare("INSERT INTO USERS (email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser,qrCode,qrCodeToken)
-                                  VALUES (:email,:name, :lastname,NOW(),:pwd,:deleted,3,:qrCode,:qrCodeToken) ");
+    $query = $this->_db->prepare("INSERT INTO USERS (email,email_check,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser,qrCode,qrCodeToken)
+                                  VALUES (:email,:emailCheck,:name, :lastname,NOW(),:pwd,:deleted,3,:qrCode,:qrCodeToken) ");
     $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->name(),
 			"lastname"=>$user->lastname(),
 			"email"=>$user->email(),
+			"emailCheck"=>$user->emailCheck(1),
 			"pwd"=>$user->password(),
       "deleted"=>$user->deletedUser(),
 			"qrCode"=>$qrCode,
@@ -232,13 +255,14 @@ class UserMng
       $assoc->execute( [ "email"=>$user->email(), "id"=>$id ]);
       }
     $query = $this->_db->prepare("UPDATE USERS
-                                  SET email=:email,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr,isDeleted=:isDeleted,statusUser=:statusUser
+                                  SET email=:email,email_check=:emailCheck,nameUser=:name,lastnameUser=:lastname,passwordUser=:pwd,statusUser=3,qrCode=:qr,isDeleted=:isDeleted,statusUser=:statusUser
                                   WHERE email=:id");
     $qrCode = password_hash($user->email(),PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->name(),
 			"lastname"=>$user->lastname(),
 			"email"=>$user->email(),
+			"emailCheck"=>$user->emailCheck(),
 			"pwd"=>$user->password(),
 			"qr"=>$qrCode,
       "isDeleted"=>$user->deletedUser(),
@@ -255,9 +279,16 @@ class UserMng
     $user->deletedUser(1);
   }
 
+  public function validate(User $user){
+    $date = date("y-m-d");
+    $query = $this->_db->prepare('UPDATE USERS SET email_check = 1 WHERE email =:email');
+		$query->execute( ["email"=>$user->email()]);
+    $user->emailCheck(1);
+  }
+
   public function get($email){
     try {
-      $query = $this->_db->prepare('SELECT email,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser FROM USERS WHERE email =:email');
+      $query = $this->_db->prepare('SELECT email,email_check,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser FROM USERS WHERE email =:email');
       $query->execute( ["email"=>$email]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();

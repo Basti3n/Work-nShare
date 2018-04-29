@@ -25,7 +25,8 @@ $listOfErrors = [
 	17=>"L'id de l'espace doit être composé de 7 caractères",
 	18=>"Le nom de l'espace doit être composé de 25 caractères au maximum",
 	19=>"Le nom du service doit être composé de 80 caractère au maximum",
-	20=>"Le nom du content service doit être composé de 80 caractères au maximum"
+	20=>"Le nom du content service doit être composé de 80 caractères au maximum",
+	21=>"Vous devez valider votre email en cliquant sur le lien envoyé à celle-ci"
 ];
 
 $ts = [
