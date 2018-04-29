@@ -34,7 +34,5 @@
 	if($error){
 		$_SESSION["dataForm"] = $_POST;
 		$_SESSION["errorsForm"] = $listOfErrors;
-		print_r($_SESSION);
-		die();
 		header("Location: login.php");
 	}
