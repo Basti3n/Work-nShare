@@ -1,6 +1,5 @@
 <?php
 	require "object/spaces.php";
-
  ?>
 <!DOCTYPE html>
 <html>

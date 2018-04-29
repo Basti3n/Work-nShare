@@ -12,7 +12,7 @@
       <div class="page-header">
         <h2>Connexion !</h2>
       </div>
-        <section class="row">  <!-- CREATE ACCOUNT -->
+        <section class="row">  <!-- LOG IN -->
           <?php if(isset($_SESSION["errors_form"])){
                   echo '<div class="errorList col-xs-12"><div><i class="fa fa-exclamation-triangle" aria-hidden="true"></i><ul>';
                   foreach ($_SESSION["errors_form"] as $error) {
