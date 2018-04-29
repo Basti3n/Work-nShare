@@ -15,7 +15,7 @@
 	<?php
 	$db = connectDb();
 	$date = json_decode($_GET["date"]);
-	$query = $db->prepare("SELECT * FROM `reservation` WHERE (reservationStartDate BETWEEN :startD AND :endD ) AND idServiceContent =:idServiceContent");
+	$query = $db->prepare("SELECT * FROM `reservation` WHERE (reservationStartDate BETWEEN :startD AND :endD ) AND idServiceContent =:idServiceContent AND isDeleted=0");
 	$query->execute([
 		"startD"=>$date[0],
 		"endD"=>date("Y-m-d",strtotime($date[6].'+1 day')),

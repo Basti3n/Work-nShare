@@ -129,7 +129,7 @@ function drawReunion(){
 	THREE.Loader.Handlers.add( /.dds$/i, new THREE.DDSLoader() );
     var mtlLoader = new THREE.MTLLoader();
     mtlLoader.setPath( 'modele/Reunion/' );
-    mtlLoader.load( 'interieur.mtl', function( materials ) {
+    mtlLoader.load( 'interieur - Copie.mtl', function( materials ) {
         materials.preload();
         var objLoader = new THREE.OBJLoader();
         objLoader.setMaterials( materials );

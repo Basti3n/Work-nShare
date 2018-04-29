@@ -1,0 +1,47 @@
+#eventList{
+	border-color: blue;
+	border-radius: 10px;
+	background-color: white;
+	border-width: thick;
+	padding: 1%;
+	border-style: groove;
+}
+
+.event{
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	width:100%;
+	background-color: green;
+	border-width: thick;
+	border-style: groove;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	padding: 0.5%;
+}
+
+.description{
+	font-style: italic;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.heureDebut, .heureFin{
+	font-style: bold;
+	display: inline;
+}
+
+.dateDesc{
+	
+}
+
+.debut, .fin{
+	float: right;
+	display: inline;
+	margin: 1%;
+}
+
+img{
+	/*float: right;*/
+}
