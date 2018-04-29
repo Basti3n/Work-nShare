@@ -8,13 +8,13 @@ function emailConfirmation($email, $name, $email_check){
 	$subjet = "Activation de votre compte" ;
 	$header = "From: noreply@worknshare.com" ;
 	$message = 'Bienvenue chez Worknshare,'.$name.' !
-	Vous pouvez confirmer votre email de compte en cliquant sur ce lien : '.'http://localhost/Work-nShare/Web/emailConfirmed.php?email='.urlencode($email).'&email_check='.urlencode($email_check).'
-	Si vous avez des questions à propos de Worknshare, vous êtes libre de nous envoyer un mail à lesbg@worknshare.net. Ce message est un message automatique, veuillez ne pas répondre !\n
+Vous pouvez confirmer votre email de compte en cliquant sur ce lien : '.'http://localhost/Work-nShare/Web/emailConfirmed.php?email='.urlencode($email).'&email_check='.urlencode($email_check).'
+Si vous avez des questions à propos de Worknshare, vous êtes libre de nous envoyer un mail à lesbg@worknshare.net. Ce message est un message automatique, veuillez ne pas répondre !\n
 
 	Amicalement,
 
-	L\'équipe Worknshare ';
-	mail('invisible.amc@gmail.com', $subjet, $message, $header) ;
+L\'équipe Worknshare ';
+	mail($email, $subjet, $message, $header) ;
 }
 
 function emailConfirmed(){
