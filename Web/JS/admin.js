@@ -37,7 +37,15 @@ $('#cancelCreateServiceContentButton').on('click', function(e) {
 });
 
 
-
+/*
+  [{"debut":"13","fin":"20","jour":"Lundi"},
+  {"debut":"18","fin":"24","jour":"Mardi"},
+  {"debut":"01","fin":"05","jour":"Mercredi"},
+  {"debut":"09","fin":"12","jour":"Jeudi"},
+  {"debut":"09","fin":"20","jour":"Vendredi"},
+  {"debut":"11","fin":"23","jour":"Samedi"},
+  {"debut":"14","fin":"20","jour":"Dimanche"}
+]*/
 
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];

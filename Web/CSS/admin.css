@@ -185,3 +185,15 @@ textarea{
   padding: 4%;
   float : right;
 }
+
+
+#changeSpaceScheduleForm{
+	width : 75%;
+	background-color: rgb(170,171,170);
+	vertical-align: center;
+	text-align: center;
+	padding-top : 3%;
+	padding-bottom : 3%;
+  border-radius: 5%;
+
+}
