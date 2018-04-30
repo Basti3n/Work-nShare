@@ -452,6 +452,34 @@
             <!--End create service content pannel-->
 
 
+
+            <!--Change schedule div-->
+            <div class="pannel" id="changeSpaceSchedulePannel">
+              <div class="row">
+                <div id="changeSpaceScheduleForm">
+                  
+                  <div class="col-xs-12">
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Lundi
+                      </div>
+                      <div class="col-xs-3">
+                        Début :
+                      </div>
+                      <div class="col-xs-3">
+                        Fin :
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <!--End change schedule div-->
+
+
         </div>
       </div>
     </div>
