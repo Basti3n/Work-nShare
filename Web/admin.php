@@ -469,13 +469,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginLundi" value="0">
+                        <input class="numberInput" type="number" id="inputBeginLundi" >
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndLundi" value="0">
+                        <input class="numberInput" type="number" id="inputEndLundi">
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -489,13 +489,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginMardi" value="0">
+                        <input class="numberInput" type="number" id="inputBeginMardi">
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndMardi" value="0">
+                        <input class="numberInput" type="number" id="inputEndMardi">
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -509,13 +509,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginMercredi" value="0">
+                        <input class="numberInput" type="number" id="inputBeginMercredi">
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndMercredi" value="0">
+                        <input class="numberInput" type="number" id="inputEndMercredi" >
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -529,13 +529,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginJeudi" value="0">
+                        <input class="numberInput" type="number" id="inputBeginJeudi" >
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndJeudi" value="0">
+                        <input class="numberInput" type="number" id="inputEndJeudi">
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -550,13 +550,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginVendredi" value="0">
+                        <input class="numberInput" type="number" id="inputBeginVendredi" >
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndVendredi" value="0">
+                        <input class="numberInput" type="number" id="inputEndVendredi" >
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -570,13 +570,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginSamedi" value="0">
+                        <input class="numberInput" type="number" id="inputBeginSamedi" >
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndSamedi" value="0">
+                        <input class="numberInput" type="number" id="inputEndSamedi" >
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -591,13 +591,13 @@
                         Heure début :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputBeginDimanche" value="0">
+                        <input class="numberInput" type="number" id="inputBeginDimanche" >
                       </div>
                       <div class="col-xs-2">
                         Heure fin :
                       </div>
                       <div class="col-xs-1">
-                        <input class="numberInput" type="number" id="inputEndDimanche" value="0">
+                        <input class="numberInput" type="number" id="inputEndDimanche" >
                       </div>
                       <div class="col-xs-2">
                       </div>
@@ -609,11 +609,11 @@
                       </div>
 
                       <div class="col-xs-3">
-                        <button> </button>
+                        <button class="btn btn-primary" id="updateScheduleButton" onclick="updateScheduleSpace()" >Valider les modifications </button>
                       </div>
 
                       <div class="col-xs-3">
-
+                        <button class="btn btn-primary" id="cancelChangeSchedulePannelButton"> Annuler </button>
                       </div>
 
                       <div class="col-xs-3">
