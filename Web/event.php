@@ -32,7 +32,7 @@
               echo '<div class="event">
                       <h2>'.$value["nameEvent"].'</h2>
                       <div class="description">
-                        <p>
+                        <p class="descr">
                           '.$value["descriptionEvent"].'
                         </p>
                         <img src="IMG/'.$resSpace[0]["idSpace"].'.jpg" height="200" width="200">
