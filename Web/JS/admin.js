@@ -37,6 +37,12 @@ $('#cancelCreateServiceContentButton').on('click', function(e) {
 });
 
 
+
+$('#cancelChangeSchedulePannelButton').on('click', function(e) {
+  $('#changeSpaceSchedulePannel').addClass('hidden');
+});
+
+
 /*
   [{"debut":"13","fin":"20","jour":"Lundi"},
   {"debut":"18","fin":"24","jour":"Mardi"},
@@ -51,7 +57,7 @@ var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Ut
 var spaceArray = [];
 var serviceArray = [];
 var statusTicketArray = ["Ouvert", "Nouveau", "En cours", "Résolue", "En attente", "En retard"];
-
+var days = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
 
 //function JS
 function createSpace() {
@@ -692,7 +698,7 @@ function displayChangeSchedule(idSpace){
         if( request.responseText !="erreur"){
           var search = JSON.parse(request.responseText);
           console.log(search);
-          setSchedulePannel(search);
+          setSchedulePannel(search,idSpace);
         }
 
       }
@@ -710,9 +716,10 @@ function displayChangeSchedule(idSpace){
 }
 
 
-function setSchedulePannel(search){
+function setSchedulePannel(search,idSpace){
   var pannel = document.getElementById('changeSpaceSchedulePannel');
-
+  var updateButton = document.getElementById('updateScheduleButton');
+  updateButton.setAttribute('onclick','updateScheduleSpace(\''+idSpace+'\')');
   search.forEach(function(day){
     var beginInput = document.getElementById('inputBegin'+day.jour);
     var endInput = document.getElementById('inputEnd'+day.jour);
@@ -722,6 +729,52 @@ function setSchedulePannel(search){
   });
 
   pannel.classList.remove('hidden');
+
+
+}
+
+function updateScheduleSpace(idSpace){
+    //var arrayToBeJsonned = [];
+    var arrayToBeJsonned = [];
+    var debut;
+    var fin;
+    var schedule ;
+    days.forEach(function(day){
+       var dayElement = {debut : "Empty" , fin : "Empty" , jour : "Empty"};
+       debut = document.getElementById('inputBegin'+day).value;
+       fin = document.getElementById('inputEnd'+day).value;
+       dayElement.debut = debut;
+       dayElement.fin = fin;
+       dayElement.jour = day;
+
+       arrayToBeJsonned.push(dayElement);
+       //arrayToBeJsonned[] += JSON.stringify(dayElement);
+    });
+
+
+    schedule = JSON.stringify(arrayToBeJsonned);
+
+
+    var request = new XMLHttpRequest();
+
+    request.onreadystatechange = function() {
+      if (request.readyState == 4) {
+        if (request.status == 200) {
+          console.log(request.responseText);
+
+        }
+      }
+    };
+
+
+    request.open("POST", 'ajaxFile\\updateSpaceSchedule.php');
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    var params = [
+      'idSpace=' + idSpace,
+      'schedule=' + schedule
+    ];
+    var body = params.join('&');
+    request.send(body);
 
 
 }

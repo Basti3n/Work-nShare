@@ -5,6 +5,7 @@ class Space{
   private $_idSpace = "Empty";
   private $_nameSpace = "Empty";
   private $_isDeleted = -1;
+  private $_schedule = "Empty";
   public $listOfErrors =[];
 
   function __construct($data){
@@ -18,11 +19,14 @@ class Space{
         case 'idSpace':
           $this->idSpace($value);
           break;
-      case 'nameSpace':
+        case 'nameSpace':
           $this->nameOfSpace($value);
           break;
         case 'isDeleted':
           $this->isDeleted($value);
+          break;
+        case 'HORAIRE':
+          $this->schedule($value);
           break;
         default:
           break;
@@ -70,6 +74,17 @@ class Space{
       $this->_isDeleted=$isDeleted;
     }
 
+  }
+
+
+  public function schedule($schedule='-1'){
+    if($schedule=='9'){
+      return $this->_schedule;
+    }else{
+      $this->_schedule=$schedule;
+      return 1;
+    }
+    return 0;
   }
 
 
@@ -186,6 +201,22 @@ class SpaceMng{
     }catch (Exception $e){
       echo "PDOException : ".$e->getMessage();;
       return 1;
+    }
+  }
+
+
+  public function updateSpaceSchedule($idSpace , $schedule){
+    try{
+        $query = $this->_db->prepare('UPDATE SPACES SET HORAIRE = :schedule WHERE idSpace = :idSpace');
+        $query->execute([
+          "schedule"=>$schedule,
+          "idSpace"=>$idSpace
+        ]);
+        echo "Space schedule updated";
+        return 0;
+    }catch (Exception $e){
+        echo "PDOException : ".$e->getMessage();
+        return 1;
     }
   }
 
