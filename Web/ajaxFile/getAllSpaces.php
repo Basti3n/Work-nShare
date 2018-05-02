@@ -15,7 +15,7 @@
   foreach ($spaces as $space) {
 
     $tempArray["idSpace"] = $space->idSpace();
-    $tempArray["name"] = $space->nameOfSpace();
+    $tempArray["name"] = utf8_encode($space->nameOfSpace());
     $tempArray["isDeleted"] = $space->isDeleted();
 
     array_push($spacesArray, $tempArray );

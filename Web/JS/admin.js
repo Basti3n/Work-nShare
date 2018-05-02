@@ -503,6 +503,8 @@ function initSpaceArray() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       var test = request.responseText;
+      console.log(test);
+
       var search = JSON.parse(request.responseText);
       console.log(search);
       spaceArray = search;
@@ -517,6 +519,8 @@ function initServiceArray() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       var test = request.responseText;
+      console.log(test);
+
       var search = JSON.parse(request.responseText);
       console.log(search);
       serviceArray = search;
@@ -672,4 +676,52 @@ function getSelectedIndex(selectId) {
   var selectedOption = options[idx];
   var index = selectedOption.value;
   return index;
+}
+
+
+
+function displayChangeSchedule(idSpace){
+
+  console.log(idSpace);
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+        if( request.responseText !="erreur"){
+          var search = JSON.parse(request.responseText);
+          console.log(search);
+          setSchedulePannel(search);
+        }
+
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\getSpaceSchedule.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'idSpace=' + idSpace
+  ];
+  var body = params.join('&');
+  request.send(body);
+}
+
+
+function setSchedulePannel(search){
+  var pannel = document.getElementById('changeSpaceSchedulePannel');
+
+  search.forEach(function(day){
+    var beginInput = document.getElementById('inputBegin'+day.jour);
+    var endInput = document.getElementById('inputEnd'+day.jour);
+
+    beginInput.value = day.debut;
+    endInput.value = day.fin;
+  });
+
+  pannel.classList.remove('hidden');
+
+
 }

@@ -454,24 +454,174 @@
 
 
             <!--Change schedule div-->
-            <div class="pannel" id="changeSpaceSchedulePannel">
+            <div class="pannel hidden" id="changeSpaceSchedulePannel">
               <div class="row">
                 <div id="changeSpaceScheduleForm">
-                  
+
                   <div class="col-xs-12">
+
                     <div class="row">
-                      <div class="col-xs-2 offset-xs-2">
+
+                      <div class="col-xs-2 offset-xs-3">
                         Lundi
                       </div>
-                      <div class="col-xs-3">
-                        Début :
+                      <div class="col-xs-2">
+                        Heure début :
                       </div>
-                      <div class="col-xs-3">
-                        Fin :
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginLundi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndLundi" value="0">
                       </div>
                       <div class="col-xs-2">
                       </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Mardi
+                      </div>
+                      <div class="col-xs-2">
+                        Heure début :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginMardi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndMardi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Mercredi
+                      </div>
+                      <div class="col-xs-2">
+                        Heure début :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginMercredi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndMercredi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Jeudi
+                      </div>
+                      <div class="col-xs-2">
+                        Heure début :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginJeudi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndJeudi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Vendredi
+                      </div>
+                      <div class="col-xs-2">
+                        Heure début :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginVendredi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndVendredi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Samedi
+                      </div>
+                      <div class="col-xs-2">
+                        Heure début :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginSamedi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndSamedi" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+                      <div class="col-xs-2 offset-xs-2">
+                        Dimanche
+                      </div>
+                      <div class="col-xs-2">
+                        Heure début :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputBeginDimanche" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                        Heure fin :
+                      </div>
+                      <div class="col-xs-1">
+                        <input class="numberInput" type="number" id="inputEndDimanche" value="0">
+                      </div>
+                      <div class="col-xs-2">
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-xs-3">
+
+                      </div>
+
+                      <div class="col-xs-3">
+                        <button> </button>
+                      </div>
+
+                      <div class="col-xs-3">
+
+                      </div>
+
+                      <div class="col-xs-3">
+
+                      </div>
+
+                    </div>
+
                   </div>
 
                 </div>

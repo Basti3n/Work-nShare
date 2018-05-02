@@ -168,13 +168,26 @@ class SpaceMng{
           "isDeleted"=>$space->isDeleted(),
           "idSpace"=>$idSpace
         ]);
+        echo "Space updated";
+        return 0;
     }catch (Exception $e){
-      echo "PDOException : ".$e->getMessage();;
+        echo "PDOException : ".$e->getMessage();
+        return 1;
     }
 
-      echo "Space updated";
+
   }
 
+  public function getSchedule($idSpace){
+    try{
+      $query = $this->_db->prepare('SELECT HORAIRE FROM SPACES WHERE idSpace = :idSpace');
+      $query->execute(["idSpace"=>$idSpace]);
+      return $query->fetchAll(PDO::FETCH_ASSOC);
+    }catch (Exception $e){
+      echo "PDOException : ".$e->getMessage();;
+      return 1;
+    }
+  }
 
 }
  ?>
