@@ -214,7 +214,21 @@
                     </thead>
                     <tbody>
                       <?php
-                      $query = $db->prepare('SELECT * FROM ACCESS WHERE email =:email');
+                      /*
+                      $query = $db->prepare('SELECT * FROM ACCESS,EXITSPACE WHERE ACCESS.email =:email and EXITSPACE.email =:email0 ');
+                      $query->execute( ["email"=>$user->email(),"email0"=>$user->email()]);
+                      $data = $query->fetchAll(PDO::FETCH_ASSOC);
+                      print_r($data);
+                      if (!empty($data)) {
+                        foreach ($data as $key => $value) {
+                          echo "
+                          <tr>
+                            <th scope='row'>".$value["idAccess"]."</th>
+                            <td>".date('j\/m\/Y', strtotime($value["dateAccess"]))."</td>
+                            <td>Vous êtes allé à <b>".nameOfSpace($value["idSpace"])."</b> de ".date('G\h i', strtotime($value["dateAccess"]))." à ".date('G\h i', strtotime($value["dateExit"]))."</td>
+                          </tr>";
+                        }*/
+                      $query = $db->prepare('SELECT * FROM ACCESS,EXITSPACE WHERE email =:email');
                       $query->execute( ["email"=>$user->email()]);
                       $data = $query->fetchAll(PDO::FETCH_ASSOC);
                       if (!empty($data)) {
