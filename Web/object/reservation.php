@@ -100,7 +100,7 @@ class ReservationMng
 		$this->_db = $db;
   	}
 
-  	//Recuperer les informations de le BDD
+  	//Recuperer les informations de la BDD
   	public function get($id){
 	    try {
 	      	$query = $this->_db->prepare('SELECT * FROM RESERVATION WHERE id:id');
@@ -111,6 +111,27 @@ class ReservationMng
 	    $data = $query->fetch(PDO::FETCH_ASSOC);
 	    return new Reservation($data);
   	}
+
+		public function getAllOf($email){
+	    try{
+	      $query = $this->_db->prepare('SELECT * FROM RESERVATION WHERE email=:email');
+	      $query->execute(["email"=>$email]);
+	    }catch(Exception $e){
+	      echo "PDOException : " . $e->getMessage();
+
+	    }
+	    $data = $query->fetchAll(PDO::FETCH_ASSOC);
+	    if($data !=NULL){
+	      $res = [];
+
+	      foreach ($data as $key => $re) {
+	        array_push($res,new Reservation($re));
+	      }
+	      return $res;
+	    }else
+	      return 0;
+
+	  }
 
   	public function add($id){
   		$query = $this->_db->prepare("INSERT INTO RESERVATION (email,idServiceContent,reservationStartDate,reservationEndDate)

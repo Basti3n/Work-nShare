@@ -3,6 +3,7 @@
   require "function.php";
   include "object/user.php";
   include "object/ticket.php";
+  include "object/reservation.php";
 
 ?>
 <!DOCTYPE html>
@@ -192,6 +193,40 @@
               <div class="container col-md-12">
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Services </h4>
+                </div>
+              </div>
+              <div class="container">
+                <div class="col-md-12">
+                  <table class="table table-striped">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Reservation</th>
+                        <th scope="col" class="col-md-3">Depuis</th>
+                        <th scope="col" class="col-md-3">Jusqu'à</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $resmng = new ReservationMng($db);
+                      $reservations = [];
+                      $reservations = $resmng->getAllOf($user->email());
+                      if ($reservations != 0) {
+                        for ($i=0; $i < count($reservations); $i++) {
+                          echo "
+                          <tr>
+                            <th scope='row'>".$i."</th>
+                            <td>".$reservations[$i]->idServiceContent()."</td>
+                            <td>".date('j\/m\/Y G\h i', strtotime($reservations[$i]->reservationStartDateSignup()))."</td>
+                            <td>".date('j\/m\/Y G\h i', strtotime($reservations[$i]->reservationEndDateSignup()))."</td>
+                          </tr>";
+                        }
+                      }else {
+                        echo "<p>Rien a afficher pour le moment</p>";
+                      }
+                      ?>
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>
