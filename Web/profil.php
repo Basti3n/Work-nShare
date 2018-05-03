@@ -122,7 +122,7 @@
               </div>
               <div class="container" id="contain">
                 <div class="col-md-12 tablemsg" id="pagresult">
-              </div>
+                </div>
 
                 <h2>Nouveau ticket</h2><br>
                 <div class="col-md-6">
@@ -176,10 +176,10 @@
                       $query->execute( ["email"=>$user->email()]);
                       $data = $query->fetch(PDO::FETCH_ASSOC);
                       if($data){
-                        echo "Abonné depuis le: ".date('j \/ m \/ Y', strtotime($data["dateSubscription"]))
-                            ." jusqu'au: ".date('j \/ m \/ Y', strtotime($data["dateEndSubscription"]));
+                        echo "<p>Abonné depuis le: ".date('j \/ m \/ Y', strtotime($data["dateSubscription"]))
+                            ." jusqu'au: ".date('j \/ m \/ Y', strtotime($data["dateEndSubscription"]))."</p>";
                       }else {
-                        echo "Vous n'êtes pas abonné ! <br>";
+                        echo "<p>Vous n'êtes pas abonné ! <br></p>";
                         echo "<input class='btn btn-warning' type='button' value='Abonnez-vous dès maintenant !' onclick='abbo()' />";
                       }
                     ?>
@@ -200,6 +200,41 @@
                 <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                   <h4>&nbsp;&nbsp;Historique </h4>
                 </div>
+              </div>
+              <div class="container">
+                <div class="col-md-12">
+                  <table class="table table-striped">
+                    <thead class="thead-light">
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Jour</th>
+                        <th scope="col" class="col-md-8">Heures</th>
+                        <th scope="col" class="col-md-2">Facture</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php
+                      $query = $db->prepare('SELECT * FROM ACCESS WHERE email =:email');
+                      $query->execute( ["email"=>$user->email()]);
+                      $data = $query->fetchAll(PDO::FETCH_ASSOC);
+                      if (!empty($data)) {
+                        foreach ($data as $key => $value) {
+                          echo "
+                          <tr>
+                            <th scope='row'>".$value["idAccess"]."</th>
+                            <td>".date('j\/m\/Y', strtotime($value["dateAccess"]))."</td>
+                            <td>Vous êtes allé à <b>".nameOfSpace($value["idSpace"])."</b> de ".date('G\h i', strtotime($value["dateAccess"]))." à ".date('G\h i', strtotime($value["dateAccess"]))."</td>
+                          </tr>";
+                        }
+                      }else {
+                        echo "<p>Rien a afficher pour le moment</p>";
+                      }
+                      ?>
+                    </tbody>
+                  </table>
+                </div>
+
+
               </div>
             </div>
             <div class="tab-pane fade tabcontent" id="desactive" role="tabpanel" aria-labelledby="desactive-list">

@@ -60,3 +60,12 @@ $statusTicket =[
 	4=>"En attente",
 	5=>"En retard"
 ];
+
+$nameSpace =[
+	0=>"Bastille",
+	1=>"République",
+	2=>"Odéon",
+	3=>"Place d'Italie",
+	4=>"Beaubourg",
+	5=>"Ternes"
+];

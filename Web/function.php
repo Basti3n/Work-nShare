@@ -166,6 +166,15 @@ function showArray($array){
   	return $accessToken;
   }
 
+	function nameOfSpace($id){
+		$id = substr($id, 2);
+		global $nameSpace;
+		foreach ($nameSpace as $key => $value) {
+			if(strcasecmp($id,substr($value,0,5)))
+				return $value;
+		}
+		return "unknow";
+	}
 
 //SERVICE.PHP
   $site = array(
