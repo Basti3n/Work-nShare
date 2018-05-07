@@ -10,6 +10,7 @@ $(document).ready(function() {
 $('.list-group a').click(function() {
   $(this).siblings('a').removeClass('active');
   $(this).addClass('active');
+
 });
 
 $('#addSpaceButton').on('click', function(e) {
@@ -42,16 +43,6 @@ $('#cancelChangeSchedulePannelButton').on('click', function(e) {
   $('#changeSpaceSchedulePannel').addClass('hidden');
 });
 
-
-/*
-  [{"debut":"13","fin":"20","jour":"Lundi"},
-  {"debut":"18","fin":"24","jour":"Mardi"},
-  {"debut":"01","fin":"05","jour":"Mercredi"},
-  {"debut":"09","fin":"12","jour":"Jeudi"},
-  {"debut":"09","fin":"20","jour":"Vendredi"},
-  {"debut":"11","fin":"23","jour":"Samedi"},
-  {"debut":"14","fin":"20","jour":"Dimanche"}
-]*/
 
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];
@@ -437,7 +428,9 @@ function updateUser(email) {
 
 function displayDatabaseUsers(element, array) {
   //console.log(array);
-  element.innerHTML += '<table class="table" id ="dbUsers"><tr><th>Email</th><th>Nom</th><th>Prénom</th><th>Date inscription</th><th>Status</th><th>Supprimé</th><th>Valider les modifications<th></tr>';
+  var button = '<tr><td><input type="text" id="searchEmailUserBdd"></td><td><input type="text" id="searchNameUserBdd"></td><td><input type="text" id="searchLastnameUserBdd"></td><td>Date inscription</td><td>Status</td><td>Supprimé</td><td><button class="btn btn-primary" onclick="sortUserDb()">Rechercher</button><td></tr>';
+
+  element.innerHTML += '<table class="table" id ="dbUsers">'+button+'<tr><th>Email</th><th>Nom</th><th>Prénom</th><th>Date inscription</th><th>Status</th><th>Supprimé</th><th>Valider les modifications<th></tr>';
   element.innerHTML += '</table>'
   var displayArray = document.getElementById('dbUsers');
   array.forEach(function(user) {

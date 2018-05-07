@@ -31,9 +31,11 @@
               <a class="list-group-item list-group-item-action list-group-item-dark" id="events-list" data-toggle="tab" href="#events" role="tab" aria-controls="events">Evènement</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="database-list" data-toggle="tab" href="#database" role="tab" aria-controls="database">Base de données</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="tickets-list" data-toggle="tab" href="#tickets" role="tab" aria-controls="tickets">Tickets</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="equiments-list" data-toggle="tab" href="#equipements" role="tab" aria-controls="equipements">Equipements</a>
+
             </div>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9" id="allMightyContainer" >
           <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane tabcontent fade show active in" id="spaces" role="tabpanel" aria-labelledby="spaces-list">
               <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
@@ -255,132 +257,136 @@
                 </table>
               -->
 
+                </div>
               </div>
+
+
             </div>
-
-
-          </div>
             <div class="tab-pane tabcontent fade" id="tickets" role="tabpanel" aria-labelledby="tickets-list">
               <div class="container col-md-12">
 
 
               <div class="container" id="contain">
                 <div class="col-md-12 tablemsg" id="pagresult">
-
-
-                <h1>Tickets</h1>
-                <div class="row">
-                  <div class="col-xs-8">
-                    <?php
-                      $db = connectDb();
-                      $ticketMng = new TicketMng($db);
-                      $tickets = $ticketMng->getAllTickets();
-                      //showArray($tickets);
-                    ?>
-
-                    <table class="table">
-                      <tr>
-                        <th>#</th>
-                        <th>Catégorie</th>
-                        <th>Message</th>
-                        <th>Date début</th>
-                        <th>Dernier message</th>
-                        <th>Correspondant</th>
-                        <th>Etat</th>
-                      </tr>
+                  <h1>Tickets</h1>
+                  <div class="row">
+                    <div class="col-xs-8">
                       <?php
-                        foreach ($tickets as $ticket) {
-                          echo '<tr onclick="displayTicket('.$ticket->idTicket().',\''.$_SESSION["email"].'\','.$ticket->statusTicket().','.$ticket->idPrimaryTicket().')">
-                                    <td>'.$ticket->idTicket().'</td>
-                                    <td>'.$ticket->ticketCategory().'</td>
-                                    <td>'.$ticket->contentTicket().'</td>
-                                    <td>'.$ticket->dateTicket().'</td>
-                                    <td>'.$ticketMng->getLastMEssageDate($ticket).'</td>
-                                    <td>'.$ticket->email().'</td>
-                                    <td>'.$statusTicket[$ticket->statusTicket()].'</td>
-                                </tr>';
-                        }
+                        $db = connectDb();
+                        $ticketMng = new TicketMng($db);
+                        $tickets = $ticketMng->getAllTickets();
+                        //showArray($tickets);
                       ?>
-                    </table>
-                  </div>
-
-                  <div class="col-xs-4">
-                    <div id="ticketAdvancedInfo">
-                      <div class ="row" id="ticketInformation">
-                          <div class="col-xs-3" id="idTicketAdvancedInfo">
-                            <?php
-                              echo "ID :".$tickets[0]->idTicket();
-                            ?>
-                          </div>
-
-                          <div class="col-xs-9" id="emailSenderAdvancedInfo">
-                            <?php
-                              echo "Correspondant :".$tickets[0]->email();
-                            ?>
-                          </div>
-                       </div>
-                      <br>
-                      <div id="ticketAdvancedInfoHistorique">
+                      <table class="table">
+                        <tr>
+                          <th>#</th>
+                          <th>Catégorie</th>
+                          <th>Message</th>
+                          <th>Date début</th>
+                          <th>Dernier message</th>
+                          <th>Correspondant</th>
+                          <th>Etat</th>
+                        </tr>
                         <?php
-                          $ticketsAdvanced = $ticketMng->getAllTickets($tickets[0]->idTicket());
-                          echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$tickets[2]->contentTicket().'</div> </div>';
-                          if(($ticketsAdvanced !=1)){
-                            foreach($ticketsAdvanced as $ticketAdvanced){
-                              if($ticketAdvanced->ticketSenderStatus()== 0){
-                                echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div> </div>';
-                              }else{
-                                echo '<div class="col-md-12"><div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div></div>';
+                          foreach ($tickets as $ticket) {
+                            echo '<tr onclick="displayTicket('.$ticket->idTicket().',\''.$_SESSION["email"].'\','.$ticket->statusTicket().','.$ticket->idPrimaryTicket().')">
+                                      <td>'.$ticket->idTicket().'</td>
+                                      <td>'.$ticket->ticketCategory().'</td>
+                                      <td>'.$ticket->contentTicket().'</td>
+                                      <td>'.$ticket->dateTicket().'</td>
+                                      <td>'.$ticketMng->getLastMEssageDate($ticket).'</td>
+                                      <td>'.$ticket->email().'</td>
+                                      <td>'.$statusTicket[$ticket->statusTicket()].'</td>
+                                  </tr>';
+                          }
+                        ?>
+                      </table>
+                    </div>
+
+                    <div class="col-xs-4">
+                      <div id="ticketAdvancedInfo">
+                        <div class ="row" id="ticketInformation">
+                            <div class="col-xs-3" id="idTicketAdvancedInfo">
+                              <?php
+                                echo "ID :".$tickets[0]->idTicket();
+                              ?>
+                            </div>
+
+                            <div class="col-xs-9" id="emailSenderAdvancedInfo">
+                              <?php
+                                echo "Correspondant :".$tickets[0]->email();
+                              ?>
+                            </div>
+                         </div>
+                        <br>
+                        <div id="ticketAdvancedInfoHistorique">
+                          <?php
+                            $ticketsAdvanced = $ticketMng->getAllTickets($tickets[0]->idTicket());
+                            echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$tickets[2]->contentTicket().'</div> </div>';
+                            if(($ticketsAdvanced !=1)){
+                              foreach($ticketsAdvanced as $ticketAdvanced){
+                                if($ticketAdvanced->ticketSenderStatus()== 0){
+                                  echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div> </div>';
+                                }else{
+                                  echo '<div class="col-md-12"><div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div></div>';
+                                }
                               }
                             }
-                          }
 
-                        ?>
-                      </div>
-                      <br>
-                      <div>
-                        <div class="form-group">
-                          <label for="ticketAnswer">Réponse</label>
-                          <textarea class="form-control form-control" id="ticketAnswer" rows="4"></textarea>
+                          ?>
                         </div>
-                      </div>
-
-                      <div>
-                        <div class="row">
-                          <div class="col-xs-6">
-                            Etat :
-                            <select id="ticketStatusSelect" onchange="updateTicketStatus(<?php $tickets[2]->idTicket()?>)">
-                              <?php
-                                foreach ($statusTicket as $key =>  $status) {
-                                  echo "<option value='".$key."'  ". ( $tickets[2]->statusTicket()==$key? "selected":"") ."  >".$status."</option>";
-                                }
-                              ?>
-                            </select>
+                        <br>
+                        <div>
+                          <div class="form-group">
+                            <label for="ticketAnswer">Réponse</label>
+                            <textarea class="form-control form-control" id="ticketAnswer" rows="4"></textarea>
                           </div>
+                        </div>
 
+                        <div>
+                          <div class="row">
+                            <div class="col-xs-6">
+                              Etat :
+                              <select id="ticketStatusSelect" onchange="updateTicketStatus(<?php $tickets[2]->idTicket()?>)">
+                                <?php
+                                  foreach ($statusTicket as $key =>  $status) {
+                                    echo "<option value='".$key."'  ". ( $tickets[2]->statusTicket()==$key? "selected":"") ."  >".$status."</option>";
+                                  }
+                                ?>
+                              </select>
+                            </div>
 
-                          <div class="col-xs-6">
-                            <div class="form-group row">
-                              <div class="col-md-7 col-sm-10 ">
-                                <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer(<?php echo $tickets[2]->idTicket();echo ",'"; echo $_SESSION['email']."'";?>)"  >Envoyer</button>
-
+                            <div class="col-xs-6">
+                              <div class="form-group row">
+                                <div class="col-md-7 col-sm-10 ">
+                                  <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer(<?php echo $tickets[2]->idTicket();echo ",'"; echo $_SESSION['email']."'";?>)"  >Envoyer</button>
+                                </div>
                               </div>
                             </div>
+
                           </div>
                         </div>
                       </div>
                     </div>
-
-
                   </div>
                 </div>
               </div>
-            </div>
-            <!--  <div class="container col-md-12">
-                <p>Disable</p>
-              </div>-->
-            </div>
-          </div>
 
+              </div>
+            </div>
+
+
+
+            <div class="tab-pane tabcontent fade" id="equipements" role="tabpanel" aria-labelledby="equipements-list">
+              <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;Equipements </h4>
+              </div>
+
+              <div class="container col-md-12">
+                    Tests
+              </div>
+
+            </div>
             <!--Create space pannel -->
             <div id="createSpacePannel" class="hidden">
               <div class="row">
