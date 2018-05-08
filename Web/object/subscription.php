@@ -95,7 +95,7 @@ class Subscription{
         break;
       /* get rights from db */
       case 'decode':
-        $this->_rights = json_decode($val);
+        $this->_rights = json_decode($val,true);
         break;
       /* put rights in db */
       case 'encode':
@@ -111,7 +111,7 @@ class Subscription{
         break;
       /* check permission */
       case 'has':
-        if ($this->_rights[$index] != 0)
+        if ($this->_rights[$index] != 0 && $this->_rights[$index] != NULL)
           return true;
         else
           return false;
@@ -178,9 +178,12 @@ class Subscription{
   }
 
   public function speak(){
+    $this->right("add","ez",1);
     echo  "<br>\$_idSpace : ".$this->_idSubscription.
           "<br>\$_nameSpace : ".$this->_name.
-          "<br>Total : ".$this->total('18:25','19:30').
+          "<br>Total a payer : ".$this->total('18:25','19:30').
+          "<br>rights -> ".print_r($this->right("getAll")).
+          "<br>right -> ".$this->right("get","openspace").
           "<br>\$_isDeleted : ".$this->_isDeleted;
   }
 
