@@ -61,7 +61,7 @@ void saveQr(const uint8_t qrcode[], char * str){
 		ya+=mult;
     }
     char * file  = malloc(strlen(str)+12);
-    sprintf(file,"Qrcode_%s.bmp",str);
+    sprintf(file,"/Qrcodes/Qrcode_%s.bmp",str);
     BMP_WriteFile( qRcode, file );
     BMP_Free( qRcode );
 }
