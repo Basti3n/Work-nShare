@@ -263,7 +263,7 @@
                             <td>Vous êtes allé à <b>".nameOfSpace($value["idSpace"])."</b> de ".date('G\h i', strtotime($value["dateAccess"]))." à ".date('G\h i', strtotime($value["dateExit"]))."</td>
                           </tr>";
                         }*/
-                      $query = $db->prepare('SELECT * FROM ACCESS,EXITSPACE WHERE email =:email');
+                      $query = $db->prepare('SELECT * FROM ACCESS WHERE email =:email');
                       $query->execute( ["email"=>$user->email()]);
                       $data = $query->fetchAll(PDO::FETCH_ASSOC);
                       if (!empty($data)) {
