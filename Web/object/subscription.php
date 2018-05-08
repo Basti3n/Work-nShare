@@ -238,8 +238,8 @@ class SubscriptionMng{
     return new Subscription($data);
   }
 
-  public function getAllSpaces($deleted="-1"){
-    $sql = 'SELECT * FROM idSubscription'.($deleted==1?' WHERE isDeleted = 0':'');
+  public function getAll($deleted="-1"){
+    $sql = 'SELECT * FROM SUBSCRIPTIONS'.($deleted==1?' WHERE isDeleted = 0':'');
 
     try{
       $query = $this->_db->prepare($sql);

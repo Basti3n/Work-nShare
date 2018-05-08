@@ -20,8 +20,7 @@ require_once 'object/subscription.php';
         <?php
         $db = connectDb();
         $mng = new SubscriptionMng($db);
-        $o = $mng->get(3);
-        $o->speak();
+        $subscriptions = $mng->getAll();
          ?>
       </div>
     </div>
