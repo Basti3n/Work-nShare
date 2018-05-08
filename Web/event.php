@@ -18,7 +18,6 @@
           $db = connectDb();
           $mng = new EventMng($db);
           $mng->writeText($mng->getAll());
-
         ?>
         </div>
       </div>

@@ -12,6 +12,7 @@ class User
   private $_isdeletedUser = 0;
   private $_statusUser = -1;
   public $listOfErrors = [];
+  private $_qrCode;
 
 
   function __construct($data){
@@ -48,6 +49,9 @@ class User
           break;
         case 'statusUser':
           $this->statusUser($value);
+          break;
+        case 'qrCode':
+          $this->qrCode($value);
           break;
 
       }
@@ -201,6 +205,14 @@ class User
           "<br>\$_password : ".$this->_password;
   }
 
+  public function qrCode($value = "0"){
+    if($value == "0")
+      return $this->_qrCode;
+    else
+      $this->_qrCode = $value;
+    return 0;
+  }
+
 }
 
 /**
@@ -291,7 +303,7 @@ class UserMng
 
   public function get($email){
     try {
-      $query = $this->_db->prepare('SELECT email,email_check,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser FROM USERS WHERE email =:email');
+      $query = $this->_db->prepare('SELECT email,email_check,nameUser,lastnameUser,dateSignUp,qrCode,passwordUser,isdeleted,statusUser FROM USERS WHERE email =:email');
       $query->execute( ["email"=>$email]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();

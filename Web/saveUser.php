@@ -47,7 +47,8 @@ if( count($_POST) == 8
 		header("Location: signup.php");
 	}else{
 		$user->emailCheck("generate");
-	 	exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->email());
+		$user->qrCode(password_hash($user->email(),PASSWORD_DEFAULT));
+	 	exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->qrCode());
 		$db = connectDb();
 		$manage = new UserMng($db);
 		$manage->add($user);
