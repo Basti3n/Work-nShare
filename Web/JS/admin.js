@@ -10,6 +10,7 @@ $(document).ready(function() {
 $('.list-group a').click(function() {
   $(this).siblings('a').removeClass('active');
   $(this).addClass('active');
+
 });
 
 $('#addSpaceButton').on('click', function(e) {
@@ -36,22 +37,18 @@ $('#cancelCreateServiceContentButton').on('click', function(e) {
   $('#createServiceContentPannel').addClass('hidden');
 });
 
-
-
 $('#cancelChangeSchedulePannelButton').on('click', function(e) {
   $('#changeSpaceSchedulePannel').addClass('hidden');
 });
 
 
-/*
-  [{"debut":"13","fin":"20","jour":"Lundi"},
-  {"debut":"18","fin":"24","jour":"Mardi"},
-  {"debut":"01","fin":"05","jour":"Mercredi"},
-  {"debut":"09","fin":"12","jour":"Jeudi"},
-  {"debut":"09","fin":"20","jour":"Vendredi"},
-  {"debut":"11","fin":"23","jour":"Samedi"},
-  {"debut":"14","fin":"20","jour":"Dimanche"}
-]*/
+$('#addEquipmentButton').on('click', function(e) {
+  $('#createEquipmentPannel').removeClass('hidden');
+});
+
+$('#cancelEquipmentSpaceButton').on('click', function(e) {
+  $('#createEquipmentPannel').addClass('hidden');
+});
 
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];
@@ -437,7 +434,9 @@ function updateUser(email) {
 
 function displayDatabaseUsers(element, array) {
   //console.log(array);
-  element.innerHTML += '<table class="table" id ="dbUsers"><tr><th>Email</th><th>Nom</th><th>Prénom</th><th>Date inscription</th><th>Status</th><th>Supprimé</th><th>Valider les modifications<th></tr>';
+  //var button = '<tr><td><input type="text" id="searchEmailUserBdd"></td><td><input type="text" id="searchNameUserBdd"></td><td><input type="text" id="searchLastnameUserBdd"></td><td>Date inscription</td><td>Status</td><td>Supprimé</td><td><button class="btn btn-primary" onclick="sortUserDb()">Rechercher</button><td></tr>';
+  var button = '';
+  element.innerHTML += '<table class="table" id ="dbUsers">'+button+'<tr><th>Email</th><th>Nom</th><th>Prénom</th><th>Date inscription</th><th>Status</th><th>Supprimé</th><th>Valider les modifications<th></tr>';
   element.innerHTML += '</table>'
   var displayArray = document.getElementById('dbUsers');
   array.forEach(function(user) {
@@ -777,4 +776,99 @@ function updateScheduleSpace(idSpace){
     request.send(body);
 
 
+}
+
+
+
+function createEquipment() {
+  var equipmentName = document.getElementById('newEquipmentName').value;
+  var idSpace = getSelectedIndex('spaceSelectorEquipment');
+
+  console.log(equipmentName+'  '+idSpace);
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+        if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\createEquipment.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'equipmentName=' + equipmentName,
+    'idSpace=' + idSpace
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+function updateEquipment(idEquipment) {
+  var equipmentName = document.getElementById(idEquipment + 'NameEquipment').value;
+  var isDeleted = document.getElementById(idEquipment + 'isDeletedEquipment').checked;
+  var isFree = document.getElementById(idEquipment + 'isFreeEquipment').checked;
+  var idSpace = getSelectedIndex(idEquipment+'IdSpaceEquipment');
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\updateEquipment.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'equipmentName=' + equipmentName,
+    'isDeleted=' + isDeleted,
+    'isFree=' + isFree,
+    'idSpace=' + idSpace,
+    'idEquipment=' + idEquipment
+  ];
+  var body = params.join('&');
+  request.send(body);
+}
+
+
+
+
+function updateEquipmentLastDate(idEquipment) {
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\updateEquipmentLastCheckDate.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'idEquipment=' + idEquipment
+  ];
+  var body = params.join('&');
+  request.send(body);
 }
