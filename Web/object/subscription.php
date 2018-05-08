@@ -3,9 +3,13 @@ date_default_timezone_set('Europe/Paris');
 
 class Subscription{
   private $_idSubscription = "Empty";
-  private $_nameSpace = "Empty";
+  private $_name = "Empty";
+  private $_dayPrice = 0;
+  private $_firstHour = 0;
+  private $_halfHour = 0;
+  private $_rights =[];
   private $_isDeleted = -1;
-  private $_schedule = "Empty";
+
   public $listOfErrors =[];
 
   function __construct($data){
@@ -16,17 +20,26 @@ class Subscription{
   public function hydrate(array $data){
     foreach ($data as $key => $value) {
       switch($key){
-        case 'idSpace':
-          $this->idSpace($value);
+        case 'idSubscription':
+          $this->idSubscription($value);
           break;
-        case 'nameSpace':
-          $this->nameOfSpace($value);
+        case 'name':
+          $this->name($value);
           break;
         case 'isDeleted':
           $this->isDeleted($value);
           break;
-        case 'HORAIRE':
-          $this->schedule($value);
+        case 'dayPrice':
+          $this->dayPrice($value);
+          break;
+        case 'firstHour':
+          $this->firstHour($value);
+          break;
+        case 'halfHour':
+          $this->halfHour($value);
+          break;
+        case 'listRights':
+          $this->right("decode",null,$value);
           break;
         default:
           break;
@@ -36,28 +49,22 @@ class Subscription{
 
   }
 
-  public function idSpace($idSpace='0',$action ='0'){
-    if($idSpace=='0')
-      return $this->_idSpace;
-
-    trim($idSpace);
-    if(strlen($idSpace)==7 ){
-      $this->_idSpace = $idSpace;
-      return 0;
-    }else{
-      $this->listOfErrors[] = 17;
-      return 1;
-    }
+  public function idSubscription($id='0'){
+    if($id=='0')
+      return $this->_idSubscription;
+    else
+      $this->_idSubscription = $id;
+    return 0;
   }
 
-  public function nameOfSpace($nameOfSpace ='0' , $testValue='0'){
-    if($nameOfSpace =='0')
-      return $this->_nameSpace;
+  public function name($value ='0'){
+    if($value =='0')
+      return $this->_name;
 
-    trim($nameOfSpace);
+    trim($value);
 
-    if(strlen($nameOfSpace)<25){
-      $this->_nameSpace = $nameOfSpace;
+    if(strlen($value)<25){
+      $this->_name = $value;
     }else{
       $this->listOfErrors[] = 18;
       return 1;
@@ -73,44 +80,116 @@ class Subscription{
     }else{
       $this->_isDeleted=$isDeleted;
     }
-
+    return 0;
   }
 
+  public function right($action='0', $index='0', $val='0'){
+    if($action=='0'){
+      return $this->_rights;
+    }
+    switch ($action) {
+      /* Edit rights */
+      case 'add':
+      case 'change':
+        $this->_rights[$index] = $val;
+        break;
+      /* get rights from db */
+      case 'decode':
+        $this->_rights = json_decode($val,true);
+        break;
+      /* put rights in db */
+      case 'encode':
+        return json_encode($this->_rights);
+        break;
+      /* get single right val */
+      case 'get':
+        return $this->_rights[$index];
+        break;
+      /* get all rights val and key*/
+      case 'getAll':
+        return $this->_rights;
+        break;
+      /* check permission */
+      case 'has':
+        if ($this->_rights[$index] != 0 && $this->_rights[$index] != NULL)
+          return true;
+        else
+          return false;
+        break;
+      /* get all rights names */
+      case 'table':
+        return array_keys($this->_rights);
+      break;
 
-  public function schedule($schedule='-1'){
-    if($schedule=='9'){
-      return $this->_schedule;
-    }else{
-      $this->_schedule=$schedule;
-      return 1;
+      default:
+        break;
     }
     return 0;
   }
 
+  public function dayPrice($value='-1'){
+    if($value=='-1')
+      return $this->_dayPrice;
+    else
+      $this->_dayPrice=$value;
+    return 0;
+  }
+
+  public function firstHour($value='-1'){
+    if($value=='-1')
+      return $this->_firstHour;
+    else
+      $this->_firstHour=$value;
+    return 0;
+  }
+  public function halfHour($value='-1'){
+    if($value=='-1')
+      return $this->_halfHour;
+    else
+      $this->_halfHour=$value;
+    return 0;
+  }
+
+  public function total($access="-1", $exit="-1",$reduction="0"){
+    if ($access == "-1" || $exit == "-1") {
+      $listOfErrors[] = 5;
+      return -1;
+    }
+    $duration = $this->duration(date('U',strtotime($access)),date('U',strtotime($exit))); // minutes
+    $temp = 0;
+    if($duration > 60*5){ //day : >5 h
+      $temp += $this->dayPrice();
+      $duration -= $duration;
+    }
+    if ($duration > 0) { //1ere h
+      $temp += $this->firstHour();
+      $duration -= 60;
+      echo "+h";
+    }
+    if ($duration > 0) { // chaque 30mins
+      $temp += $this->halfHour()*(ceil($duration/30));
+    }
+    return $temp;
+  }
+
+  public function duration($access="-1", $exit="-1"){
+    $time = ($exit-$access) /60;
+    return $time;
+  }
 
   public function speak(){
-    echo  "<br>\$_idSpace : ".$this->_idSpace.
-          "<br>\$_nameSpace : ".$this->_nameSpace.
+    $this->right("add","ez",1);
+    echo  "<br>\$_idSpace : ".$this->_idSubscription.
+          "<br>\$_nameSpace : ".$this->_name.
+          "<br>Total a payer : ".$this->total('18:25','19:30').
+          "<br>rights -> ".print_r($this->right("getAll")).
+          "<br>right -> ".$this->right("get","openspace").
           "<br>\$_isDeleted : ".$this->_isDeleted;
   }
 
-  public function total($value="-1")
-  {
-    if ($value == "-1") {
-      $value = 0;
-    }
-
-
-
-    return $value;
-  }
-
-
 }
 
-
-
-class SpaceMng{
+class SubscriptionMng{
   private $_db;
 
   function __construct($db){
@@ -121,115 +200,83 @@ class SpaceMng{
     $this->_db = $db;
   }
 
-
-  public function add(Space $space){
-    $query = $this->_db->prepare("INSERT INTO SPACES (idSpace,nameSpace,isDeleted)
-                                  VALUES (:idSpace,:nameSpace,0) ");
+  public function add(Subscription $val){
+    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (idSubscription,name,isDeleted,dayPrice,firstHour,halfHour,listRights)
+                                  VALUES (:idSubscription,:name,:deleted,:day,:first,:half,:right) ");
     $query->execute( [
-      "idSpace"=>$space->idSpace(),
-      "nameSpace"=>$space->nameOfSpace(),
+      "idSubscription"=>$val->idSubscription(),
+      "name"=>$val->name(),
+      "deleted"=>$val->isDeleted(),
+      "day"=>$val->dayPrice(),
+      "first"=>$val->firstHour(),
+      "half"=>$val->halfHour(),
+      "right"=>$val->right("encode")
       ]);
   }
 
-
-  public function delete(Space $space){
-    $query = $this->_db->prepare('UPDATE SPACES SET isDeleted = 1 WHERE idSpace =:idSpace');
-		$query->execute( ["idSpace"=>$space->idSpace()]);
+  public function delete(Subscription $val){
+    $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET isDeleted = 1 WHERE idSubscription =:idSubscription');
+		$query->execute( ["idSubscription"=>$val->idSubscription()]);
+    if($query){
+      $val->isDeleted(1);
+      return 0;
+    }
+    else {
+      return 1;
+    }
   }
 
 
-  public function get($idSpace){
+  public function get($id){
     try {
-      $query = $this->_db->prepare('SELECT  idSpace,nameSpace,isDeleted FROM SPACES WHERE idSpace =:idSpace');
-      $query->execute( ["idSPace"=>$idSpace]);
+      $query = $this->_db->prepare('SELECT  idSubscription,name,isDeleted,dayPrice,firstHour,halfHour,listRights FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
+      $query->execute( ["idSubscription"=>$id]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
     }
-
     $data = $query->fetch(PDO::FETCH_ASSOC);
-    return new Space($data);
-  }
-
-  public function getSpaceName($idSpace){
-    try {
-      $query = $this->_db->prepare('SELECT  nameSpace FROM SPACES WHERE idSpace =:idSpace');
-      $query->execute( ["idSpace"=>$idSpace]);
-    } catch(Exception $e) {
-        echo "PDOException : " . $e->getMessage();
-    }
-
-    $data = $query->fetch(PDO::FETCH_ASSOC);
-    return $data["nameSpace"];
+    return new Subscription($data);
   }
 
   public function getAllSpaces($deleted="-1"){
-    $sql = 'SELECT * FROM SPACES'.($deleted==1?' WHERE isDeleted = 0':'');
+    $sql = 'SELECT * FROM idSubscription'.($deleted==1?' WHERE isDeleted = 0':'');
 
     try{
       $query = $this->_db->prepare($sql);
       $query->execute();
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
-
     }
     $data = $query->fetchAll(PDO::FETCH_ASSOC);
     if($data !=NULL){
-      $spaces = [];
-      foreach ($data as $key => $space) {
-        array_push($spaces,new Space($space));
+      $array = [];
+      foreach ($data as $key => $subscribe) {
+        array_push($array,new Subscription($subscribe));
       }
-      return $spaces;
+      return $array;
     }else{
-      echo "Il n'y a aucun site pour l'instant";
-      return 1;
-    }
-
-  }
-
-  public function updateSpace($idSpace,Space $space){
-    try{
-        $query = $this->_db->prepare('UPDATE SPACES SET nameSpace =:nameSpace,isDeleted = :isDeleted WHERE idSpace = :idSpace');
-        $query->execute([
-          "nameSpace"=>$space->nameOfSpace(),
-          "isDeleted"=>$space->isDeleted(),
-          "idSpace"=>$idSpace
-        ]);
-        echo "Space updated";
-        return 0;
-    }catch (Exception $e){
-        echo "PDOException : ".$e->getMessage();
-        return 1;
-    }
-
-
-  }
-
-  public function getSchedule($idSpace){
-    try{
-      $query = $this->_db->prepare('SELECT HORAIRE FROM SPACES WHERE idSpace = :idSpace');
-      $query->execute(["idSpace"=>$idSpace]);
-      return $query->fetchAll(PDO::FETCH_ASSOC);
-    }catch (Exception $e){
-      echo "PDOException : ".$e->getMessage();;
+      echo "Il n'y a aucun abonnement pour l'instant";
       return 1;
     }
   }
 
-
-  public function updateSpaceSchedule($idSpace , $schedule){
+  public function update(Subscription $val){
     try{
-        $query = $this->_db->prepare('UPDATE SPACES SET HORAIRE = :schedule WHERE idSpace = :idSpace');
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name,  dayPrice = :day, firstHour = :first, halfHour = :half, listRights = :right ,isDeleted = :isDeleted WHERE idSubscription = :idSubscription');
         $query->execute([
-          "schedule"=>$schedule,
-          "idSpace"=>$idSpace
+          "idSubscription"=>$val->idSubscription(),
+          "name"=>$val->name(),
+          "deleted"=>$val->isDeleted(),
+          "day"=>$val->dayPrice(),
+          "first"=>$val->firstHour(),
+          "half"=>$val->halfHour(),
+          "right"=>$val->right("encode")
         ]);
-        echo "Space schedule updated";
         return 0;
     }catch (Exception $e){
         echo "PDOException : ".$e->getMessage();
         return 1;
     }
   }
-
 }
  ?>
