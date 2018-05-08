@@ -155,34 +155,32 @@ class Subscription{
       $listOfErrors[] = 5;
       return -1;
     }
-    $duration = $this->duration($access,$exit); // minutes
+    $duration = $this->duration(date('U',strtotime($access)),date('U',strtotime($exit))); // minutes
     $temp = 0;
     if($duration > 60*5){ //day : >5 h
-      $temp += dayPrice();
+      $temp += $this->dayPrice();
       $duration -= $duration;
     }
     if ($duration > 0) { //1ere h
-      $temp += firstHour();
+      $temp += $this->firstHour();
       $duration -= 60;
+      echo "+h";
     }
     if ($duration > 0) { // chaque 30mins
-      $temp += halfHour()*(round($duration/30));
+      $temp += $this->halfHour()*(ceil($duration/30));
     }
     return $temp;
   }
 
   public function duration($access="-1", $exit="-1"){
-    $access1 = new DateTime(strtotime($access));
-    $exit1 = new DateTime(strtotime($exit));
-    $time = $access1->diff($exit1);
-    return $time->format('%i');
+    $time = ($exit-$access) /60;
+    return $time;
   }
 
   public function speak(){
     echo  "<br>\$_idSpace : ".$this->_idSubscription.
           "<br>\$_nameSpace : ".$this->_name.
-          "<br>Total : ".$this->total(strtotime("now"),strtotime("+1 day")).
-          "<br>TABLEAU : ".print_r($this->_rights).
+          "<br>Total : ".$this->total('18:25','19:30').
           "<br>\$_isDeleted : ".$this->_isDeleted;
   }
 
