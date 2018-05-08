@@ -5,6 +5,7 @@
 #include <string.h>
 #include "qrcodegen.h"
 #include "qdbmp.h"
+#include <math.h>
 
 // Function prototypes
 static void doBasicDemo(char *str);
@@ -61,7 +62,7 @@ void saveQr(const uint8_t qrcode[], char * str){
 		ya+=mult;
     }
     char * file  = malloc(strlen(str)+12);
-    sprintf(file,"/Qrcodes/Qrcode_%s.bmp",str);
+    sprintf(file,"Qrcodes/Qrcode_%s.bmp",str);
     BMP_WriteFile( qRcode, file );
     BMP_Free( qRcode );
 }

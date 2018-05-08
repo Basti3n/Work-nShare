@@ -57,3 +57,33 @@
 	"qrcodegen.h"
 	"qdbmp.h"
 
+1522083431 source:d:\wamp64\www\work'nshare\web\qrcodegen\qdbmp.c
+	"qdbmp.h"
+	<stdlib.h>
+	<string.h>
+
+1522083431 d:\wamp64\www\work'nshare\web\qrcodegen\qdbmp.h
+	<stdio.h>
+
+1522083431 source:d:\wamp64\www\work'nshare\web\qrcodegen\qrcodegen.c
+	<assert.h>
+	<limits.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+
+1522083431 d:\wamp64\www\work'nshare\web\qrcodegen\qrcodegen.h
+	<stdbool.h>
+	<stddef.h>
+	<stdint.h>
+
+1525799593 source:d:\wamp64\www\work'nshare\web\qrcodegen\main.c
+	<stdbool.h>
+	<stddef.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"qrcodegen.h"
+	"qdbmp.h"
+	<math.h>
+
