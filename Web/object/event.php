@@ -155,36 +155,34 @@ class EventMng{
       $events = [];
       foreach ($data as $key => $value) {
         array_push($events,new Event($value));
-        //$value.speak();
       }
-      foreach ($events as $key => $value) {
-        $this->writeText($value);
-      }
-      //return $events;
+      return $events;
     }else
       echo "<p> Pas d'evenement en ce moment</p>";
     return 1;
 
   }
 
-  public final function writeText($event){
-    echo '<div class="event">
-      <h2>'.$event->nameEvent().'</h2>
-      <div class="description row">
-          <p class="descr">
-            '.$event->descriptionEvent().'
-          </p>
-          <img src="IMG/'.$event->idSpace().'.jpg" height="150" width="200">      
-      </div>
-        <div class="fin">
-          <p class="heureFin dateDesc">Heure de fin : '.$event->hourEnd().'</p>
-          <p class="dateFin dateDesc">Date de fin : '.$event->dateEnd().'</p>
+  public function writeText($event){
+    foreach ($event as $key => $value) {
+      echo '<div class="event">
+        <h2>'.$value->nameEvent().'</h2>
+        <div class="description row">
+            <p class="descr">
+              '.$value->descriptionEvent().'
+            </p>
+            <img src="IMG/'.$value->idSpace().'.jpg" height="150" width="200">      
         </div>
-        <div class="debut">
-          <p class="heureDebut dateDesc">Heure de debut : '.$event->hourStart().'</p>
-          <p class="dateDebut dateDesc">Date de debut : '.$event->dateStart().'</p>
-        </div>
-    </div>';
+          <div class="fin">
+            <p class="heureFin dateDesc">Heure de fin : '.$value->hourEnd().'</p>
+            <p class="dateFin dateDesc">Date de fin : '.$value->dateEnd().'</p>
+          </div>
+          <div class="debut">
+            <p class="heureDebut dateDesc">Heure de debut : '.$value->hourStart().'</p>
+            <p class="dateDebut dateDesc">Date de debut : '.$value->dateStart().'</p>
+          </div>
+      </div>';
+    }
   }
 }
 ?>

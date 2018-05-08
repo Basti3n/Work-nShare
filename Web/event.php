@@ -17,7 +17,7 @@
         <?php
           $db = connectDb();
           $mng = new EventMng($db);
-          $mng->getAll();
+          $mng->writeText($mng->getAll());
 
         ?>
         </div>
