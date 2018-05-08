@@ -30,7 +30,7 @@ if( count($_POST) == 8
 	if($user->Email($_POST["email"],$_POST["email2"]))
 		$error = true;
 
-	//Verification du captcha
+	/*Verification du captcha
 	$api_url = "https://www.google.com/recaptcha/api/siteverify"
 								."?secret="."6Lc8MUwUAAAAAK6RaVXkOcu0CeDB1Dze4FUDUBWI" 	// Ma clé privée
 								."&response=".$_POST['g-recaptcha-response'] 						// Paramètre renvoyé par le recaptcha
@@ -39,7 +39,7 @@ if( count($_POST) == 8
 	if ($decode['success'] != true) {
 		$error = true;
 		$user->listOfErrors[] = 8;
-	}
+	}*/
 
 	if($error){
 		$_SESSION["dataForm"] = $_POST;
