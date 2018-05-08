@@ -1,3 +1,9 @@
+<?php
+require_once "conf.inc.php";
+include_once "function.php";
+require_once 'object/subscription.php';
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,6 +17,12 @@
     <div class="inner">
       <div class="container">
         &nbsp;
+        <?php
+        $db = connectDb();
+        $mng = new SubscriptionMng($db);
+        $o = $mng->get(3);
+        $o->speak();
+         ?>
       </div>
     </div>
     <?php require "footer.php"; ?>
