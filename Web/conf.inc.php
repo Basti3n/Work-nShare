@@ -5,6 +5,7 @@ define("DB_PWD","");
 define("DB_HOST","localhost");
 define("DB_NAME","worknshare");
 
+
 $listOfErrors = [
 	1=>"Le nom doit faire entre 2 et 50 caractères",
 	2=>"Le prénom doit faire entre 2 et 50 caractères",

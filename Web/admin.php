@@ -8,6 +8,8 @@
   require "object/services.php";
   require "object/serviceContents.php";
   require "object/ticket.php";
+  require "object/equipment.php";
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,8 +22,15 @@
     <link rel="stylesheet" type="text/css" href="CSS/admin.css">
 
   </head>
+
+
+
   <body>
+
     <?php require "header.php" ?>
+
+    <?php if( isConnected() && ( isAdmin() || isSuperAdmin() || isEmployee() ) )  :?>
+
     <div class="inner">
       <div class="row">
         <div class="col-md-3" >
@@ -43,7 +52,7 @@
               </div>
               <div class="container col-md-12">
 
-                <div style="margin-top:2%;">
+                <div style="margin-top:1%;">
                   <button class="btn btn-primary" id="addSpaceButton">Ajouter un espace</button>
                 </div>
 
@@ -383,10 +392,95 @@
               </div>
 
               <div class="container col-md-12">
-                    Tests
+
+                <div style="margin-top:1%;">
+                  <button class="btn btn-primary" id="addEquipmentButton">Ajouter un matériel</button>
+                </div>
+
+                <div id="equipmentDiv">
+                  <?php
+                    $db = connectDb();
+                    $equipmentMng = new EquipmentMng($db);
+                    $equipments = $equipmentMng->getAll();
+                    //showArray($equipments);
+                  ?>
+
+                  <?php if(!empty($spaces)) :?>
+
+                    <table class="table" id="spaceArray">
+                      <tbody id="spaceArrayBody">
+                      <tr>
+                                <th>Nom de l'équipement</th>
+                                <th>Dernière vérification</th>
+                                <th>Espace</th>
+                                <th>Disponible</th>
+                                <th>Supprimé</th>
+                                <th>Valider les modifications</th>
+                                <th>Maintenance<th>
+
+                      </tr>
+                      <?php
+
+
+
+                        foreach ($equipments as $equipment) {
+                          echo '<tr>
+                                  <td><input type="text" class="form-control" id="'.$equipment->idEquipment().'NameEquipment" value="'.utf8_encode($equipment->equipmentName()).'"></td>
+                                  <td '.($equipmentMng->checkDate($equipment)?'class="redCell"':'').'>'.$equipment->lastCheckDate('0').'</td>
+                                  <td><select id="'.$equipment->idEquipment().'IdSpaceEquipment">';
+                                  foreach ($spaces as $key => $space) {
+                                    echo "<option value='".$space->idSpace()."'   ".($equipment->idSpace()==$space->idSpace()? "selected":"")."    >".utf8_encode($space->nameOfSpace())."</option>";
+                                  }
+
+                          echo    '</select></td>
+                                  <td> <input id="'.$equipment->idEquipment().'isFreeEquipment" type="checkbox" '.($equipment->isFree()?"checked":"").'></td>
+                                  <td> <input id="'.$equipment->idEquipment().'isDeletedEquipment" type="checkbox" '.($equipment->isDeleted()?"checked":"").'></td>
+                                  <td> <button class="btn btn-primary" onclick="updateEquipment(\''.$equipment->idEquipment().'\')">Valider </button> </td>
+                                  <td> <button class="btn btn-warning" onclick="updateEquipmentLastDate(\''.$equipment->idEquipment().'\')">Maintenance terminée </button> </td>
+                                </tr>';
+                        }
+
+
+                      ?>
+                    </tbody>
+                    </table>
+                  <?php else :?>
+                  <?php endif;?>
+                </div>
               </div>
 
             </div>
+
+
+            <!--Create equipment pannel -->
+            <div id="createEquipmentPannel" class="hidden">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="createEquipmentForm">
+                    <div class="row">
+                      <div class="col-xs-3"></div>
+                      <div class="col-xs-6">
+                        <input type="text" class="form-control" placeholder="Nom du matériel" id="newEquipmentName"><br>
+                        <select id="spaceSelectorEquipment">
+                            <?php
+                              foreach ($spaces as $key => $space) {
+                                echo "<option value='".$space->idSpace()."'>".utf8_encode($space->nameOfSpace())."</option>";
+                              }
+                             ?>
+                        </select><br><br>
+                        <button class="btn btn-primary" onclick="createEquipment()">Valider</button>
+                        <button class="btn btn-primary"  id="cancelEquipmentSpaceButton">Annuler</button>
+                      </div>
+                      <div class="col-xs-3"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Create equipment pannel-->
+
+
             <!--Create space pannel -->
             <div id="createSpacePannel" class="hidden">
               <div class="row">
@@ -414,7 +508,7 @@
 
                         <?php
                           foreach ($spaces as $key => $space) {
-                            echo "<option value='".$space->idSpace()."'>".$space->nameOfSpace()."</option>";
+                            echo "<option value='".$space->idSpace()."'>".utf8_encode($space->nameOfSpace())."</option>";
                           }
                          ?>
                     </select>
@@ -641,5 +735,13 @@
     </div>
     <?php require "footer.php"; ?>
     <script type="text/javascript" src="js/admin.js"> </script>
+
+  <?php else :?>
+    <div>
+      Vous n'être pas autorisé à accéder à cette page
+    </div>
+  <?php endif;?>
   </body>
+
+
 </html>
