@@ -51,6 +51,7 @@ if( count($_POST) == 8
 	 	//exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->qrCode());
 		$db = connectDb();
 		$manage = new UserMng($db);
+		$user->qrCode($_POST["email"]);
 		$manage->add($user);
 		exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->qrCode());
 		emailConfirmation($user->email(),$user->name(),$user->emailCheck(1));

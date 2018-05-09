@@ -209,7 +209,7 @@ class User
     if($value == "0")
       return $this->_qrCode;
     else
-      $this->_qrCode = $value;
+      $this->_qrCode = password_hash($value,PASSWORD_DEFAULT);
     return 0;
   }
 
@@ -234,7 +234,6 @@ class UserMng
     $date = date("y-m-d");
     $query = $this->_db->prepare("INSERT INTO USERS (email,email_check,nameUser,lastnameUser,dateSignUp,passwordUser,isdeleted,statusUser,qrCode,qrCodeToken)
                                   VALUES (:email,:emailCheck,:name, :lastname,NOW(),:pwd,:deleted,3,:qrCode,:qrCodeToken) ");
-    $qrCode = password_hash($_POST["email"],PASSWORD_DEFAULT);
 		$query->execute( [
 			"name"=>$user->name(),
 			"lastname"=>$user->lastname(),
@@ -242,7 +241,7 @@ class UserMng
 			"emailCheck"=>$user->emailCheck(1),
 			"pwd"=>$user->password(),
       "deleted"=>$user->deletedUser(),
-			"qrCode"=>$qrCode,
+			"qrCode"=>$user->qrCode(),
 			"qrCodeToken"=>"data/qrCode/qrCode.png"
 			]);
   }
