@@ -36,37 +36,31 @@ require_once 'object/subscription.php';
                }
                echo "<th scope='col'>".utf8_encode($value->name())."</th>\n";
              }
-             print_r($perm);
               ?>
               </tr>
-             <!--
-             <tr>
-               <th scope="col">#</th>
-               <th scope="col">Jour</th>
-               <th scope="col" class="col-md-8">Heures</th>
-               <th scope="col" class="col-md-2">Facture</th>
-             </tr>
-           -->
            </thead>
            <tbody>
              <?php
              foreach ($perm as $key => $value) {
                echo "
                <tr>
-                 <th scope='row'>".$value."</th>
-                 <td>"."lol"."</td>
-                 <td>Vous êtes allé à <b>"."lol"."</td>
+                 <th scope='row'>".$value."</th>";
+                 foreach ($subscriptions as $keykey => $id) {
+                  echo "<td><i class='fas fa-".($id->right("has",$value)?"check":"times")."'></i></td>";
+                 }
+                 echo"
                </tr>";
+             }
+             echo "<tr></tr>";
+             foreach ($subscriptions as $keykey => $id) {
+              echo "
+              <tr>
+                <td><i class='fas fa-".($id->right("has",$value)?"check":"times")."'></i></td>";
+                echo"
+              </tr>";
              }
 
               ?>
-             <!--
-             <tr>
-               <th scope='row'>".$value["idAccess"]."</th>
-               <td>".date('j\/m\/Y', strtotime($value["dateAccess"]))."</td>
-               <td>Vous êtes allé à <b>".nameOfSpace($value["idSpace"])."</b> de ".date('G\h i', strtotime($value["dateAccess"]))." à ".date('G\h i', strtotime($value["dateExit"]))."</td>
-             </tr>
-           -->
            </tbody>
          </table>
       </div>

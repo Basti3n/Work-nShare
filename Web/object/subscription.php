@@ -4,6 +4,7 @@ date_default_timezone_set('Europe/Paris');
 class Subscription{
   private $_idSubscription = "Empty";
   private $_name = "Empty";
+  private $_monthly = 0;
   private $_dayPrice = 0;
   private $_firstHour = 0;
   private $_halfHour = 0;
@@ -28,6 +29,9 @@ class Subscription{
           break;
         case 'isDeleted':
           $this->isDeleted($value);
+          break;
+        case 'monthly':
+          $this->monthly($value);
           break;
         case 'dayPrice':
           $this->dayPrice($value);
@@ -111,10 +115,11 @@ class Subscription{
         break;
       /* check permission */
       case 'has':
-        if ($this->_rights[$index] != 0 && $this->_rights[$index] != NULL)
-          return true;
-        else
+        if (!array_key_exists($index,$this->_rights))
           return false;
+        if ($this->_rights[$index] != 0)
+          return true;
+        return false;
         break;
       /* get all rights names */
       case 'table':
@@ -124,6 +129,14 @@ class Subscription{
       default:
         break;
     }
+    return 0;
+  }
+
+  public function monthly($value='-1'){
+    if($value=='-1')
+      return $this->_monthly;
+    else
+      $this->_monthly=$value;
     return 0;
   }
 
@@ -201,12 +214,13 @@ class SubscriptionMng{
   }
 
   public function add(Subscription $val){
-    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (idSubscription,name,isDeleted,dayPrice,firstHour,halfHour,listRights)
-                                  VALUES (:idSubscription,:name,:deleted,:day,:first,:half,:right) ");
+    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (idSubscription,name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights)
+                                  VALUES (:idSubscription,:name,:deleted,:monthly,:day,:first,:half,:right) ");
     $query->execute( [
       "idSubscription"=>$val->idSubscription(),
       "name"=>$val->name(),
       "deleted"=>$val->isDeleted(),
+      "monthly"=>$val->monthly(),
       "day"=>$val->dayPrice(),
       "first"=>$val->firstHour(),
       "half"=>$val->halfHour(),
@@ -229,7 +243,7 @@ class SubscriptionMng{
 
   public function get($id){
     try {
-      $query = $this->_db->prepare('SELECT  idSubscription,name,isDeleted,dayPrice,firstHour,halfHour,listRights FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
+      $query = $this->_db->prepare('SELECT  idSubscription,name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
       $query->execute( ["idSubscription"=>$id]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
@@ -262,11 +276,12 @@ class SubscriptionMng{
 
   public function update(Subscription $val){
     try{
-        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name,  dayPrice = :day, firstHour = :first, halfHour = :half, listRights = :right ,isDeleted = :isDeleted WHERE idSubscription = :idSubscription');
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly  dayPrice = :day, firstHour = :first, halfHour = :half, listRights = :right ,isDeleted = :isDeleted WHERE idSubscription = :idSubscription');
         $query->execute([
           "idSubscription"=>$val->idSubscription(),
           "name"=>$val->name(),
           "deleted"=>$val->isDeleted(),
+          "monthly"=>$val->monthly(),
           "day"=>$val->dayPrice(),
           "first"=>$val->firstHour(),
           "half"=>$val->halfHour(),
