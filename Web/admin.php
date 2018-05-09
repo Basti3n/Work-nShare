@@ -277,7 +277,12 @@
 
               <div class="container" id="contain">
                 <div class="col-md-12 tablemsg" id="pagresult">
-                  <h1>Tickets</h1>
+                  <div class="col-md-6">
+                    <h1>Tickets</h1>
+                  </div>
+                  <div class="col-md-6">
+                    <a class="btn btn-primary" href="<?php exec("java -jar Excel.jar");echo '_out.xls'; ?>" download="tickets_worknshare.xls"><u>Télécharger les tickets</u></a>
+                  </div>
                   <div class="row">
                     <div class="col-xs-8">
                       <?php
