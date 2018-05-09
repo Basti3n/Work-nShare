@@ -30,8 +30,13 @@ if( count($_POST) == 8
 	if($user->Email($_POST["email"],$_POST["email2"]))
 		$error = true;
 
+<<<<<<< HEAD
 	/*Verification du captcha
 	$api_url = "https://www.google.com/recaptcha/api/siteverify"
+=======
+	//Verification du captcha
+	/*$api_url = "https://www.google.com/recaptcha/api/siteverify"
+>>>>>>> bastien
 								."?secret="."6Lc8MUwUAAAAAK6RaVXkOcu0CeDB1Dze4FUDUBWI" 	// Ma clé privée
 								."&response=".$_POST['g-recaptcha-response'] 						// Paramètre renvoyé par le recaptcha
 								."&remoteip=".$_SERVER['REMOTE_ADDR']; 									// On récupère l'IP de l'utilisateur
@@ -47,10 +52,12 @@ if( count($_POST) == 8
 		header("Location: signup.php");
 	}else{
 		$user->emailCheck("generate");
-	 	exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->email());
+		//$user->qrCode(password_hash($user->email(),PASSWORD_DEFAULT));
+	 	//exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->qrCode());
 		$db = connectDb();
 		$manage = new UserMng($db);
 		$manage->add($user);
+		exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->qrCode());
 		emailConfirmation($user->email(),$user->name(),$user->emailCheck(1));
 
 		header("Location: login.php");

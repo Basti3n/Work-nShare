@@ -9,6 +9,8 @@
   require "object/serviceContents.php";
   require "object/ticket.php";
   require "object/equipment.php";
+  require "object/event.php";
+
 
 ?>
 <!DOCTYPE html>
@@ -62,6 +64,8 @@
                     $db = connectDb();
                     $spaceMng = new SpaceMng($db);
                     $spaces = $spaceMng->getAllSpaces();
+
+
                   ?>
 
                   <?php if(!empty($spaces)) :?>
@@ -119,6 +123,7 @@
                     $db = connectDb();
                     $serviceMng = new ServiceMng($db);
                     $services = $serviceMng->getAllServices();
+
                   ?>
 
                   <?php if(!empty($services)) :?>
@@ -204,6 +209,65 @@
             <div class="tab-pane tabcontent fade" id="events" role="tabpanel" aria-labelledby="events-list">
               <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                 <h4>&nbsp;&nbsp;EVENEMENTS </h4>
+              </div>
+
+              <div class="container col-md-12">
+
+                <div style="margin-top:1%;">
+                  <button class="btn btn-primary" id="addEventButton">Ajouter un evènement</button>
+                </div>
+
+                  <br>
+                <div id="eventDiv">
+                  <?php
+
+                    $db = connectDb();
+                    $eventMng = new EventMng($db);
+                    $events = $eventMng->getAllBackoffice();
+
+                  ?>
+
+                  <?php if( $events != 1) :?>
+                    <table class="table" id="eventArray">
+                      <tbody id="eventArrayBody">
+                      <tr>
+                                <th>Nom de l'event</th>
+                                <th>Description de l'evenement</th>
+                                <th>Date de début</th>
+                                <th>Heure de début</th>
+                                <th>Date de fin</th>
+                                <th>Heure de fin</th>
+                                <th>Supprimé</th>
+                                <th>Espace</th>
+                                <th>Valider les modifications</th>
+                      </tr>
+                      <?php
+
+                        foreach ($events as $event) {
+
+                          echo '<tr>
+                                  <td><input type="text" class="form-control" id="'.$event->idEvent().'NameEvent" value="'.utf8_encode($event->nameEvent()).'"></td>
+                                  <td><textarea class="form-control compInfoTextArea" id="'.$service->idService().'DescriptionEvent">'.utf8_encode($event->descriptionEvent()).'</textarea></td>
+                                  <td><input type="date" value="'.$event->dateStart("0",1).'" id="'.$event->idEvent().'DateStart"> </td>
+                                  <td><input type="time" value="'.$event->hourStart().'" id="'.$event->idEvent().'HourStart"> </td>
+                                  <td><input type="date" value="'.$event->dateEnd("0",1).'" id="'.$event->idEvent().'DateEnd"> </td>
+                                  <td><input type="time" value="'.$event->hourEnd().'" id="'.$event->idEvent().'HourEnd"> </td>
+                                  <td> <input id="'.$event->idEvent().'isDeletedEvent" type="checkbox" '.($event->isDeleted()?"checked":"").'></td>
+                                  <td><select id="'.$event->idEvent().'IdSpaceEvent">';
+                                  foreach ($spaces as $key => $space) {
+                                    echo "<option value='".$space->idSpace()."'   ".($event->idSpace()==$space->idSpace()? "selected":"")."    >".utf8_encode($space->nameOfSpace())."</option>";
+                                  }
+                          echo    '</select></td>
+                                  <td> <button class="btn btn-primary" onclick="updateEvent(\''.$event->idEvent().'\')">Valider </button> </td>
+                                </tr>';
+                        }
+                          //
+                      ?>
+                      </tbody>
+                    </table>
+                  <?php else :?>
+                  <?php endif;?>
+                </div>
               </div>
             </div>
             <div class="tab-pane tabcontent fade" id="database" role="tabpanel" aria-labelledby="database-list">
@@ -410,7 +474,7 @@
                     //showArray($equipments);
                   ?>
 
-                  <?php if(!empty($spaces)) :?>
+                  <?php if(!empty($equipments)) :?>
 
                     <table class="table" id="spaceArray">
                       <tbody id="spaceArrayBody">
@@ -436,7 +500,6 @@
                                   foreach ($spaces as $key => $space) {
                                     echo "<option value='".$space->idSpace()."'   ".($equipment->idSpace()==$space->idSpace()? "selected":"")."    >".utf8_encode($space->nameOfSpace())."</option>";
                                   }
-
                           echo    '</select></td>
                                   <td> <input id="'.$equipment->idEquipment().'isFreeEquipment" type="checkbox" '.($equipment->isFree()?"checked":"").'></td>
                                   <td> <input id="'.$equipment->idEquipment().'isDeletedEquipment" type="checkbox" '.($equipment->isDeleted()?"checked":"").'></td>
@@ -447,7 +510,7 @@
 
 
                       ?>
-                    </tbody>
+                      </tbody>
                     </table>
                   <?php else :?>
                   <?php endif;?>
@@ -455,6 +518,39 @@
               </div>
 
             </div>
+
+
+
+            <!--Create service pannel-->
+            <div class="pannel hidden" id="createEventPannel">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="createEventForm">
+                    <input type="text" class="form-control" id="NewNameEvent" placeholder="Nom du nouveau evènement">
+                    <textarea class="form-control compInfoTextArea" id="NewDescriptionEvent" placeholder="Description de nouveau évènement"></textarea>
+                    Date de début :<input type="date"  id="NewEventDateStart">
+                    Heure de début : <input type="time"  id="NewEventHourStart">
+                    <br>
+                    Date de fin :<input type="date"  id="NewEventDateEnd">
+                    Heure de fin :<input type="time"  id="NewEventHourEnd">
+                    <br>
+                    <select id="spaceSelectorNewEvent">
+                        <?php
+                          foreach ($spaces as $key => $space) {
+                            echo "<option value='".$space->idSpace()."'>".utf8_encode($space->nameOfSpace())."</option>";
+                          }
+                         ?>
+                    </select>
+                    <br>
+
+                    <button class="btn btn-primary" onclick="createNewEvent()">Valider</button>
+                    <button class="btn btn-primary"  id="cancelCreateEventButton">Annuler</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End create service pannel-->
+
 
 
             <!--Create equipment pannel -->

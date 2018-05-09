@@ -7,3 +7,5 @@ require "../object/spaces.php";
 
 
 echo time();
+
+?>

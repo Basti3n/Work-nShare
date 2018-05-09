@@ -9,7 +9,6 @@
 
 .event{
 	text-overflow: ellipsis;
-	white-space: nowrap;
 	overflow: hidden;
 	width:100%;
 	background-color: rgb(204, 204, 204);
@@ -27,6 +26,8 @@
 
 .descr{
 	text-align: center;
+	overflow-wrap: break-word;
+	padding: 5%;
 }
 
 .heureDebut, .heureFin{
@@ -45,5 +46,5 @@
 }
 
 img{
-	/*float: right;*/
+	padding-right: 5%;
 }
