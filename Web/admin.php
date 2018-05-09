@@ -205,6 +205,55 @@
               <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                 <h4>&nbsp;&nbsp;EVENEMENTS </h4>
               </div>
+
+              <div class="container col-md-12">
+
+                <div style="margin-top:1%;">
+                  <button class="btn btn-primary" id="addSpaceButton">Ajouter un evènement</button>
+                </div>
+
+                  <br>
+                <div id="eventDiv">
+                  <?php
+                    $db = connectDb();
+                    $spaceMng = new SpaceMng($db);
+                    $spaces = $spaceMng->getAllSpaces();
+                  ?>
+
+                  <?php if(!empty($spaces)) :?>
+                    <table class="table" id="spaceArray">
+                      <tbody id="spaceArrayBody">
+                      <tr>
+                                <th>Id de L'espace</th>
+                                <th>Nom de l'espace</th>
+                                <th>Créer un service</th>
+                                <th>Créer un évènement</th>
+                                <th>Désactiver l'espace</th>
+                                <th>Changer les horraires</th>
+                                <th>Valider les modifications</th>
+
+                      </tr>
+                      <?php
+                        foreach ($spaces as $space) {
+                          echo '<tr>
+                                  <td>'.$space->idSpace().'</td>
+                                  <td><input type="text" class="form-control" id="'.$space->idSpace().'NameSpace" value="'.utf8_encode($space->nameOfSpace()).'"></td>
+                                  <td>'.'<button onclick="displayCreateServicePannel(\''.$space->idSpace().'\')" >Ajouter un service</button>'.'</td>
+                                  <td>'.'<button>Ajouter un évènement</button>'.'</td>
+                                  <td> <input id="'.$space->idSpace().'isDeleted" type="checkbox" '.($space->isDeleted()?"checked":"").'></td>
+                                  <td> <button class="btn btn-primary" onclick="displayChangeSchedule(\''.$space->idSpace().'\')">Horaire </button> </td>
+                                  <td> <button class="btn btn-primary" onclick="updateSpace(\''.$space->idSpace().'\')">Valider </button> </td>
+
+                                </tr>';
+                        }
+                          //
+                      ?>
+                      </tbody>
+                    </table>
+                  <?php else :?>
+                  <?php endif;?>
+                </div>
+              </div>
             </div>
             <div class="tab-pane tabcontent fade" id="database" role="tabpanel" aria-labelledby="database-list">
 
@@ -405,7 +454,7 @@
                     //showArray($equipments);
                   ?>
 
-                  <?php if(!empty($spaces)) :?>
+                  <?php if(!empty($equipments)) :?>
 
                     <table class="table" id="spaceArray">
                       <tbody id="spaceArrayBody">
@@ -431,7 +480,6 @@
                                   foreach ($spaces as $key => $space) {
                                     echo "<option value='".$space->idSpace()."'   ".($equipment->idSpace()==$space->idSpace()? "selected":"")."    >".utf8_encode($space->nameOfSpace())."</option>";
                                   }
-
                           echo    '</select></td>
                                   <td> <input id="'.$equipment->idEquipment().'isFreeEquipment" type="checkbox" '.($equipment->isFree()?"checked":"").'></td>
                                   <td> <input id="'.$equipment->idEquipment().'isDeletedEquipment" type="checkbox" '.($equipment->isDeleted()?"checked":"").'></td>
@@ -442,7 +490,7 @@
 
 
                       ?>
-                    </tbody>
+                      </tbody>
                     </table>
                   <?php else :?>
                   <?php endif;?>
