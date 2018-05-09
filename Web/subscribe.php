@@ -51,15 +51,18 @@ require_once 'object/subscription.php';
                  echo"
                </tr>";
              }
-             echo "<tr></tr>";
+             echo "<tr>
+                      <th scope='row'>Prix au mois</th>";
              foreach ($subscriptions as $keykey => $id) {
-              echo "
-              <tr>
-                <td><i class='fas fa-".($id->right("has",$value)?"check":"times")."'></i></td>";
-                echo"
-              </tr>";
+              echo "<td>".($id->monthly()==0?"-":$id->monthly())."</td>";
              }
-
+             echo"</tr>";
+             echo "<tr>
+                      <th scope='row'>Prix par jour</th>";
+             foreach ($subscriptions as $keykey => $id) {
+              echo "<td>Premiere heure : <b>".$id->firstHour()." €</b><br>½ heure suivante : <b>".$id->halfHour()." €</b><br>Journée (>5h) : <b>".$id->dayPrice()." €</b><br></td>";
+             }
+             echo"</tr>";
               ?>
            </tbody>
          </table>
