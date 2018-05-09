@@ -50,6 +50,15 @@ $('#cancelEquipmentSpaceButton').on('click', function(e) {
   $('#createEquipmentPannel').addClass('hidden');
 });
 
+
+$('#addEventButton').on('click', function(e) {
+  $('#createEventPannel').removeClass('hidden');
+});
+
+$('#cancelCreateEventButton').on('click', function(e) {
+  $('#createEventPannel').addClass('hidden');
+});
+
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];
 var serviceArray = [];
@@ -871,4 +880,53 @@ function updateEquipmentLastDate(idEquipment) {
   ];
   var body = params.join('&');
   request.send(body);
+}
+
+
+
+
+
+function createNewEvent() {
+  var dateStart = document.getElementById('NewEventDateStart').value;
+  var hourStart = document.getElementById('NewEventHourStart').value;
+  var dateEnd = document.getElementById('NewEventDateEnd').value;
+  var hourEnd = document.getElementById('NewEventHourEnd').value;
+
+  var nameEvent = document.getElementById('NewNameEvent').value;
+  var descriptionEvent = document.getElementById('NewDescriptionEvent').value;
+  var idSpace = getSelectedIndex('spaceSelectorNewEvent');
+  var start = dateStart+' '+hourStart;
+  var end = dateEnd+' '+hourEnd;
+
+  //console.log(nameEvent+' '+descriptionEvent+' '+start+' '+end+' '+idSpace);
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);/*
+        if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+        }*/
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\createNewEvent.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'nameEvent=' + nameEvent,
+    'descriptionEvent=' + descriptionEvent,
+    'idSpace=' + idSpace,
+    'start=' + start,
+    'end=' + end
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
 }

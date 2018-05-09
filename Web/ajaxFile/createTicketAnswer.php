@@ -19,7 +19,7 @@ if(isAdmin() || isSuperAdmin()){
     if($ticket->email($_POST["email"]))
       $error = true;
 
-    if($ticket->contentTicket($_POST["contentTicket"]))
+    if($ticket->contentTicket(utf8_encode($_POST["contentTicket"])))
       $error = true;
 
     if($ticket->ticketCategory($_POST["ticketCategory"]))
