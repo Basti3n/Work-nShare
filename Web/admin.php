@@ -360,6 +360,7 @@
                         $tickets = $ticketMng->getAllTickets();
                         //showArray($tickets);
                       ?>
+
                       <table class="table">
                         <tr>
                           <th>#</th>
@@ -391,32 +392,17 @@
                         <div class ="row" id="ticketInformation">
                             <div class="col-xs-3" id="idTicketAdvancedInfo">
                               <?php
-                                echo "ID :".$tickets[0]->idTicket();
                               ?>
                             </div>
 
                             <div class="col-xs-9" id="emailSenderAdvancedInfo">
                               <?php
-                                echo "Correspondant :".$tickets[0]->email();
                               ?>
                             </div>
                          </div>
                         <br>
                         <div id="ticketAdvancedInfoHistorique">
-                          <?php
-                            $ticketsAdvanced = $ticketMng->getAllTickets($tickets[0]->idTicket());
-                            echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$tickets[2]->contentTicket().'</div> </div>';
-                            if(($ticketsAdvanced !=1)){
-                              foreach($ticketsAdvanced as $ticketAdvanced){
-                                if($ticketAdvanced->ticketSenderStatus()== 0){
-                                  echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div> </div>';
-                                }else{
-                                  echo '<div class="col-md-12"><div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div></div>';
-                                }
-                              }
-                            }
 
-                          ?>
                         </div>
                         <br>
                         <div>
@@ -430,19 +416,15 @@
                           <div class="row">
                             <div class="col-xs-6">
                               Etat :
-                              <select id="ticketStatusSelect" onchange="updateTicketStatus(<?php $tickets[2]->idTicket()?>)">
-                                <?php
-                                  foreach ($statusTicket as $key =>  $status) {
-                                    echo "<option value='".$key."'  ". ( $tickets[2]->statusTicket()==$key? "selected":"") ."  >".$status."</option>";
-                                  }
-                                ?>
+                              <select id="ticketStatusSelect" onchange="updateTicketStatus()">
+
                               </select>
                             </div>
 
                             <div class="col-xs-6">
                               <div class="form-group row">
                                 <div class="col-md-7 col-sm-10 ">
-                                  <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer(<?php echo $tickets[2]->idTicket();echo ",'"; echo $_SESSION['email']."'";?>)"  >Envoyer</button>
+                                  <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer()"  >Envoyer</button>
                                 </div>
                               </div>
                             </div>
@@ -476,7 +458,7 @@
                     //showArray($equipments);
                   ?>
 
-                  <?php if(!empty($equipments)) :?>
+                  <?php if($equipments != 1) :?>
 
                     <table class="table" id="spaceArray">
                       <tbody id="equipmentArrayBody">
@@ -536,6 +518,8 @@
                     $db = connectDb();
                     $subscriptionMng = new SubscriptionMng($db);
                     $subscriptions = $subscriptionMng->getAll();
+                    $perm =[];
+
                     //showArray($subscriptions);
                   ?>
 
@@ -563,16 +547,29 @@
 
 
                         foreach ($subscriptions as $subscription) {
+                          foreach (array_keys($subscription->right("getAll")) as $keykey => $id) {
+                            if(!in_array($id,$perm) )
+                             array_push($perm,$id);
+                          }
+                          $rightArray = $subscription->right("getAll");
                           echo '<tr>
                                   <td><input type="text" class="form-control" id="'.$subscription->idSubscription().'NameSubscription" value="'.utf8_encode($subscription->name()).'"></td>
                                   <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'MonthlySubscription" value="'.$subscription->monthly().'"> </td>
                                   <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'DayPriceSubscription" value="'.$subscription->dayPrice().'"> </td>
                                   <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'FirstHourPriceSubscription" value="'.$subscription->firstHour().'"> </td>
                                   <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'HalfHourPriceSubscription" value="'.$subscription->halfHour().'"> </td>
-                                  <td>Droit</td>
+                                  <td>';
+                        if($rightArray != null){
+                          foreach ($rightArray as $key => $value) {
+                            echo " ";
+                            echo $key;;
+                          }
+                        }
+
+                          echo   '</td>
                                   <td> <input id="'.$subscription->idSubscription().'isDeletedSubscription" type="checkbox" '.($subscription->isDeleted()?"checked":"").'></td>
                                   <td> <button class="btn btn-primary" onclick="updateSubscription(\''.$subscription->idSubscription().'\')">Valider </button> </td>
-                                  <td> <button class="btn btn-primary" onclick="updateSubscriptionRights(\''.$subscription->idSubscription().'\')">Modifier </button> </td>
+                                  <td> <button class="btn btn-primary" onclick="updateSubscriptionRightsButton(\''.$subscription->idSubscription().'\')">Modifier </button> </td>
 
                                 </tr>';
                         }
@@ -676,6 +673,34 @@
               </div>
             </div>
             <!-- End Create subscription pannel-->
+
+
+
+
+            <!--update rights pannel-->
+            <div class="pannel hidden" id="updateRightPannel">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="updateRightForm">
+                    <div id="displayRightCheckboxDiv">
+                    <?php
+                        //print_r($perm);
+                        foreach ($perm as $key => $value) {
+                          echo ' <input  id="'.$value.'Checkbox" type="checkbox" >  '.$value.'<br>';
+                        }
+
+                     ?>
+                   </div>
+                    <div class="row"><input type="text" id="newRightName" placeholder="Nom du droit"> <button id="addRightButton" onclick="addRight()">Ajouter</button></div>
+                    <div class="row">
+                      <button class="btn btn-primary" id="updateRightButton" onclick='updateRightSubscription()'>Valider</button>
+                      <button class="btn btn-primary"  id="cancelUpdateRightButton">Annuler</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End update right pannel-->
 
 
 

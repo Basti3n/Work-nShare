@@ -181,12 +181,16 @@ Class AccessMng{
 
 
 
-  public function getAll($deleted="-1"){
-    $sql = 'SELECT * FROM ACCESS'.($deleted==1?' WHERE isDeleted = 0':'');
+  public function getAll($email="-1"){
+    $sql = 'SELECT * FROM ACCESS '.($email!="-1"?' WHERE email  = :email':'').' ORDER BY dateExit DESC';
 
     try{
       $query = $this->_db->prepare($sql);
-      $query->execute();
+      if($email != "-1"){
+        $query->execute( ["email"=>$email]);
+      }else{
+        $query->execute();
+      }
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
     }

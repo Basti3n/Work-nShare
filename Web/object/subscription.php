@@ -296,5 +296,21 @@ class SubscriptionMng{
         return 1;
     }
   }
+
+
+  public function updateRights($idSub , $listRights){
+    try{
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET listRights = :listRights
+          WHERE idSubscription = :idSubscription');
+        $query->execute([
+          "idSubscription"=>$idSub,
+          "listRights"=>$listRights
+        ]);
+        return 0;
+    }catch (Exception $e){
+        echo "PDOException : ".$e->getMessage();
+        return 1;
+    }
+  }
 }
  ?>
