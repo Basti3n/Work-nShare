@@ -67,8 +67,9 @@ class Subscription{
 
     trim($value);
 
-    if(strlen($value)<25){
+    if(strlen($value)<80){
       $this->_name = $value;
+      return 0;
     }else{
       $this->listOfErrors[] = 18;
       return 1;
@@ -180,13 +181,14 @@ class Subscription{
     if ($duration > 0) { //1ere h
       $temp += $this->firstHour();
       $duration -= 60;
-      echo "+h";
     }
     if ($duration > 0) { // chaque 30mins
       $temp += $this->halfHour()*(ceil($duration/30));
     }
     return $temp;
   }
+
+
 
   public function duration($access="-1", $exit="-1"){
     $time = ($exit-$access) /60;
@@ -217,10 +219,9 @@ class SubscriptionMng{
   }
 
   public function add(Subscription $val){
-    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (idSubscription,name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights)
-                                  VALUES (:idSubscription,:name,:deleted,:monthly,:day,:first,:half,:right) ");
+    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights)
+                                  VALUES (:name,:deleted,:monthly,:day,:first,:half,:right) ");
     $query->execute( [
-      "idSubscription"=>$val->idSubscription(),
       "name"=>$val->name(),
       "deleted"=>$val->isDeleted(),
       "monthly"=>$val->monthly(),
@@ -246,7 +247,7 @@ class SubscriptionMng{
 
   public function get($id){
     try {
-      $query = $this->_db->prepare('SELECT  idSubscription,name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
+      $query = $this->_db->prepare('SELECT  * FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
       $query->execute( ["idSubscription"=>$id]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
@@ -254,6 +255,7 @@ class SubscriptionMng{
     $data = $query->fetch(PDO::FETCH_ASSOC);
     return new Subscription($data);
   }
+
 
   public function getAll($deleted="-1"){
     $sql = 'SELECT * FROM SUBSCRIPTIONS'.($deleted==1?' WHERE isDeleted = 0':'');
@@ -277,18 +279,35 @@ class SubscriptionMng{
     }
   }
 
+
   public function update(Subscription $val){
     try{
-        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly  dayPrice = :day, firstHour = :first, halfHour = :half, listRights = :right ,isDeleted = :isDeleted WHERE idSubscription = :idSubscription');
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly,  dayPrice = :day, firstHour = :first, halfHour = :half, isDeleted = :isDeleted
+          WHERE idSubscription = :idSubscription');
         $query->execute([
           "idSubscription"=>$val->idSubscription(),
           "name"=>$val->name(),
-          "deleted"=>$val->isDeleted(),
-          "monthly"=>$val->monthly(),
-          "day"=>$val->dayPrice(),
-          "first"=>$val->firstHour(),
-          "half"=>$val->halfHour(),
-          "right"=>$val->right("encode")
+          "isDeleted"=>$val->isDeleted(),
+          "monthly"=>  floatval($val->monthly()),
+          "day"=> floatval($val->dayPrice())  ,
+          "first"=>floatval($val->firstHour()),
+          "half"=>floatval($val->halfHour()),
+        ]);
+        return 0;
+    }catch (Exception $e){
+        echo "PDOException : ".$e->getMessage();
+        return 1;
+    }
+  }
+
+
+  public function updateRights($idSub , $listRights){
+    try{
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET listRights = :listRights
+          WHERE idSubscription = :idSubscription');
+        $query->execute([
+          "idSubscription"=>$idSub,
+          "listRights"=>$listRights
         ]);
         return 0;
     }catch (Exception $e){

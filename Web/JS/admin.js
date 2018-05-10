@@ -5,6 +5,7 @@ $(document).ready(function() {
   changeTable();
   initSpaceArray();
   initServiceArray();
+  getAllRight();
 });
 
 $('.list-group a').click(function() {
@@ -59,12 +60,27 @@ $('#cancelCreateEventButton').on('click', function(e) {
   $('#createEventPannel').addClass('hidden');
 });
 
+
+$('#addSubscriptionButton').on('click', function(e) {
+  $('#createSubscriptionPannel').removeClass('hidden');
+});
+
+$('#cancelSubscriptionButton').on('click', function(e) {
+  $('#createSubscriptionPannel').addClass('hidden');
+});
+
+
+$('#cancelUpdateRightButton').on('click', function(e) {
+  $('#updateRightPannel').addClass('hidden');
+});
+
+
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];
 var serviceArray = [];
 var statusTicketArray = ["Ouvert", "Nouveau", "En cours", "Résolue", "En attente", "En retard"];
 var days = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-
+var rightsArray = [];
 //function JS
 function createSpace() {
   var spaceId = document.getElementById('newSpaceId').value;
@@ -75,10 +91,10 @@ function createSpace() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
         if (request.responseText != 'failure') {
           var createSpacePannel = document.getElementById('createSpacePannel');
           createSpacePannel.setAttribute('class', 'hidden');
+          location.reload()
         }
       }
     }
@@ -107,7 +123,6 @@ function updateSpace(idSpace) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
 
       }
     }
@@ -136,11 +151,11 @@ function createService() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
         if (request.responseText != 'failure') {
 
           var createSpacePannel = document.getElementById('createServicePannel');
           createSpacePannel.setAttribute('class', 'hidden');
+          location.reload()
         }
       }
     }
@@ -224,10 +239,10 @@ function createServiceContent() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
         if (request.responseText != 'failure') {
           var createSpacePannel = document.getElementById('createServiceContentPannel');
           createSpacePannel.setAttribute('class', 'hidden');
+          location.reload();
         }
       }
     }
@@ -271,7 +286,6 @@ function updateService(idService) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
 
       }
     }
@@ -312,18 +326,10 @@ function updateServiceContent(idServiceContent) {
   var newIsDeletedServiceContent = document.getElementById(idServiceContent + 'IsDeletedServiceContent').checked;
 
 
-  console.log(newNameServiceContent);
-  console.log(newInformationServiceContent);
-  console.log(newServiceId);
-  console.log(newIsFreeServiceContent);
-  console.log(newIsDeletedServiceContent);
-
-
   var request = new XMLHttpRequest();
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
 
       }
     }
@@ -388,9 +394,7 @@ function changeTable() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       var test = request.responseText;
-      console.log(test);
       var search = JSON.parse(request.responseText);
-      console.log(search);
       element.innerHTML = "";
 
       if (selectType == "users") displayDatabaseUsers(element, search);
@@ -422,7 +426,6 @@ function updateUser(email) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
       }
     }
   };
@@ -497,7 +500,6 @@ function updateSpaceDb(idSpace) {
 
 
 function displayDatabaseServices(element, array) {
-  console.log(array);
   element.innerHTML += '<table class="table" id ="dbServices"><tr><th>Nom du service général</th><th>Information complémentaire</th><th>Espace du service</th><th>Disponible</th><th>Supprimé</th><th>Valider les modifications</th></tr></table>';
   var displayArray = document.getElementById('dbServices');
 
@@ -517,10 +519,7 @@ function initSpaceArray() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       var test = request.responseText;
-      console.log(test);
-
       var search = JSON.parse(request.responseText);
-      console.log(search);
       spaceArray = search;
     }
   };
@@ -533,10 +532,7 @@ function initServiceArray() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       var test = request.responseText;
-      console.log(test);
-
       var search = JSON.parse(request.responseText);
-      console.log(search);
       serviceArray = search;
     }
   };
@@ -546,7 +542,6 @@ function initServiceArray() {
 
 
 function displayDatabaseServiceContents(element, array) {
-  console.log(array);
   element.innerHTML += '<table class="table" id ="dbServiceContents"><tr><th>Nom du service</th><th>Information complémentaire</th><th>Service concerné</th><th>Disponible</th><th>Supprimé</th><th>Valider les modifications</th></tr></table>';
   var displayArray = document.getElementById('dbServiceContents');
 
@@ -563,11 +558,9 @@ function displayDatabaseServiceContents(element, array) {
 }
 
 function displayTicket(idTicket, email, statusTicket, idPrimaryTicket) {
-  console.log('ok');
   var request = new XMLHttpRequest();
   if (idPrimaryTicket != -1)
     idTicket = idPrimaryTicket;
-  console.log(idPrimaryTicket);
 
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
@@ -640,7 +633,6 @@ function sendAnswer(idTicket, email, statusTicket, idPrimaryTicket) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
         displayTicket(idTicket, email, statusTicket, idPrimaryTicket);
       }
     }
@@ -669,7 +661,6 @@ function updateTicketStatus(idTicket) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
 
       }
     }
@@ -701,16 +692,13 @@ function getSelectedIndex(selectId) {
 
 function displayChangeSchedule(idSpace){
 
-  console.log(idSpace);
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
         if( request.responseText !="erreur"){
           var search = JSON.parse(request.responseText);
-          console.log(search);
           setSchedulePannel(search,idSpace);
         }
 
@@ -773,7 +761,6 @@ function updateScheduleSpace(idSpace){
     request.onreadystatechange = function() {
       if (request.readyState == 4) {
         if (request.status == 200) {
-          console.log(request.responseText);
 
         }
       }
@@ -794,18 +781,20 @@ function updateScheduleSpace(idSpace){
 
 
 
+
+
+
+
 function createEquipment() {
   var equipmentName = document.getElementById('newEquipmentName').value;
   var idSpace = getSelectedIndex('spaceSelectorEquipment');
 
-  console.log(equipmentName+'  '+idSpace);
 
   var request = new XMLHttpRequest();
 
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
         if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
           var createEquipmentPannel = document.getElementById('createEquipmentPannel');
           createEquipmentPannel.setAttribute('class', 'hidden');
@@ -840,7 +829,6 @@ function updateEquipment(idEquipment) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
 
       }
     }
@@ -871,7 +859,6 @@ function updateEquipmentLastDate(idEquipment) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);
 
       }
     }
@@ -911,11 +898,11 @@ function createNewEvent() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);/*
-        if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
+        if (request.responseText != 'Erreur à la création de l\'objet event') {
           var createEquipmentPannel = document.getElementById('createEquipmentPannel');
           createEquipmentPannel.setAttribute('class', 'hidden');
-        }*/
+          location.reload()
+        }
       }
     }
   };
@@ -961,7 +948,7 @@ function updateEvent(idEvent) {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);/*
+        /*
         if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
           var createEquipmentPannel = document.getElementById('createEquipmentPannel');
           createEquipmentPannel.setAttribute('class', 'hidden');
@@ -985,5 +972,284 @@ function updateEvent(idEvent) {
   ];
   var body = params.join('&');
   request.send(body);
+
+}
+
+
+
+
+
+function createNewSubscription() {
+  var monthly = document.getElementById('MonthlyNewSubscription').value;
+  var dayPrice = document.getElementById('DayPriceNewSubscription').value;
+  var firstHour = document.getElementById('FirstHourPriceNewSubscription').value;
+  var halfHour = document.getElementById('HalfHourPricNeweSubscription').value;
+
+  var name = document.getElementById('NameNewSubscription').value;
+
+
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+
+        if (request.responseText != 'Fail') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+          location.reload();
+        }else{
+
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\createNewSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'name=' + name,
+    'monthly=' + monthly,
+    'dayPrice=' + dayPrice,
+    'firstHour=' + firstHour,
+    'halfHour=' + halfHour
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+
+function createNewSubscription() {
+  var monthly = document.getElementById('MonthlyNewSubscription').value;
+  var dayPrice = document.getElementById('DayPriceNewSubscription').value;
+  var firstHour = document.getElementById('FirstHourPriceNewSubscription').value;
+  var halfHour = document.getElementById('HalfHourPricNeweSubscription').value;
+
+  var name = document.getElementById('NameNewSubscription').value;
+
+
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+
+        if (request.responseText != 'Fail') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+          location.reload();
+        }else{
+          console.log('Fail');
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\createNewSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'name=' + name,
+    'monthly=' + monthly,
+    'dayPrice=' + dayPrice,
+    'firstHour=' + firstHour,
+    'halfHour=' + halfHour
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+
+
+function updateSubscription(idSubscription) {
+  var monthly = document.getElementById(idSubscription+'MonthlySubscription').value;
+  var dayPrice = document.getElementById(idSubscription+'DayPriceSubscription').value;
+  var firstHour = document.getElementById(idSubscription+'FirstHourPriceSubscription').value;
+  var halfHour = document.getElementById(idSubscription+'HalfHourPriceSubscription').value;
+  var isDeleted = document.getElementById(idSubscription + 'isDeletedSubscription').checked;
+
+  var name = document.getElementById(idSubscription+'NameSubscription').value;
+
+
+  console.log(name+' '+monthly+' '+dayPrice+' '+firstHour+' '+halfHour+' '+isDeleted);
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+
+        if (request.responseText == 'Success') {
+
+        }else{
+          console.log('Request failed');
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\updateSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  var params = [
+    'name=' + name,
+    'monthly=' + monthly,
+    'dayPrice=' + dayPrice,
+    'firstHour=' + firstHour,
+    'halfHour=' + halfHour,
+    'idSubscription=' + idSubscription,
+    'isDeleted=' + isDeleted
+
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+function updateSubscriptionRightsButton(idSubscription){
+  var pannel = document.getElementById('updateRightPannel');
+  pannel.classList.remove('hidden');
+
+
+  var request = new XMLHttpRequest();
+
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        result = request.responseText
+        search = JSON.parse(result);
+        console.log(search);
+        displayCheckbox(search);
+        displayButton(idSubscription);
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\getSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'idSubscription=' + idSubscription
+  ];
+  request.send(params);
+
+
+}
+
+
+function displayCheckbox(search){
+  var displayCheckboxDiv = document.getElementById('displayRightCheckboxDiv');
+  displayCheckboxDiv.innerHTML = "";
+  var isPresent = false;
+
+
+
+  rightsArray.forEach(function(globalRight){
+    Object.keys(search).forEach(function(key){
+      if(key == globalRight)
+        isPresent=true;
+    });
+    displayCheckboxDiv.innerHTML +=  ' <input  id="'+globalRight+'Checkbox" type="checkbox" '+(isPresent?'checked':'')+'>  '+globalRight+'<br>';
+    isPresent=false;
+  });
+
+}
+
+function displayButton(idSubscription){
+  var addRightButton = document.getElementById('addRightButton');
+  var updateRightButton = document.getElementById('updateRightButton');
+
+  addRightButton.setAttribute('onclick','addRight()');
+  updateRightButton.setAttribute('onclick','updateRightSubscription('+idSubscription+')');
+}
+
+
+function getAllRight(idSubscription){
+
+  var request = new XMLHttpRequest();
+
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        result = request.responseText
+        search = JSON.parse(result);
+        console.log(search);
+        rightsArray = search;
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\getAllRights.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+  ];
+  request.send();
+}
+
+
+function updateRightSubscription(idSubscription){
+  var arrayToBeJsonned = {};
+  var tempCheckbox;
+
+  rightsArray.forEach(function(right){
+    tempCheckbox = document.getElementById(right+'Checkbox').checked
+    if( tempCheckbox ){
+      arrayToBeJsonned[right] = 1;
+    }
+  });
+  var stringParam = JSON.stringify(arrayToBeJsonned);
+
+  var request = new XMLHttpRequest();
+
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        test = request.responseText;
+        console.log(test);
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\updateSubscriptionRights.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'idSubscription='+idSubscription,
+    'right='+stringParam
+  ];
+  var body = params.join('&');
+
+  request.send(body);
+}
+
+
+function addRight(){
+  var newRightName = document.getElementById('newRightName').value;
+  var displayCheckboxDiv = document.getElementById('displayRightCheckboxDiv');
+
+  rightsArray.push(newRightName);
+  displayCheckboxDiv.innerHTML +=  ' <input  id="'+newRightName+'Checkbox" type="checkbox" >  '+newRightName+'<br>';
+
 
 }

@@ -10,6 +10,8 @@
   require "object/ticket.php";
   require "object/equipment.php";
   require "object/event.php";
+  require "object/subscription.php";
+  require "object/access.php";
 
 
 ?>
@@ -43,6 +45,9 @@
               <a class="list-group-item list-group-item-action list-group-item-dark" id="database-list" data-toggle="tab" href="#database" role="tab" aria-controls="database">Base de données</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="tickets-list" data-toggle="tab" href="#tickets" role="tab" aria-controls="tickets">Tickets</a>
               <a class="list-group-item list-group-item-action list-group-item-dark" id="equiments-list" data-toggle="tab" href="#equipements" role="tab" aria-controls="equipements">Equipements</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="subscriptions-list" data-toggle="tab" href="#subscriptions" role="tab" aria-controls="subscriptions">Forfait</a>
+              <a class="list-group-item list-group-item-action list-group-item-dark" id="access-list" data-toggle="tab" href="#access" role="tab" aria-controls="access">Accès</a>
+
 
             </div>
         </div>
@@ -355,6 +360,7 @@
                         $tickets = $ticketMng->getAllTickets();
                         //showArray($tickets);
                       ?>
+
                       <table class="table">
                         <tr>
                           <th>#</th>
@@ -386,32 +392,17 @@
                         <div class ="row" id="ticketInformation">
                             <div class="col-xs-3" id="idTicketAdvancedInfo">
                               <?php
-                                echo "ID :".$tickets[0]->idTicket();
                               ?>
                             </div>
 
                             <div class="col-xs-9" id="emailSenderAdvancedInfo">
                               <?php
-                                echo "Correspondant :".$tickets[0]->email();
                               ?>
                             </div>
                          </div>
                         <br>
                         <div id="ticketAdvancedInfoHistorique">
-                          <?php
-                            $ticketsAdvanced = $ticketMng->getAllTickets($tickets[0]->idTicket());
-                            echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$tickets[2]->contentTicket().'</div> </div>';
-                            if(($ticketsAdvanced !=1)){
-                              foreach($ticketsAdvanced as $ticketAdvanced){
-                                if($ticketAdvanced->ticketSenderStatus()== 0){
-                                  echo '<div class="col-md-12"><div class="ticketAdvancedMessage sender">'.$ticketAdvanced->contentTicket().'</div> </div>';
-                                }else{
-                                  echo '<div class="col-md-12"><div class="ticketAdvancedMessage receiver">'.$ticketAdvanced->contentTicket().'</div></div>';
-                                }
-                              }
-                            }
 
-                          ?>
                         </div>
                         <br>
                         <div>
@@ -425,19 +416,15 @@
                           <div class="row">
                             <div class="col-xs-6">
                               Etat :
-                              <select id="ticketStatusSelect" onchange="updateTicketStatus(<?php $tickets[2]->idTicket()?>)">
-                                <?php
-                                  foreach ($statusTicket as $key =>  $status) {
-                                    echo "<option value='".$key."'  ". ( $tickets[2]->statusTicket()==$key? "selected":"") ."  >".$status."</option>";
-                                  }
-                                ?>
+                              <select id="ticketStatusSelect" onchange="updateTicketStatus()">
+
                               </select>
                             </div>
 
                             <div class="col-xs-6">
                               <div class="form-group row">
                                 <div class="col-md-7 col-sm-10 ">
-                                  <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer(<?php echo $tickets[2]->idTicket();echo ",'"; echo $_SESSION['email']."'";?>)"  >Envoyer</button>
+                                  <button  id="ticketSendingButton" class="btn btn-primary" onclick="sendAnswer()"  >Envoyer</button>
                                 </div>
                               </div>
                             </div>
@@ -452,9 +439,6 @@
 
               </div>
             </div>
-
-
-
             <div class="tab-pane tabcontent fade" id="equipements" role="tabpanel" aria-labelledby="equipements-list">
               <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
                 <h4>&nbsp;&nbsp;Equipements </h4>
@@ -474,10 +458,10 @@
                     //showArray($equipments);
                   ?>
 
-                  <?php if(!empty($equipments)) :?>
+                  <?php if($equipments != 1) :?>
 
                     <table class="table" id="spaceArray">
-                      <tbody id="spaceArrayBody">
+                      <tbody id="equipmentArrayBody">
                       <tr>
                                 <th>Nom de l'équipement</th>
                                 <th>Dernière vérification</th>
@@ -518,6 +502,205 @@
               </div>
 
             </div>
+            <div class="tab-pane tabcontent fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-list">
+              <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;Forfait </h4>
+              </div>
+
+              <div class="container col-md-12">
+
+                <div style="margin-top:1%;">
+                  <button class="btn btn-primary" id="addSubscriptionButton">Ajouter un forfait</button>
+                </div>
+
+                <div id="subscriptionDiv">
+                  <?php
+                    $db = connectDb();
+                    $subscriptionMng = new SubscriptionMng($db);
+                    $subscriptions = $subscriptionMng->getAll();
+                    $perm =[];
+
+                    //showArray($subscriptions);
+                  ?>
+
+                  <?php if(!empty($equipments)) :?>
+
+
+                    <table class="table" id="subscriptionArray">
+                      <tbody id="subscriptionArrayBody">
+                      <tr>
+                                <th>Nom du forfait</th>
+                                <th>Prix du mois</th>
+                                <th>Prix de la première heure</th>
+                                <th>Prix des demi-heures</th>
+                                <th>Prix de la journée</th>
+                                <th>Liste des droits</th>
+                                <th>Supprimé</th>
+                                <th>Valider les modifications</th>
+                                <th>Modifier les droits</th>
+
+                      </tr>
+
+
+                      <?php
+
+
+
+                        foreach ($subscriptions as $subscription) {
+                          foreach (array_keys($subscription->right("getAll")) as $keykey => $id) {
+                            if(!in_array($id,$perm) )
+                             array_push($perm,$id);
+                          }
+                          $rightArray = $subscription->right("getAll");
+                          echo '<tr>
+                                  <td><input type="text" class="form-control" id="'.$subscription->idSubscription().'NameSubscription" value="'.utf8_encode($subscription->name()).'"></td>
+                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'MonthlySubscription" value="'.$subscription->monthly().'"> </td>
+                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'DayPriceSubscription" value="'.$subscription->dayPrice().'"> </td>
+                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'FirstHourPriceSubscription" value="'.$subscription->firstHour().'"> </td>
+                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'HalfHourPriceSubscription" value="'.$subscription->halfHour().'"> </td>
+                                  <td>';
+                        if($rightArray != null){
+                          foreach ($rightArray as $key => $value) {
+                            echo " ";
+                            echo $key;;
+                          }
+                        }
+
+                          echo   '</td>
+                                  <td> <input id="'.$subscription->idSubscription().'isDeletedSubscription" type="checkbox" '.($subscription->isDeleted()?"checked":"").'></td>
+                                  <td> <button class="btn btn-primary" onclick="updateSubscription(\''.$subscription->idSubscription().'\')">Valider </button> </td>
+                                  <td> <button class="btn btn-primary" onclick="updateSubscriptionRightsButton(\''.$subscription->idSubscription().'\')">Modifier </button> </td>
+
+                                </tr>';
+                        }
+
+
+                      ?>
+                      </tbody>
+                    </table>
+                    <?php
+                      //showArray($subscriptions);
+                    ?>
+                  <?php else :?>
+
+                  <?php endif;?>
+                </div>
+              </div>
+            </div>
+
+            <div class="tab-pane tabcontent fade" id="access" role="tabpanel" aria-labelledby="access-list">
+              <div class="col-md-6 col-sm-6 text-uppercase text-left font-weight-bold">
+                <h4>&nbsp;&nbsp;Accès </h4>
+              </div>
+
+              <div class="container col-md-12">
+
+                <div id="subscriptionDiv">
+                  <?php
+                    $db = connectDb();
+                    $accessMng = new AccessMng($db);
+                    $accessArray = $accessMng->getAll();
+                    //showArray($accessArray);
+                  ?>
+
+                  <?php if( $accessArray != 1) :?>
+
+
+                    <table class="table" id="subscriptionArray">
+                      <tbody id="subscriptionArrayBody">
+                      <tr>
+                                <th>Email</th>
+                                <th>Espace</th>
+                                <th>Date et heure entrée</th>
+                                <th>Date et heure sortie</th>
+                                <th>Prix</th>
+
+                      </tr>
+
+
+                      <?php
+
+
+
+                        foreach ($accessArray as $access) {
+                          echo '<tr>
+                                  <td>'.$access->email().'</td>
+                                  <td>'.$spaceMng->getSpaceName($access->idSpace()).' </td>
+                                  <td>'.$access->dateAccess("0",1).'</td>
+                                  <td>'.$access->dateExit("0",1).' </td>
+                                  <td>'.$accessMng->getSubscription($access).' €</td>
+                                </tr>';
+                        }
+
+
+                      ?>
+                      </tbody>
+                    </table>
+                    <?php
+                      //showArray($subscriptions);
+                    ?>
+
+
+                  <?php else :?>
+
+                  <?php endif;?>
+                </div>
+              </div>
+            </div>
+
+
+            <!--Create subscription pannel -->
+            <div id="createSubscriptionPannel" class="hidden">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="createSubscriptionForm">
+                    <div class="row">
+                      <div class="col-xs-3"></div>
+                      <div class="col-xs-6">
+                        <input type="text" class="form-control" id="NameNewSubscription" placeholder="Nom du forfait">
+                        Prix mensuel    : <input type="number" step="0.01" min="0" id="MonthlyNewSubscription" placeholder="ex : 79,99"> <br>
+                        Prix du jour    : <input type="number" step="0.01" min="0" id="DayPriceNewSubscription" placeholder="ex : 9,99"> <br>
+                        Prix 1er heure  : <input type="number" step="0.01" min="0" id="FirstHourPriceNewSubscription" placeholder="ex : 7,99"> <br>
+                        Prix demi-heure : <input type="number" step="0.01" min="0" id="HalfHourPricNeweSubscription" placeholder="ex : 3,99"><br>
+                        <button class="btn btn-primary" onclick="createNewSubscription()">Valider</button>
+                        <button class="btn btn-primary"  id="cancelSubscriptionButton">Annuler</button>
+                      </div>
+                      <div class="col-xs-3"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Create subscription pannel-->
+
+
+
+
+            <!--update rights pannel-->
+            <div class="pannel hidden" id="updateRightPannel">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="updateRightForm">
+                    <div id="displayRightCheckboxDiv">
+                    <?php
+                        //print_r($perm);
+                        foreach ($perm as $key => $value) {
+                          echo ' <input  id="'.$value.'Checkbox" type="checkbox" >  '.$value.'<br>';
+                        }
+
+                     ?>
+                   </div>
+                    <div class="row"><input type="text" id="newRightName" placeholder="Nom du droit"> <button id="addRightButton" onclick="addRight()">Ajouter</button></div>
+                    <div class="row">
+                      <button class="btn btn-primary" id="updateRightButton" onclick='updateRightSubscription()'>Valider</button>
+                      <button class="btn btn-primary"  id="cancelUpdateRightButton">Annuler</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End update right pannel-->
 
 
 

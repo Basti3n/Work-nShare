@@ -18,13 +18,14 @@ if(isAdmin() || isSuperAdmin()){
       $error = true;
 
     if($error){
-      $_SESSION["errorSpaceForm"] = $space->listOfErrors;
-      print_r($_SESSION["errorSpaceForm"]);
+      echo "failure";
     }else{
       $spaceMng = new SpaceMng($db);
       $spaceMng->add($space);
     }
-
+    echo "failure";
+  }else{
+    echo "failure";
   }
 
 
@@ -32,5 +33,5 @@ if(isAdmin() || isSuperAdmin()){
    echo $_POST["spaceName"];
    echo 'L\'espace a été ajouté';*/
 }else{
-  echo "Vous n'êtes pas autorisé à accéder à cette page.";
+  echo "Vous n'êtes pas autorisé à entrer sur cette page";
 }
