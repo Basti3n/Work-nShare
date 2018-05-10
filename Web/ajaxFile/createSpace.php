@@ -23,7 +23,6 @@ if(isAdmin() || isSuperAdmin()){
       $spaceMng = new SpaceMng($db);
       $spaceMng->add($space);
     }
-    echo "failure";
   }else{
     echo "failure";
   }

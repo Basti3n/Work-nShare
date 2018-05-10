@@ -50,6 +50,32 @@ input:invalid {
 }
 
 
+
+#subscribeAUserPannel{
+	position:fixed;
+	width : 100%;
+	z-index: 40;
+	height: 100vh;
+	left : 0;
+	top : 0;
+	background-color: rgba(50,50,50,0.7);
+	text-align: center;
+	padding-left : 25%;
+	padding-top : 10%;
+}
+
+#subscribeAUserForm{
+	width : 75%;
+	background-color: rgb(170,171,170);
+	vertical-align: center;
+	text-align: center;
+	padding-top : 3%;
+	padding-bottom : 3%;
+  border-radius: 2%;
+
+}
+
+
 #createSpacePannel{
 	position:fixed;
 	width : 100%;
@@ -318,6 +344,11 @@ textarea{
   width : 80%;
 }
 
-#allMightyContainer{
-  /*overflow-y: hidden;*/
+#nav-tabContent{
+  overflow-y: scroll;
+}
+
+.rightCheckbox{
+  display : inline-block;
+
 }
