@@ -105,8 +105,8 @@
                 <div class="col-md-5">
                   <div class="col-md-12">
                     <?php
-              				if(file_exists("Qrcodes/Qrcode_".$user->email().".bmp"))
-              					echo '<a href="Qrcodes/Qrcode_'.$user->email().'.bmp" target="_blank"><img id="qr" src="Qrcodes/Qrcode_'.$user->email().'.bmp" height="400" width="400"></a>';
+              				if(file_exists("Qrcode_".$user->email().".bmp"))
+              					echo '<a href="Qrcode_'.$user->email().'.bmp" target="_blank"><img id="qr" src="Qrcode_'.$user->email().'.bmp" height="400" width="400"></a>';
                 		?>
                   </div>
                   <div class="col-md-offset-3 col-md-5" style="padding-top:10px;">

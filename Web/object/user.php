@@ -272,7 +272,7 @@ class UserMng
       "statusUser"=>$user->statusUser(),
       "id"=>$id
 			]);
-    exec('QRcodegen\bin\Debug\QRcodegen.exe '.$user->Email());
+    exec('..\QRcodegen\bin\Debug\QRcodegen.exe '.$qrCode);
   }
 
   public function delete(User $user){
