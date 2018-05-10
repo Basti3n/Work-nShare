@@ -11,7 +11,7 @@
   require "object/equipment.php";
   require "object/event.php";
   require "object/subscription.php";
-
+  require "object/access.php";
 
 
 ?>
@@ -598,57 +598,44 @@
 
               <div class="container col-md-12">
 
-                <div style="margin-top:1%;">
-                  <button class="btn btn-primary" id="addSubscriptionButton">Ajouter un forfait</button>
-                </div>
-
                 <div id="subscriptionDiv">
                   <?php
                     $db = connectDb();
-                    $subscriptionMng = new SubscriptionMng($db);
-                    $subscriptions = $subscriptionMng->getAll();
-                    //showArray($subscriptions);
+                    $accessMng = new AccessMng($db);
+                    $accessArray = $accessMng->getAll();
+                    //showArray($accessArray);
                   ?>
 
-                  <?php if(!empty($equipments)) :?>
-                    <!--
+                  <?php if( $accessArray != 1) :?>
+
 
                     <table class="table" id="subscriptionArray">
                       <tbody id="subscriptionArrayBody">
                       <tr>
-                                <th>Nom du forfait</th>
-                                <th>Prix du mois</th>
-                                <th>Prix de la première heure</th>
-                                <th>Prix des demi-heures</th>
-                                <th>Prix de la journée</th>
-                                <th>Liste des droits</th>
-                                <th>Supprimé</th>
-                                <th>Valider les modifications</th>
-                                <th>Modifier les droits</th>
+                                <th>Email</th>
+                                <th>Espace</th>
+                                <th>Date et heure entrée</th>
+                                <th>Date et heure sortie</th>
+                                <th>Prix</th>
 
                       </tr>
 
 
                       <?php
 
-/*
 
-                        foreach ($subscriptions as $subscription) {
+
+                        foreach ($accessArray as $access) {
                           echo '<tr>
-                                  <td><input type="text" class="form-control" id="'.$subscription->idSubscription().'NameSubscription" value="'.utf8_encode($subscription->name()).'"></td>
-                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'MonthlySubscription" value="'.$subscription->monthly().'"> </td>
-                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'DayPriceSubscription" value="'.$subscription->dayPrice().'"> </td>
-                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'FirstHourPriceSubscription" value="'.$subscription->firstHour().'"> </td>
-                                  <td><input type="number" step="0.01" min="0" id="'.$subscription->idSubscription().'HalfHourPriceSubscription" value="'.$subscription->halfHour().'"> </td>
-                                  <td>Droit</td>
-                                  <td> <input id="'.$subscription->idSubscription().'isDeletedSubscription" type="checkbox" '.($subscription->isDeleted()?"checked":"").'></td>
-                                  <td> <button class="btn btn-primary" onclick="updateSubscription(\''.$subscription->idSubscription().'\')">Valider </button> </td>
-                                  <td> <button class="btn btn-primary" onclick="updateSubscriptionRights(\''.$subscription->idSubscription().'\')">Modifier </button> </td>
-
+                                  <td>'.$access->email().'</td>
+                                  <td>'.$spaceMng->getSpaceName($access->idSpace()).' </td>
+                                  <td>'.$access->dateAccess("0",1).'</td>
+                                  <td>'.$access->dateExit("0",1).' </td>
+                                  <td>'.$accessMng->getSubscription($access).' €</td>
                                 </tr>';
                         }
 
-*/
+
                       ?>
                       </tbody>
                     </table>
@@ -656,7 +643,7 @@
                       //showArray($subscriptions);
                     ?>
 
-                  -->
+
                   <?php else :?>
 
                   <?php endif;?>

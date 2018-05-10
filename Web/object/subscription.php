@@ -178,13 +178,14 @@ class Subscription{
     if ($duration > 0) { //1ere h
       $temp += $this->firstHour();
       $duration -= 60;
-      echo "+h";
     }
     if ($duration > 0) { // chaque 30mins
       $temp += $this->halfHour()*(ceil($duration/30));
     }
     return $temp;
   }
+
+
 
   public function duration($access="-1", $exit="-1"){
     $time = ($exit-$access) /60;
@@ -243,7 +244,7 @@ class SubscriptionMng{
 
   public function get($id){
     try {
-      $query = $this->_db->prepare('SELECT  idSubscription,name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
+      $query = $this->_db->prepare('SELECT  * FROM SUBSCRIPTIONS WHERE idSubscription =:idSubscription');
       $query->execute( ["idSubscription"=>$id]);
     } catch(Exception $e) {
         echo "PDOException : " . $e->getMessage();
@@ -251,6 +252,7 @@ class SubscriptionMng{
     $data = $query->fetch(PDO::FETCH_ASSOC);
     return new Subscription($data);
   }
+
 
   public function getAll($deleted="-1"){
     $sql = 'SELECT * FROM SUBSCRIPTIONS'.($deleted==1?' WHERE isDeleted = 0':'');
@@ -274,9 +276,10 @@ class SubscriptionMng{
     }
   }
 
+
   public function update(Subscription $val){
     try{
-        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly,  dayPrice = :day, firstHour = :first, halfHour = :half, isDeleted = :isDeleted 
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly,  dayPrice = :day, firstHour = :first, halfHour = :half, isDeleted = :isDeleted
           WHERE idSubscription = :idSubscription');
         $query->execute([
           "idSubscription"=>$val->idSubscription(),
