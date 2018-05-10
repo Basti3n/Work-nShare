@@ -30,10 +30,11 @@ require_once 'object/subscription.php';
              <?php
              $perm =[];
              foreach ($subscriptions as $key => $value) {
-               foreach (array_keys($value->right("getAll")) as $keykey => $id) {
-                 if(!in_array($id,$perm) )
-                  array_push($perm,$id);
-               }
+               if(!empty($value->right("getAll")))
+                 foreach (array_keys($value->right("getAll")) as $keykey => $id) {
+                   if(!in_array($id,$perm) )
+                    array_push($perm,$id);
+                 }
                echo "<th scope='col'>".utf8_encode($value->name())."</th>\n";
              }
               ?>

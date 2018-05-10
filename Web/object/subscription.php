@@ -115,6 +115,8 @@ class Subscription{
         break;
       /* check permission */
       case 'has':
+        if(empty($this->_rights))
+          return false;
         if (!array_key_exists($index,$this->_rights))
           return false;
         if ($this->_rights[$index] != 0)
@@ -123,7 +125,8 @@ class Subscription{
         break;
       /* get all rights names */
       case 'table':
-        return array_keys($this->_rights);
+        if(!empty($this->_rights))
+          return array_keys($this->_rights);
       break;
 
       default:
