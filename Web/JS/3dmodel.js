@@ -8,7 +8,7 @@ function clicked(value,id){
 	console.log(value);
 	remove();
 	switch (click){
-		case "Surface Laptop" : 
+		case "Surface Laptop" :
 			document.getElementById("model").style.visibility = 'visible';
 			drawSurfLap();
 			break;
@@ -54,12 +54,12 @@ function init() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 	document.getElementById("model").appendChild( renderer.domElement );
 	var AxesHelper = new THREE.AxesHelper(200);
-	scene.add(AxesHelper);
+	//scene.add(AxesHelper);
 
 	controls = new THREE.OrbitControls( camera,document.getElementById("model"));
 	controls.enableZoom = true;
 	controls.maxDistance = 90;
-	
+
 	var light = new THREE.AmbientLight( 0x404040 ); // soft white light
 	scene.add( light );
 	var light2 = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
