@@ -75,6 +75,16 @@ $('#cancelUpdateRightButton').on('click', function(e) {
 });
 
 
+$('#subscribeAUserButton').on('click', function(e) {
+  $('#subscribeAUserPannel').removeClass('hidden');
+});
+
+
+$('#cancelSubscribeAUser').on('click', function(e) {
+  $('#subscribeAUserPannel').addClass('hidden');
+});
+
+
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];
 var serviceArray = [];
@@ -91,6 +101,7 @@ function createSpace() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
+        console.log(request.responseText);
         if (request.responseText != 'failure') {
           var createSpacePannel = document.getElementById('createSpacePannel');
           createSpacePannel.setAttribute('class', 'hidden');
@@ -1167,7 +1178,7 @@ function displayCheckbox(search){
       if(key == globalRight)
         isPresent=true;
     });
-    displayCheckboxDiv.innerHTML +=  ' <input  id="'+globalRight+'Checkbox" type="checkbox" '+(isPresent?'checked':'')+'>  '+globalRight+'<br>';
+    displayCheckboxDiv.innerHTML +=  '<div class="row"> <input  class="rightCheckbox" id="'+globalRight+'Checkbox" type="checkbox" '+(isPresent?'checked':'')+'> <div> '+globalRight+'</div> </div><br>';
     isPresent=false;
   });
 
@@ -1249,7 +1260,46 @@ function addRight(){
   var displayCheckboxDiv = document.getElementById('displayRightCheckboxDiv');
 
   rightsArray.push(newRightName);
-  displayCheckboxDiv.innerHTML +=  ' <input  id="'+newRightName+'Checkbox" type="checkbox" >  '+newRightName+'<br>';
+  displayCheckboxDiv.innerHTML +=  '<div class="row"> <input class="rightCheckbox" id="'+newRightName+'Checkbox" type="checkbox" >  <div >'+newRightName+' </div> </div><br>';
 
+
+}
+
+
+
+function subscribeAUser() {
+  var subscribeAUserDateBegin = document.getElementById('subscribeAUserDateBegin').value;
+  var subscribeAUserDateEnd = document.getElementById('subscribeAUserDateEnd').value;
+  var email  = getSelectedIndex("subscribeAUserSelectUser");
+  var idSubscription  = getSelectedIndex("subscribeAUserSelectSubscription");
+
+//console.log(subscribeAUserDateBegin+' '+subscribeAUserDateEnd+' '+email+' '+idSubscription);
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+        if (request.responseText != 'failure') {
+          var createSpacePannel = document.getElementById('createSpacePannel');
+          createSpacePannel.setAttribute('class', 'hidden');
+          location.reload()
+        }
+      }
+    }
+  };
+
+
+    request.open("POST", 'ajaxFile\\subscribeAUser.php');
+    request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    var params = [
+      'email='+email,
+      'idSubscription='+idSubscription,
+      'subscribeAUserDateEnd='+subscribeAUserDateEnd,
+      'subscribeAUserDateBegin='+subscribeAUserDateBegin
+    ];
+    var body = params.join('&');
+
+    request.send(body);
 
 }

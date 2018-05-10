@@ -511,8 +511,8 @@
 
                 <div style="margin-top:1%;">
                   <button class="btn btn-primary" id="addSubscriptionButton">Ajouter un forfait</button>
+                  <button class="btn btn-primary" id="subscribeAUserButton">Abonner un utilisateur</button>
                 </div>
-
                 <div id="subscriptionDiv">
                   <?php
                     $db = connectDb();
@@ -647,6 +647,53 @@
                 </div>
               </div>
             </div>
+
+
+            <!--Subscribe a user pannel -->
+            <div id="subscribeAUserPannel" class="hidden">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div id="subscribeAUserForm">
+                    <div class="row">
+                      <div class="col-xs-3"></div>
+                      <div class="col-xs-6">
+                        <?php
+                          $db = connectDb();
+                          $users = new UserMng($db);
+                          $users = $users->getAll();
+                          $subscriptionMng = new SubscriptionMng($db);
+                          $subscriptions = $subscriptionMng->getAll();
+
+                         ?>
+                         <select id="subscribeAUserSelectUser">
+                             <?php
+                               foreach ($users as $key => $user) {
+                                 echo "<option value='".$user->email()."'>".utf8_encode($user->email())."</option>";
+                               }
+                              ?>
+                         </select>
+
+                         <select id="subscribeAUserSelectSubscription">
+                             <?php
+                               foreach ($subscriptions as $key => $subscription) {
+                                 echo "<option value='".$subscription->idSubscription()."'>".$subscription->name()."</option>";
+                               }
+                              ?>
+                         </select><br>
+                        <div>Date du début de l'abonnement :</div><input type="date" id="subscribeAUserDateBegin" placeholder="Date de début"><br>
+                        <div>Date de fin de l'abonnement :</div><input type="date" id="subscribeAUserDateEnd" placeholder="Date de fin"><br>
+
+                        <button class="btn btn-primary" onclick="subscribeAUser()">Valider</button>
+                        <button class="btn btn-primary"  id="cancelSubscribeAUser">Annuler</button>
+                      </div>
+                      <div class="col-xs-3"></div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End subscribe a user pannel-->
 
 
             <!--Create subscription pannel -->
