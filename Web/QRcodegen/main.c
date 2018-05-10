@@ -62,7 +62,11 @@ void saveQr(const uint8_t qrcode[], char * str){
 		ya+=mult;
     }
     char * file  = malloc(strlen(str)+12);
+<<<<<<< HEAD
     sprintf(file,"Qrcodes/Qrcode_%s.bmp",str);
+=======
+    sprintf(file,"Qrcode_%s.bmp",str);
+>>>>>>> parent of 38e8415... Qrcode repertoire changer
     BMP_WriteFile( qRcode, file );
     BMP_Free( qRcode );
 }
