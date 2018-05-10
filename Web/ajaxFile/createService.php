@@ -21,20 +21,17 @@ if(isAdmin() || isSuperAdmin()){
       $error = true;
 
     if($error){
-      $_SESSION["errorServiceForm"] = $service->listOfErrors;
-      print_r($_SESSION["errorSpaceForm"]);
+      echo "failure";
     }else{
       $serviceMng = new ServiceMng($db);
       $serviceMng->add($service);
     }
-    echo "Ok";
 
+
+  }else{
+    echo "failure";
   }
 
-
-  /* echo $_POST["spaceId"];
-   echo $_POST["spaceName"];
-   echo 'L\'espace a été ajouté';*/
 }else{
-  echo "Vous n'êtes pas autorisé à accéder à cette page.";
+  echo "Vous n'êtes pas autorisé à accéder à cette page";
 }

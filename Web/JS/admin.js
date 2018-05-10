@@ -59,6 +59,15 @@ $('#cancelCreateEventButton').on('click', function(e) {
   $('#createEventPannel').addClass('hidden');
 });
 
+
+$('#addSubscriptionButton').on('click', function(e) {
+  $('#createSubscriptionPannel').removeClass('hidden');
+});
+
+$('#cancelSubscriptionButton').on('click', function(e) {
+  $('#createSubscriptionPannel').addClass('hidden');
+});
+
 var statusUserArray = ["Super administrateur", "Administrateur", "Employé", "Utilisateur"];
 var spaceArray = [];
 var serviceArray = [];
@@ -79,6 +88,7 @@ function createSpace() {
         if (request.responseText != 'failure') {
           var createSpacePannel = document.getElementById('createSpacePannel');
           createSpacePannel.setAttribute('class', 'hidden');
+          location.reload()
         }
       }
     }
@@ -141,6 +151,7 @@ function createService() {
 
           var createSpacePannel = document.getElementById('createServicePannel');
           createSpacePannel.setAttribute('class', 'hidden');
+          location.reload()
         }
       }
     }
@@ -228,6 +239,7 @@ function createServiceContent() {
         if (request.responseText != 'failure') {
           var createSpacePannel = document.getElementById('createServiceContentPannel');
           createSpacePannel.setAttribute('class', 'hidden');
+          location.reload();
         }
       }
     }
@@ -911,11 +923,12 @@ function createNewEvent() {
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       if (request.status == 200) {
-        console.log(request.responseText);/*
-        if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
+        console.log(request.responseText);
+        if (request.responseText != 'Erreur à la création de l\'objet event') {
           var createEquipmentPannel = document.getElementById('createEquipmentPannel');
           createEquipmentPannel.setAttribute('class', 'hidden');
-        }*/
+          location.reload()
+        }
       }
     }
   };
@@ -981,6 +994,157 @@ function updateEvent(idEvent) {
     'end=' + end,
     'isDeleted=' + isDeleted,
     'idEvent=' + idEvent
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+
+
+function createNewSubscription() {
+  var monthly = document.getElementById('MonthlyNewSubscription').value;
+  var dayPrice = document.getElementById('DayPriceNewSubscription').value;
+  var firstHour = document.getElementById('FirstHourPriceNewSubscription').value;
+  var halfHour = document.getElementById('HalfHourPricNeweSubscription').value;
+
+  var name = document.getElementById('NameNewSubscription').value;
+
+
+  console.log(name+' '+monthly+' '+dayPrice+' '+firstHour+' '+halfHour);
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+
+        if (request.responseText != 'Fail') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+          location.reload();
+        }else{
+          console.log('ONARATE');
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\createNewSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'name=' + name,
+    'monthly=' + monthly,
+    'dayPrice=' + dayPrice,
+    'firstHour=' + firstHour,
+    'halfHour=' + halfHour
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+
+function createNewSubscription() {
+  var monthly = document.getElementById('MonthlyNewSubscription').value;
+  var dayPrice = document.getElementById('DayPriceNewSubscription').value;
+  var firstHour = document.getElementById('FirstHourPriceNewSubscription').value;
+  var halfHour = document.getElementById('HalfHourPricNeweSubscription').value;
+
+  var name = document.getElementById('NameNewSubscription').value;
+
+
+  console.log(name+' '+monthly+' '+dayPrice+' '+firstHour+' '+halfHour);
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+
+        if (request.responseText != 'Fail') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+          location.reload();
+        }else{
+          console.log('ONARATE');
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\createNewSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'name=' + name,
+    'monthly=' + monthly,
+    'dayPrice=' + dayPrice,
+    'firstHour=' + firstHour,
+    'halfHour=' + halfHour
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+
+
+function updateSubscription(idSubscription) {
+  var monthly = document.getElementById(idSubscription+'MonthlySubscription').value;
+  var dayPrice = document.getElementById(idSubscription+'DayPriceSubscription').value;
+  var firstHour = document.getElementById(idSubscription+'FirstHourPriceSubscription').value;
+  var halfHour = document.getElementById(idSubscription+'HalfHourPriceSubscription').value;
+  var isDeleted = document.getElementById(idSubscription + 'isDeletedSubscription').checked;
+
+  var name = document.getElementById(idSubscription+'NameSubscription').value;
+
+
+  console.log(name+' '+monthly+' '+dayPrice+' '+firstHour+' '+halfHour+' '+isDeleted);
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);
+
+        if (request.responseText == 'Success') {
+
+        }else{
+          console.log('Request failed');
+        }
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\updateSubscription.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'name=' + name,
+    'monthly=' + monthly,
+    'dayPrice=' + dayPrice,
+    'firstHour=' + firstHour,
+    'halfHour=' + halfHour,
+    'idSubscription=' + idSubscription,
+    'isDeleted=' + isDeleted
+
 
   ];
   var body = params.join('&');

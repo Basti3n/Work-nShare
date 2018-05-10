@@ -67,8 +67,9 @@ class Subscription{
 
     trim($value);
 
-    if(strlen($value)<25){
+    if(strlen($value)<80){
       $this->_name = $value;
+      return 0;
     }else{
       $this->listOfErrors[] = 18;
       return 1;
@@ -214,10 +215,9 @@ class SubscriptionMng{
   }
 
   public function add(Subscription $val){
-    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (idSubscription,name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights)
-                                  VALUES (:idSubscription,:name,:deleted,:monthly,:day,:first,:half,:right) ");
+    $query = $this->_db->prepare("INSERT INTO SUBSCRIPTIONS (name,isDeleted,monthly,dayPrice,firstHour,halfHour,listRights)
+                                  VALUES (:name,:deleted,:monthly,:day,:first,:half,:right) ");
     $query->execute( [
-      "idSubscription"=>$val->idSubscription(),
       "name"=>$val->name(),
       "deleted"=>$val->isDeleted(),
       "monthly"=>$val->monthly(),
@@ -276,16 +276,16 @@ class SubscriptionMng{
 
   public function update(Subscription $val){
     try{
-        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly  dayPrice = :day, firstHour = :first, halfHour = :half, listRights = :right ,isDeleted = :isDeleted WHERE idSubscription = :idSubscription');
+        $query = $this->_db->prepare('UPDATE SUBSCRIPTIONS SET name = :name, monthly = :monthly,  dayPrice = :day, firstHour = :first, halfHour = :half, isDeleted = :isDeleted 
+          WHERE idSubscription = :idSubscription');
         $query->execute([
           "idSubscription"=>$val->idSubscription(),
           "name"=>$val->name(),
-          "deleted"=>$val->isDeleted(),
-          "monthly"=>$val->monthly(),
-          "day"=>$val->dayPrice(),
-          "first"=>$val->firstHour(),
-          "half"=>$val->halfHour(),
-          "right"=>$val->right("encode")
+          "isDeleted"=>$val->isDeleted(),
+          "monthly"=>  floatval($val->monthly()),
+          "day"=> floatval($val->dayPrice())  ,
+          "first"=>floatval($val->firstHour()),
+          "half"=>floatval($val->halfHour()),
         ]);
         return 0;
     }catch (Exception $e){

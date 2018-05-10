@@ -35,6 +35,9 @@ if(isAdmin() || isSuperAdmin()){
       $equipmentMng->add($equipment);
     }
 
+  }else{
+    echo "Erreur à la création de l'objet Equipment";
+
   }
 
 }else{

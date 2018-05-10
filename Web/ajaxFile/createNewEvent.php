@@ -34,6 +34,8 @@ if(isAdmin() || isSuperAdmin()){
     }
     echo "Ok";
 
+  }else{
+    echo "Erreur à la création de l'objet event";
   }
 
 }else{
