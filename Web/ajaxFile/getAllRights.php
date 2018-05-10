@@ -10,10 +10,11 @@
   $rightArray = [];
 
   foreach ($subscriptions as $key => $value) {
-    foreach (array_keys($value->right("getAll")) as $keykey => $id) {
-      if(!in_array($id,$rightArray) )
-       array_push($rightArray,$id);
-    }
+    if(!empty($value->right("getAll")))
+      foreach (array_keys($value->right("getAll")) as $keykey => $id) {
+        if(!in_array($id,$rightArray) )
+         array_push($rightArray,$id);
+      }
   }
 
   //showArray($spacesArray);
