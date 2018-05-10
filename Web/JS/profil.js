@@ -57,6 +57,7 @@ function sendTicket(email,idPrimaryTicket){
 	  if(request.readyState == 4){
 	    if(request.status ==200){
 	    	  console.log(request.responseText);
+          displayTickets(idPrimaryTicket,email);
 	    }
 	  }
 	};

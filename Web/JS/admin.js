@@ -563,9 +563,12 @@ function displayDatabaseServiceContents(element, array) {
 }
 
 function displayTicket(idTicket, email, statusTicket, idPrimaryTicket) {
+  console.log('ok');
   var request = new XMLHttpRequest();
   if (idPrimaryTicket != -1)
     idTicket = idPrimaryTicket;
+  console.log(idPrimaryTicket);
+
   request.onreadystatechange = function() {
     if (request.readyState == 4) {
       var test = request.responseText;
@@ -577,7 +580,7 @@ function displayTicket(idTicket, email, statusTicket, idPrimaryTicket) {
       setTicketInformation(idTicket, email);
       setTicketAdvancedInfoHistorique(test, search);
       setTicketStatusSelect(statusTicket, idTicket);
-      setSendTicketButton(idTicket, email);
+      setSendTicketButton(idTicket, email, statusTicket, idPrimaryTicket);
     }
   };
   request.open("POST", 'ajaxFile\\getLinkedTicket.php');
@@ -599,6 +602,8 @@ function setTicketInformation(idTicket, email) {
 
 
 function setTicketAdvancedInfoHistorique(test, search) {
+  var ticketAdvancedInfo = document.getElementById('ticketAdvancedInfo');
+  ticketAdvancedInfo.classList.remove('hidden');
   var ticketAdvancedInfoHistorique = document.getElementById('ticketAdvancedInfoHistorique');
   ticketAdvancedInfoHistorique.innerHTML ="";
   if(test!="NO VALUE"){
@@ -618,13 +623,13 @@ function setTicketStatusSelect(statusTicket, idTicket) {
 
 }
 
-function setSendTicketButton(idTicket, email) {
+function setSendTicketButton(idTicket, email, statusTicket, idPrimaryTicket) {
   var button = document.getElementById('ticketSendingButton');
-  button.setAttribute('onclick', "sendAnswer(" + idTicket + ",'" + email + "')");
+  button.setAttribute('onclick', "sendAnswer(" + idTicket + ",'" + email + "','"+statusTicket+"','"+idPrimaryTicket+"')");
 }
 
 
-function sendAnswer(idPrimaryTicket, email) {
+function sendAnswer(idTicket, email, statusTicket, idPrimaryTicket) {
   var ticketCategory = "Administratif";
   var contentTicket = document.getElementById('ticketAnswer').value;
 
@@ -636,7 +641,7 @@ function sendAnswer(idPrimaryTicket, email) {
     if (request.readyState == 4) {
       if (request.status == 200) {
         console.log(request.responseText);
-
+        displayTicket(idTicket, email, statusTicket, idPrimaryTicket);
       }
     }
   };
@@ -924,6 +929,58 @@ function createNewEvent() {
     'idSpace=' + idSpace,
     'start=' + start,
     'end=' + end
+
+  ];
+  var body = params.join('&');
+  request.send(body);
+
+}
+
+
+
+function updateEvent(idEvent) {
+  var dateStart = document.getElementById(idEvent+'EventDateStart').value;
+  var hourStart = document.getElementById(idEvent+'EventHourStart').value;
+  var dateEnd = document.getElementById(idEvent+'EventDateEnd').value;
+  var hourEnd = document.getElementById(idEvent+'EventHourEnd').value;
+
+  var nameEvent = document.getElementById(idEvent+'NameEvent').value;
+  var descriptionEvent = document.getElementById(idEvent+'DescriptionEvent').value;
+  var isDeleted = document.getElementById(idEvent + 'isDeletedEvent').checked;
+
+
+  var idSpace = getSelectedIndex(idEvent+'IdSpaceEvent');
+  var start = dateStart+' '+hourStart;
+  var end = dateEnd+' '+hourEnd;
+
+  //console.log(nameEvent+' '+descriptionEvent+' '+start+' '+end+' '+idSpace);
+
+
+  var request = new XMLHttpRequest();
+
+  request.onreadystatechange = function() {
+    if (request.readyState == 4) {
+      if (request.status == 200) {
+        console.log(request.responseText);/*
+        if (request.responseText != 'Erreur à la création de l\'objet Equipment') {
+          var createEquipmentPannel = document.getElementById('createEquipmentPannel');
+          createEquipmentPannel.setAttribute('class', 'hidden');
+        }*/
+      }
+    }
+  };
+
+
+  request.open("POST", 'ajaxFile\\updateEvent.php');
+  request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+  var params = [
+    'nameEvent=' + nameEvent,
+    'descriptionEvent=' + descriptionEvent,
+    'idSpace=' + idSpace,
+    'start=' + start,
+    'end=' + end,
+    'isDeleted=' + isDeleted,
+    'idEvent=' + idEvent
 
   ];
   var body = params.join('&');

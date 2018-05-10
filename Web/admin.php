@@ -247,11 +247,11 @@
 
                           echo '<tr>
                                   <td><input type="text" class="form-control" id="'.$event->idEvent().'NameEvent" value="'.utf8_encode($event->nameEvent()).'"></td>
-                                  <td><textarea class="form-control compInfoTextArea" id="'.$service->idService().'DescriptionEvent">'.utf8_encode($event->descriptionEvent()).'</textarea></td>
-                                  <td><input type="date" value="'.$event->dateStart("0",1).'" id="'.$event->idEvent().'DateStart"> </td>
-                                  <td><input type="time" value="'.$event->hourStart().'" id="'.$event->idEvent().'HourStart"> </td>
-                                  <td><input type="date" value="'.$event->dateEnd("0",1).'" id="'.$event->idEvent().'DateEnd"> </td>
-                                  <td><input type="time" value="'.$event->hourEnd().'" id="'.$event->idEvent().'HourEnd"> </td>
+                                  <td><textarea class="form-control compInfoTextArea" id="'.$event->idEvent().'DescriptionEvent">'.utf8_encode($event->descriptionEvent()).'</textarea></td>
+                                  <td><input type="date" value="'.$event->dateStart("0",1).'" id="'.$event->idEvent().'EventDateStart"> </td>
+                                  <td><input type="time" value="'.$event->hourStart().'" id="'.$event->idEvent().'EventHourStart"> </td>
+                                  <td><input type="date" value="'.$event->dateEnd("0",1).'" id="'.$event->idEvent().'EventDateEnd"> </td>
+                                  <td><input type="time" value="'.$event->hourEnd().'" id="'.$event->idEvent().'EventHourEnd"> </td>
                                   <td> <input id="'.$event->idEvent().'isDeletedEvent" type="checkbox" '.($event->isDeleted()?"checked":"").'></td>
                                   <td><select id="'.$event->idEvent().'IdSpaceEvent">';
                                   foreach ($spaces as $key => $space) {
@@ -367,7 +367,7 @@
                         </tr>
                         <?php
                           foreach ($tickets as $ticket) {
-                            echo '<tr onclick="displayTicket('.$ticket->idTicket().',\''.$_SESSION["email"].'\','.$ticket->statusTicket().','.$ticket->idPrimaryTicket().')">
+                            echo '<tr onclick="displayTicket('.$ticket->idTicket().',\''.$_SESSION["email"].'\','.$ticket->statusTicket().','.$ticket->idTicket().')">
                                       <td>'.$ticket->idTicket().'</td>
                                       <td>'.$ticket->ticketCategory().'</td>
                                       <td>'.$ticket->contentTicket().'</td>
@@ -382,7 +382,7 @@
                     </div>
 
                     <div class="col-xs-4">
-                      <div id="ticketAdvancedInfo">
+                      <div id="ticketAdvancedInfo" class="hidden">
                         <div class ="row" id="ticketInformation">
                             <div class="col-xs-3" id="idTicketAdvancedInfo">
                               <?php

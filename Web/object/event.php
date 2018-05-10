@@ -218,8 +218,28 @@ class EventMng{
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
     }
-
   }
+
+  public function update(Event $event){
+    try{
+      $query = $this->_db->prepare("UPDATE  SPACEEVENTS  SET descriptionEvent = :descriptionEvent , nameEvent =:nameEvent,
+                                                            isDeleted = :isDeleted, dateStart = :dateStart , dateEnd = :dateEnd,
+                                                            idSpaceEvent = :idSpaceEvent
+                                                         WHERE idEvent = :idEvent");
+      $query->execute( [
+        "descriptionEvent"=>$event->descriptionEvent(),
+        "nameEvent"=>$event->nameEvent(),
+        "dateStart"=>$event->datetimeStart(),
+        "dateEnd"=>$event->datetimeEnd(),
+        "idSpaceEvent"=>$event->idSpace(),
+        "isDeleted"=>$event->isDeleted(),
+        "idEvent"=>$event->idEvent()
+        ]);
+    }catch(Exception $e){
+      echo "PDOException : " . $e->getMessage();
+    }
+  }
+
 
   public function getAll(){
     try{
@@ -242,7 +262,7 @@ class EventMng{
 
   public function getAllBackoffice(){
     try{
-        $query = $this->_db->query("SELECT * FROM `spaceevents` WHERE isDeleted=0 ");
+        $query = $this->_db->query("SELECT * FROM `spaceevents`");
     }catch(Exception $e){
       echo "PDOException : " . $e->getMessage();
     }

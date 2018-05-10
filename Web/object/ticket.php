@@ -194,7 +194,7 @@ class TicketMng{
       $query = $this->_db->prepare("INSERT INTO TICKETS (contentTicket,statusTicket,email,ticketLinkDoc,ticketCategory,idEquipment,idPrimaryTicket,dateTicket,ticketSenderStatus)
                                     VALUES (:contentTicket,1,:email,:ticketLinkDoc,:ticketCategory,:idEquipment,:idPrimaryTicket,NOW(),:ticketSenderStatus)");
       $query->execute( [
-        "contentTicket"=>utf8_encode($ticket->contentTicket() ),
+        "contentTicket"=>  utf8_decode($ticket->contentTicket())  ,
         "email"=>$ticket->email(),
         "ticketLinkDoc"=>$ticket->ticketLinkDoc(),
         "ticketCategory"=>$ticket->ticketCategory(),
