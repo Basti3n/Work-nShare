@@ -221,6 +221,19 @@ class EquipmentMng{
   }
 
 
+    public function getName($idEquipment){
+      try {
+        $query = $this->_db->prepare('SELECT  equipmentName FROM EQUIPMENTS WHERE idEquipment =:idEquipment');
+        $query->execute( ["idEquipment"=>$idEquipment]);
+      } catch(Exception $e) {
+          echo "PDOException : " . $e->getMessage();
+      }
+
+      $data = $query->fetch(PDO::FETCH_ASSOC);
+      return $data["equipmentName"];
+    }
+
+
 
 
 }

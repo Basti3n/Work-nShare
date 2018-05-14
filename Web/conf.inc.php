@@ -39,11 +39,12 @@ $ts = [
 ];
 
 $tc = [
+	4=>"Réservation",
 	1=>"Matériel",
 	2=>"Réseau",
 	3=>"Alimentaire",
-	4=>"Réservation",
-	5=>"Autre"
+	5=>"Autre",
+	6=>"Administratif"
 ];
 
 $statusUserArray =[

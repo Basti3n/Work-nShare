@@ -369,17 +369,24 @@
                           <th>Date début</th>
                           <th>Dernier message</th>
                           <th>Correspondant</th>
+                          <th>Matériel </th>
                           <th>Etat</th>
                         </tr>
                         <?php
+
+                          $db = connectDb();
+                          $equipmentMng = new EquipmentMng($db);
+
+
                           foreach ($tickets as $ticket) {
                             echo '<tr onclick="displayTicket('.$ticket->idTicket().',\''.$_SESSION["email"].'\','.$ticket->statusTicket().','.$ticket->idTicket().')">
                                       <td>'.$ticket->idTicket().'</td>
                                       <td>'.$ticket->ticketCategory().'</td>
-                                      <td>'.$ticket->contentTicket().'</td>
+                                      <td>'.utf8_encode($ticket->contentTicket()).'</td>
                                       <td>'.$ticket->dateTicket().'</td>
                                       <td>'.$ticketMng->getLastMEssageDate($ticket).'</td>
                                       <td>'.$ticket->email().'</td>
+                                      <td>'.($ticket->idEquipment()!= "-1"?$equipmentMng->getName($ticket->idEquipment()):'Aucun').'</td>
                                       <td>'.$statusTicket[$ticket->statusTicket()].'</td>
                                   </tr>';
                           }
@@ -391,14 +398,11 @@
                       <div id="ticketAdvancedInfo" class="hidden">
                         <div class ="row" id="ticketInformation">
                             <div class="col-xs-3" id="idTicketAdvancedInfo">
-                              <?php
-                              ?>
                             </div>
 
                             <div class="col-xs-9" id="emailSenderAdvancedInfo">
-                              <?php
-                              ?>
                             </div>
+
                          </div>
                         <br>
                         <div id="ticketAdvancedInfoHistorique">

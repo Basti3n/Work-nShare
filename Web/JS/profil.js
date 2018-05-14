@@ -50,7 +50,15 @@ function changePagination(option) {
 function sendTicket(email,idPrimaryTicket){
   var ticketCategory = getTicketCategory();
   var contentTicket = document.getElementById('inputContentTicket').value;
+  var div = document.getElementById('equipmentSelectDiv');
+  var idEquipment;
   //console.log(ticketCategory + email + contentTicket);
+
+  if(ticketCategory == "Matériel"){
+    idEquipment = getSelectedIndex('equipmentSelect');
+  }else{
+    idEquipment = "-1";
+  }
   var request = new XMLHttpRequest();
 
 	request.onreadystatechange =function(){
@@ -68,7 +76,8 @@ function sendTicket(email,idPrimaryTicket){
 		'ticketCategory='+ticketCategory,
 		'emailToSave='+email,
     'contentTicket='+contentTicket,
-    'idPrimaryTicket='+idPrimaryTicket
+    'idPrimaryTicket='+idPrimaryTicket,
+    'idEquipment='+idEquipment
 	];
 	var body = params.join('&');
 	request.send(body);
@@ -136,4 +145,25 @@ function setButton(email,idTicket){
   cancelButton.classList.remove('hidden');
   answerButton.setAttribute('onclick','sendTicket(\''+email+'\','+idTicket+')');
 
+}
+
+function getSelectedIndex(selectId) {
+  var select = document.getElementById(selectId);
+  var idx = select.selectedIndex;
+  var options = select.getElementsByTagName('option');
+  var selectedOption = options[idx];
+  var index = selectedOption.value;
+  return index;
+}
+
+
+
+function checkIfIsEquipment(){
+  var value = getSelectedIndex('inputCategoryTicket');
+  var div = document.getElementById('equipmentSelectDiv');
+  if(value == "Matériel"){
+    div.classList.remove('hidden');
+  }else{
+    div.classList.add('hidden');
+  }
 }

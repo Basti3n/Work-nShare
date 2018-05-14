@@ -38,7 +38,7 @@ if($tickets != 1){
     $out = $out."
               <tr class='ticketTableRow' onclick='displayTickets(\"".$ticket->idTicket()."\",\"".$ticket->email()."\")'>
                 <th scope='row' class='text-center'>".$ticket->idTicket()."</th>
-                <td> ".$ticket->contentTicket()."</td>
+                <td> ".utf8_encode($ticket->contentTicket())."</td>
                 <td> Le ".$ticket->dateTicket()."</td>
                 <td> ".$ticket->ticketCategory()."</td>
                 <td class='text-center'>".$statusTicket[$ticket->statusTicket()]."</td>
