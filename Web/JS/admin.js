@@ -606,6 +606,9 @@ function setTicketInformation(idTicket, email) {
 
 
 function setTicketAdvancedInfoHistorique(test, search) {
+  
+
+
   var ticketAdvancedInfo = document.getElementById('ticketAdvancedInfo');
   ticketAdvancedInfo.classList.remove('hidden');
   var ticketAdvancedInfoHistorique = document.getElementById('ticketAdvancedInfoHistorique');

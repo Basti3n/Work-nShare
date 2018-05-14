@@ -4,6 +4,7 @@
   include "object/user.php";
   include "object/ticket.php";
   include "object/reservation.php";
+  include "object/equipment.php";
 
 ?>
 <!DOCTYPE html>
@@ -129,13 +130,34 @@
                 <div class="col-md-6">
                   <!--Select , ticket catégories-->
 
-                  <select class="select" id="inputCategoryTicket">
-                    <option>Administratif</option>
-                    <option>Logiciel</option>
-                    <option>Technique</option>
-                    <option>Sécurité</option>
+                  <select class="select" id="inputCategoryTicket" onchange="checkIfIsEquipment()">
+                    <?php
+                    foreach ($tc as $key => $category) {
+                      echo "<option>".$category."</option>";
+                    }
+                    ?>
                   </select>
                   <br>
+
+                  <div class="hidden" id="equipmentSelectDiv">
+                    <?php
+                      $db = connectDb();
+                      $equipmentMng = new EquipmentMng($db);
+                      $equipments = $equipmentMng->getAll();
+                      //showArray($equipments);
+                    ?>
+
+                    <?php if($equipments != 1) :?>
+                        <select id="equipmentSelect">
+                          <?php foreach ($equipments as $key => $equipment): ?>
+                              <?php echo  "<option value =".$equipment->idEquipment().">".$equipment->equipmentName()."</option>"?>
+                          <?php endforeach; ?>
+                        </select>
+                    <?php else :?>
+                      Aucun équipement pour l'instant
+                    <?php endif;?>
+                  </div>
+
 
                   <div class="form-group">
                     <label for="inputContentTicket">Contenu</label>

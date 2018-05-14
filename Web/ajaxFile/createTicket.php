@@ -6,14 +6,13 @@ require "../object/user.php";
 
 
 if(isAdmin() || isSuperAdmin()){
-  if( count($_POST)==4 && isset($_POST["ticketCategory"]) && isset( $_POST["emailToSave"])
-    && isset( $_POST["contentTicket"])  && isset( $_POST["idPrimaryTicket"]) ){
+  if( count($_POST)==5 && isset($_POST["ticketCategory"]) && isset( $_POST["emailToSave"])
+    && isset( $_POST["contentTicket"])  && isset( $_POST["idPrimaryTicket"])  && isset( $_POST["idEquipment"])  ){
     $db=connectDb();
     $ticket = new Ticket(null);
 
     $error = false;
     $listOfErrors = [];
-    echo $_POST["emailToSave"];
     if($ticket->email($_POST["emailToSave"]))
       $error = true;
 
@@ -27,6 +26,9 @@ if(isAdmin() || isSuperAdmin()){
       $error = true;
 
     if($ticket->idPrimaryTicket($_POST["idPrimaryTicket"]))
+      $error = true;
+
+    if($ticket->idEquipment($_POST["idEquipment"]))
       $error = true;
 
     if($error){
